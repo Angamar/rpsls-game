@@ -1,11 +1,11 @@
 // This file is auto-generated from Zod schemas
 
-type Choice = {
+export type Choice = {
     id: number;
     name: string;
 };
 
-type ChoiceList = {
+export type ChoiceList = {
     id: number;
     name: string;
 }[];

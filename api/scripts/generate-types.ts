@@ -8,7 +8,7 @@ let output = `// This file is auto-generated from Zod schemas\n\n`;
 
 for (const [name, schema] of Object.entries(schemas)) {
     const { node } = zodToTs(schema, name);
-    output += `${printNode(createTypeAlias(node, name))}\n\n`;
+    output += `export ${printNode(createTypeAlias(node, name))}\n\n`;
 }
 
 // Use __dirname to resolve the absolute path
@@ -19,4 +19,4 @@ if (!existsSync(dir)) {
     mkdirSync(dir, { recursive: true });
 }
 writeFileSync(outPath, output);
-console.log('✅ generated.d.ts written!');
+console.log('✅ FE types generated!');

@@ -2,9 +2,10 @@ import { useState } from "react";
 import axios from "axios";
 
 import "./App.css";
+import type { Choice, ChoiceList } from "../types/generated";
 
 function App() {
-  const [choices, setChoices] = useState([]);
+  const [choices, setChoices] = useState<ChoiceList>([]);
 
   const handleClick = async () => {
     try {
@@ -23,7 +24,7 @@ function App() {
       </button>
       {choices.length > 0 && (
         <ul>
-          {choices.map((choice, index) => (
+          {choices.map((choice: Choice, index: number) => (
             <li key={index} style={{ color: 'white' }}>{choice?.name}</li>
           ))}
         </ul>
