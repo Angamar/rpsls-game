@@ -1,30 +1,33 @@
 import { useState } from "react";
+import axios from "axios";
 
 import "./App.css";
 
 function App() {
-  const [message, setMessage] = useState("");
+  const [choices, setChoices] = useState([]);
 
   const handleClick = async () => {
     try {
-      const response = await fetch("/api/message");
-      if (!response.ok) {
-        throw new Error("Network response was not ok");
-      }
-      const data = await response.json();
-      setMessage(data.message);
+      const response = await axios.get("api/choices");
+      console.log("Response data:", response.data);
+      setChoices(response.data ?? []);
     } catch (error) {
-      console.error("Error fetching message:", error);
-      setMessage("Failed to fetch message");
+      console.error("Error fetching choices:", error);
     }
   };
 
   return (
     <p className="read-the-docs">
-      {message}
       <button onClick={handleClick} className="button">
-        Click me to fetch message
+        Click me to fetch choices
       </button>
+      {choices.length > 0 && (
+        <ul>
+          {choices.map((choice, index) => (
+            <li key={index} style={{ color: 'white' }}>{choice?.name}</li>
+          ))}
+        </ul>
+      )}
     </p>
   );
 }
