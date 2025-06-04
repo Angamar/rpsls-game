@@ -4,7 +4,7 @@
   "description": "",
   "main": "app.js",
   "scripts": {
-    "start": "node app.js",
+    "start": "ts-node app.ts",
     "test": "echo \"Error: no test specified\" && exit 1",
     "generate-types": "ts-node scripts/generate-types.ts"
   },

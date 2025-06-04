@@ -1,6 +1,10 @@
-const router = require("express").Router();
-const gameController = require("../controller/gameController");
+import { Router } from "express";
+import { getChoices } from "../controllers/gameController";
 
-router.get("/choices", gameController.getChoices);
+console.log(typeof getChoices);
 
-module.exports = router;
+const router = Router();
+
+router.get("/choices", getChoices);
+
+export default router;
