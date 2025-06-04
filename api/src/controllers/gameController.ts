@@ -21,7 +21,7 @@ export const getChoices = (req: Request, res: Response) => {
 };
 
 
-export const getComputerChoice = async (req: Request, res: Response) => {
+export const getRandomChoice = async (req: Request, res: Response) => {
     try {
         const response = await fetch('https://codechallenge.boohma.com/random');
         if (!response.ok) {
