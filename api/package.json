@@ -4,7 +4,7 @@
   "description": "",
   "main": "app.js",
   "scripts": {
-    "start": "ts-node app.ts",
+    "start": "ts-node src/app.ts",
     "test": "echo \"Error: no test specified\" && exit 1",
     "generate-types": "ts-node scripts/generate-types.ts"
   },
@@ -19,7 +19,6 @@
   },
   "homepage": "https://github.com/Angamar/rpsls-game#readme",
   "dependencies": {
-    "axios": "^1.9.0",
     "express": "^5.1.0",
     "zod": "^3.25.49",
     "zod-to-ts": "^1.2.0"

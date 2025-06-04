@@ -9,10 +9,10 @@
         "moduleResolution": "node"
     },
     "include": [
-        "scripts/**/*",
-        "schemas/**/*",
-        "controllers/**/*",
-        "routes/**/*",
-        "app.ts"
+        "src/scripts/**/*",
+        "src/schemas/**/*",
+        "src/controllers/**/*",
+        "src/routes/**/*",
+        "src/app.ts"
     ]
 }
