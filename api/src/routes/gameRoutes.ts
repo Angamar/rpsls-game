@@ -1,11 +1,9 @@
 import { Router } from "express";
-import { getChoices, getRandomChoice } from "../controllers/gameController";
-
-console.log(typeof getChoices);
+import { getChoices, getComputerChoice } from "../controllers/gameController";
 
 const router = Router();
 
 router.get("/choices", getChoices);
-router.get("/choice", getRandomChoice);
+router.get("/choice", getComputerChoice);
 
 export default router;

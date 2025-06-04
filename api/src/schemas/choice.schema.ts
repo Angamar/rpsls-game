@@ -12,5 +12,13 @@ export const schemas = {
     ChoiceList: ChoiceListSchema,
 };
 
+export enum Choice {
+    Rock = 1,
+    Paper,
+    Scissors,
+    Lizard,
+    Spock,
+}
+
 export type Move = z.infer<typeof ChoiceSchema>;
 export type MoveList = z.infer<typeof ChoiceListSchema>;

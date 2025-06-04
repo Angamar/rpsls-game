@@ -6,13 +6,10 @@
         "esModuleInterop": true,
         "skipLibCheck": true,
         "forceConsistentCasingInFileNames": true,
-        "moduleResolution": "node"
+        "moduleResolution": "node",
+        "noImplicitAny": true
     },
     "include": [
-        "src/scripts/**/*",
-        "src/schemas/**/*",
-        "src/controllers/**/*",
-        "src/routes/**/*",
-        "src/app.ts"
+        "src/**/*",
     ]
 }
