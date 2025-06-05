@@ -13,11 +13,11 @@ export const schemas = {
 };
 
 export enum Choice {
-    Rock = 1,
-    Paper,
-    Scissors,
-    Lizard,
-    Spock,
+    Rock = "rock",
+    Paper = "paper",
+    Scissors = "scissors",
+    Lizard = "lizard",
+    Spock = "spock",
 }
 
 export type Move = z.infer<typeof ChoiceSchema>;
