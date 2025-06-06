@@ -1,0 +1,22 @@
+{
+    "private": true,
+    "workspaces": [
+        "packages/*"
+    ],
+    "scripts": {
+        "dev": "concurrently --kill-others \"yarn workspace rpsls-game-api dev\" \"yarn workspace rpsls-game-ui dev\""
+    },
+    "dependencies": {
+        "axios": "^1.9.0",
+        "zod": "^3.25.56"
+    },
+    "devDependencies": {
+        "@eslint/js": "^9.25.0",
+        "concurrently": "^9.1.2",
+        "eslint": "^9.25.0",
+        "eslint-config-prettier": "^10.1.5",
+        "prettier": "3.5.3",
+        "typescript": "~5.8.3",
+        "typescript-eslint": "^8.30.1"
+    }
+}

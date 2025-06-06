@@ -1,29 +1,7 @@
-import { Choice } from "../schemas/choice.schema";
+
+import { Choice, ChoiceItem, Result, RoundOutcome } from "@shared/types";
+
 import { fetchRandomNumber } from "../services/randomNumberService";
-
-export type ChoiceItem = { id: Choice; name: string };
-
-export const choices: ChoiceItem[] = [
-    { id: Choice.Rock, name: 'Rock' },
-    { id: Choice.Paper, name: 'Paper' },
-    { id: Choice.Scissors, name: 'Scissors' },
-    { id: Choice.Lizard, name: 'Lizard' },
-    { id: Choice.Spock, name: 'Spock' },
-];
-
-export enum Result {
-    Win = 'win',
-    Lose = 'lose',
-    Tie = 'tie',
-}
-
-export type RoundOutcome = {
-    result: Result;
-    verb?: string | null;
-    player: Choice;
-    computer: Choice;
-};
-
 
 export const winningCombinations: Record<string, string> = {
     [`${Choice.Scissors}->${Choice.Paper}`]: "cuts",
@@ -37,6 +15,14 @@ export const winningCombinations: Record<string, string> = {
     [`${Choice.Spock}->${Choice.Rock}`]: "vaporizes",
     [`${Choice.Rock}->${Choice.Scissors}`]: "crushes",
 };
+
+export const choices: ChoiceItem[] = [
+    { id: Choice.Rock, name: 'Rock' },
+    { id: Choice.Paper, name: 'Paper' },
+    { id: Choice.Scissors, name: 'Scissors' },
+    { id: Choice.Lizard, name: 'Lizard' },
+    { id: Choice.Spock, name: 'Spock' },
+];
 
 export function getRoundOutcome(playerChoice: Choice, computerChoice: Choice): RoundOutcome {
 

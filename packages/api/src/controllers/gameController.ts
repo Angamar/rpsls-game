@@ -1,17 +1,24 @@
 import { Request, Response } from 'express';
-import { ChoiceListSchema } from '../schemas/choice.schema';
-import { choices, getRandomChoice, getRoundOutcome } from '../controllers/gameController.helpers';
+
+import { ChoiceListSchema } from '@shared/schemas';
+import { choices, getRandomChoice, getRoundOutcome } from './gameController.helpers';
 
 
 
 export const getChoices = (req: Request, res: Response) => {
     const parsed = ChoiceListSchema.safeParse(choices);
     if (!parsed.success) {
+        console.error(parsed.error);
+    } else {
+        console.log(parsed.data);
+    }
+
+    if (!parsed.success) {
         res.status(500).json({ error: 'Invalid data format' });
         return;
     }
 
-    res.json(parsed.data);
+    res.json(choices);
 };
 
 export const getComputerChoice = async (req: Request, res: Response) => {
