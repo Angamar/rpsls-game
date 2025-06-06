@@ -1,6 +1,6 @@
 import { Request, Response } from 'express';
 import { ChoiceListSchema } from '../schemas/choice.schema';
-import { choices, getRandomChoice, Result, getRoundOutcome } from '../controllers/gameController.helpers';
+import { choices, getRandomChoice, getRoundOutcome } from '../controllers/gameController.helpers';
 
 
 
@@ -13,7 +13,6 @@ export const getChoices = (req: Request, res: Response) => {
 
     res.json(parsed.data);
 };
-
 
 export const getComputerChoice = async (req: Request, res: Response) => {
     try {

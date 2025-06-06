@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "ts-node-dev --respawn --transpile-only src/app.ts",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "generate-types": "ts-node scripts/generate-types.ts"
+    "generate-types": "ts-node src/scripts/generate-types.ts"
   },
   "repository": {
     "type": "git",
