@@ -1,1 +1,2 @@
-yarn lint-staged
+yarn lint-staged || exit 1
+yarn check-types || exit 1
