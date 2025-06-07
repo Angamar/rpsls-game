@@ -1,15 +1,16 @@
 import { useState } from 'react';
 import { Result, type ChoiceItem, type RoundOutcome } from '@rpsls-game/shared';
-import { useQuery } from '@tanstack/react-query';
+import { useQuery, useQueryClient } from '@tanstack/react-query';
 
 import styles from './Game.module.css';
 import PlayHistory from '../../components/PlayHistory/PlayHistory';
-import Hand from '../../components/Hand';
+import PlayerHand from '../../components/Hand/PlayerHand';
+import ComputerHand from '../../components/Hand/ComputerHand';
 import Outcome from '../../components/Outcome';
 
 const Game = () => {
   const [results, setResults] = useState<Result[]>([]);
-  const [cardSelected, setCardSelected] = useState<number | null>(null);
+  const [cardSelected, setCardSelected] = useState<string | null>();
   const { data: choicesData } = useQuery<ChoiceItem[]>({
     queryKey: ['choices'],
     queryFn: async () => {
@@ -41,9 +42,17 @@ const Game = () => {
     },
     enabled: false,
   });
+  const queryClient = useQueryClient();
+
+  const startNewRound = () => {
+    queryClient.setQueryData(['roundOutcome'], null);
+  };
 
   const handleCardSelect = (choiceId: number) => {
-    setCardSelected(choiceId);
+    if (roundOutcome) {
+      startNewRound();
+    }
+    setCardSelected(`player_card_${choiceId}`);
     console.log('Card selected:', choiceId);
   };
 
@@ -56,16 +65,22 @@ const Game = () => {
 
   return (
     <section className={styles.gameContainer}>
-      <PlayHistory results={results} />
+      <ComputerHand
+        choices={choicesData ?? []}
+        onCardSelect={handleCardSelect}
+        onCardPlay={handleCardPlay}
+        // selectedCardId={cardSelected}
+      />
 
       <Outcome roundOutcome={roundOutcome ?? null} />
-
-      <Hand
+      <PlayerHand
         choices={choicesData ?? []}
         onCardSelect={handleCardSelect}
         onCardPlay={handleCardPlay}
         selectedCardId={cardSelected}
       />
+
+      <PlayHistory results={results} />
     </section>
   );
 };

@@ -1,24 +1,26 @@
 import { motion } from 'framer-motion';
 import type { ChoiceItem } from '@shared/types';
 
-import styles from './Hand.module.css';
-import Card from './Card';
-import Typography from '../Typography';
+import styles from './PlayerHand.module.css';
+import Card from '../Card';
+import Typography from '../../Typography';
 import {
   playButtonAnimate,
   playButtonHover,
   // playButtonTransition,
   playButtonTap,
-} from './Hand.motion';
+} from './PlayerHand.motion';
 
 type HandProps = {
+  isComputer?: boolean;
   choices: ChoiceItem[];
-  selectedCardId?: number | null;
+  selectedCardId?: string | null;
   onCardSelect: (choiceId: number) => void;
   onCardPlay?: () => void;
 };
 
-function Hand({ choices, onCardSelect, onCardPlay, selectedCardId }: HandProps) {
+function PlayerHand({ choices, onCardSelect, onCardPlay, selectedCardId }: HandProps) {
+  console.log('PlayerHand rendered with selectedCardId:', selectedCardId);
   return (
     <section className={styles.handContainer}>
       {selectedCardId && (
@@ -41,7 +43,7 @@ function Hand({ choices, onCardSelect, onCardPlay, selectedCardId }: HandProps) 
           choices.map((choice: ChoiceItem) => (
             <Card
               key={choice.id}
-              isSelected={selectedCardId === choice.id}
+              isSelected={selectedCardId === `player_card_${choice.id}`}
               label={choice.name}
               suit={choice.icon}
               onClick={() => {
@@ -54,4 +56,4 @@ function Hand({ choices, onCardSelect, onCardPlay, selectedCardId }: HandProps) 
   );
 }
 
-export default Hand;
+export default PlayerHand;

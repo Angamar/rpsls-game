@@ -1,15 +1,28 @@
 export const cardVariants = {
   selected: {
     scale: 1.02,
-    border: '0.5rem solid #90caf9',
+    borderWidth: '0.5rem',
+    borderStyle: 'solid',
+    borderColor: '#90caf9', // initial color
     backgroundColor: '#f5faff',
     zIndex: 10,
+    y: '-1.5rem',
+    rotateY: 0,
+    transition: { duration: 0.4 },
   },
   unselected: {
     scale: 1,
     border: 'none',
     backgroundColor: '#fff',
     zIndex: 1,
+    rotateY: 0,
+    transition: { duration: 0.4 },
+  },
+  faceUp: {
+    rotateY: 0,
+  },
+  faceDown: {
+    rotateY: 180,
   },
 };
 
