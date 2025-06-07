@@ -1,0 +1,10 @@
+.outcomeContainer {
+  position: absolute;
+  top: 20%;
+  display: flex;
+  align-self: center;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 60%;
+}

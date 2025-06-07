@@ -3,7 +3,7 @@
   --win-color: #4caf50;
   --lose-color: #f44336;
   --tie-color: #ffc107;
-  --bg-gradient: linear-gradient(120deg, #232526 0%, #414345 100%);
+  --bg-gradient: linear-gradient(#c9682f 0%, #7d4313 100%);
   --score-glow: 0 0 12px 4px #ffd700, 0 0 2px 1px #fff;
   --score-bg: linear-gradient(90deg, #ffd700 0%, #ff9800 100%);
   --score-text: #232526;

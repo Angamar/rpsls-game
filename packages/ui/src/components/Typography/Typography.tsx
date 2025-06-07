@@ -1,5 +1,6 @@
 import styles from './typography.module.css';
 import { variantClassMap, type TypographyVariant } from './Typography.helpers';
+import clsx from 'clsx';
 
 interface TypographyProps {
   children: React.ReactNode;
@@ -13,10 +14,14 @@ const Typography = ({
   as: Component = 'p',
   children,
   style,
-}: TypographyProps) => (
-  <Component className={styles[variantClassMap[variant] || 'body']} style={style}>
-    {children}
-  </Component>
-);
+}: TypographyProps) => {
+  const classNames = clsx(...(variantClassMap[variant] || 'body').split(' ').map((c) => styles[c]));
+
+  return (
+    <Component className={classNames} style={style}>
+      {children}
+    </Component>
+  );
+};
 
 export default Typography;

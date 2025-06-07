@@ -11,6 +11,9 @@ export const variantClassMap: Record<string, string> = {
   italic: 'italic',
   uppercase: 'uppercase',
   capitalize: 'capitalize',
+  tieResultHero: 'resultHero tie',
+  winResultHero: 'resultHero win',
+  loseResultHero: 'resultHero lose',
 };
 
 export type TypographyVariant = keyof typeof variantClassMap;

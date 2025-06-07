@@ -1,11 +1,11 @@
 import { useState } from 'react';
 import { Result, type ChoiceItem, type RoundOutcome } from '@rpsls-game/shared';
-import Typography from '../../components/Typography';
 import { useQuery } from '@tanstack/react-query';
 
 import styles from './Game.module.css';
 import PlayHistory from '../../components/PlayHistory/PlayHistory';
 import Hand from '../../components/Hand';
+import Outcome from '../../components/Outcome';
 
 const Game = () => {
   const [results, setResults] = useState<Result[]>([]);
@@ -58,24 +58,7 @@ const Game = () => {
     <section className={styles.gameContainer}>
       <PlayHistory results={results} />
 
-      {roundOutcome && (
-        <div className="roundOutcome">
-          <Typography variant="h1" as="h1">
-            Round Outcome
-          </Typography>
-
-          <h2>
-            {roundOutcome.result === Result.Win
-              ? 'You win!'
-              : roundOutcome.result === Result.Lose
-                ? 'You lose!'
-                : "It's a tie!"}
-          </h2>
-          {roundOutcome && (
-            <span className="win">{`${roundOutcome.winnerChoice} ${roundOutcome.verb ?? '&'} ${roundOutcome.loserChoice}!`}</span>
-          )}
-        </div>
-      )}
+      <Outcome roundOutcome={roundOutcome ?? null} />
 
       <Hand
         choices={choicesData ?? []}
