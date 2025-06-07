@@ -5,38 +5,66 @@
   text-align: center;
 }
 
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafbaa);
+.cardsContainer {
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
 }
 
-@keyframes logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.cardsContainer>* {
+  transform-origin: bottom center;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  a:nth-of-type(2) .logo {
-    animation: logo-spin infinite 20s linear;
-  }
+.cardsContainer>*:nth-child(1) {
+  transform: rotate(-20deg);
 }
 
-.card {
-  padding: 2em;
+.cardsContainer>*:nth-child(2) {
+  transform: rotate(-10deg);
 }
 
-.read-the-docs {
-  color: #888;
+.cardsContainer>*:nth-child(3) {
+  transform: rotate(0deg);
+}
+
+.cardsContainer>*:nth-child(4) {
+  transform: rotate(10deg);
+}
+
+.cardsContainer>*:nth-child(5) {
+  transform: rotate(20deg);
+}
+
+.cardsContainer>* {
+  margin-left: -2rem;
+}
+
+.cardsContainer>*:first-child {
+  margin-left: 0;
+  margin-bottom: -10px;
+}
+
+.cardsContainer>*:nth-child(5) {
+  margin-bottom: -1rem;
+}
+
+.resultsContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  margin-top: 2rem;
+  gap: 1rem;
+}
+
+.resultItem {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 1rem;
+  height: 1rem;
+  padding: 1rem;
+  border-radius: 8px;
+  background-color: gray;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }

@@ -54,6 +54,7 @@ export const playRound = async (req: Request, res: Response) => {
         const roundOutcome = getRoundOutcome(playerChoiceId, computerChoice.id);
 
         res.json(roundOutcome);
+
     } catch (error) {
         console.error('Error in playRound:', error);
     }

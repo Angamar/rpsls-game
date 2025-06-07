@@ -2,50 +2,69 @@ import { useState } from "react";
 import axios from "axios";
 
 import "./App.css";
-import type { Choice, ChoiceList } from "../types/generated";
+import { type ChoiceItem, type Result, type RoundOutcome } from "../../shared/src/types";
 import ChoiceButton from "./components/ChoiceButton";
-import { Typography } from "@mui/material";
 
 function App() {
-  const [choices, setChoices] = useState<ChoiceList>([]);
-  const [results, setResults] = useState([]);
+  const [choices, setChoices] = useState<ChoiceItem[]>([]);
+  const [results, setResults] = useState<Result[]>([]);
+  const [roundOutcome, setRoundOutcome] = useState<RoundOutcome>();
 
   const handleChoiceClick = async (choiceId: number) => {
     const response = await axios.post("api/play", { player: choiceId });
-    console.log("Response from play endpoint:", response.data);
-    setResults(response.data.results);
+    setResults((prevResults) => [...prevResults, response.data.result]);
+    setRoundOutcome(response.data)
   }
 
   const handleClick = async () => {
     try {
       const response = await axios.get("api/choices");
-      console.log("Response:", response);
-      console.log("Response data:", response.data);
       setChoices(response.data ?? []);
     } catch (error) {
-      console.error("Error fetching choices:", error);
     }
   };
 
   return (
-    <p className="read-the-docs">
-      <Typography variant="h1" component="div" gutterBottom>
+    <>
+      <h1>
         Welcome to the Game!
-      </Typography>
+      </h1>
+      <p className="read-the-docs">
+        {roundOutcome && (
+          <div className="roundOutcome">
+            <h3>Round Outcome</h3>
 
-      <Typography variant="h4" gutterBottom>
-        Last 10 results:
-      </Typography>
+            <h2>{roundOutcome.result === 'win' ? 'You win!' : roundOutcome.result === 'lose' ? 'You lose!' : 'It\'s a tie!'}</h2>
+            {roundOutcome &&
+              <span className="win">{`${roundOutcome.winnerChoice} ${roundOutcome.verb ?? "&"} ${roundOutcome.loserChoice}!`}</span>
+            }
+          </div>
+        )}
 
 
+        {!choices.length && <button onClick={handleClick} >Play</button>}
+        <div className="cardsContainer">
+          {choices.length > 0 && (
+            choices.map((choice: ChoiceItem) => <ChoiceButton key={choice.id} label={choice.name} suit={choice.icon} onClick={() => handleChoiceClick(choice.id)} />)
+          )}
+        </div>
 
-      <button onClick={handleClick} className="button">
-        Click me to fetch choices
-      </button>
-      {choices.length > 0 && (
-        choices.map((choice: Choice) => <ChoiceButton key={choice.id} label={choice.name} onClick={() => handleChoiceClick(choice.id)} />)
-      )}
-    </p>
+        <p>
+          Last 10 results:
+        </p>
+        {
+          results.length > 0 && (
+            <div className="resultsContainer" >
+              {results.slice(-10).map((result, index) => (
+                <div key={index} className={"resultItem"} style={{ background: result === 'win' ? 'green' : result === 'lose' ? 'red' : 'black' }}>
+                  {result}
+                </div>
+              ))}
+            </div>
+          )
+        }
+      </p>
+    </>
   );
 }
 

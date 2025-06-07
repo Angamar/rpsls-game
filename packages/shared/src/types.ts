@@ -9,7 +9,7 @@ export enum Choice {
 }
 
 
-export type ChoiceItem = { id: Choice; name: string };
+export type ChoiceItem = { id: Choice; name: string, icon: string };
 
 
 export enum Result {
@@ -20,7 +20,9 @@ export enum Result {
 
 export type RoundOutcome = {
     result: Result;
-    verb?: string | null;
+    verb: string | null;
     player: Choice;
     computer: Choice;
+    winnerChoice: string
+    loserChoice: string;
 };

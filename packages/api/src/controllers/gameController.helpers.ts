@@ -17,47 +17,59 @@ export const winningCombinations: Record<string, string> = {
 };
 
 export const choices: ChoiceItem[] = [
-    { id: Choice.Rock, name: 'Rock' },
-    { id: Choice.Paper, name: 'Paper' },
-    { id: Choice.Scissors, name: 'Scissors' },
-    { id: Choice.Lizard, name: 'Lizard' },
-    { id: Choice.Spock, name: 'Spock' },
+    { id: Choice.Rock, name: 'Rock', icon: '🪨' },
+    { id: Choice.Paper, name: 'Paper', icon: '📄' },
+    { id: Choice.Scissors, name: 'Scissors', icon: '✂️' },
+    { id: Choice.Lizard, name: 'Lizard', icon: '🦎' },
+    { id: Choice.Spock, name: 'Spock', icon: '🖖' },
 ];
 
-export function getRoundOutcome(playerChoice: Choice, computerChoice: Choice): RoundOutcome {
+const choiceNameMap = new Map(choices.map(choice => [choice.id, choice.name]));
 
-    const winCombo = `${playerChoice}->${computerChoice}`;
-    const loseCombo = `${computerChoice}->${playerChoice}`;
+export function getRoundOutcome(playerChoiceId: Choice, computerChoiceId: Choice): RoundOutcome {
 
-    if (playerChoice === computerChoice) {
+    const winCombo = `${playerChoiceId}->${computerChoiceId}`;
+    const loseCombo = `${computerChoiceId}->${playerChoiceId}`;
+    const playerChoice = choiceNameMap.get(playerChoiceId) ?? "Unknown";
+    const computerChoice = choiceNameMap.get(computerChoiceId) ?? "Unknown";
+
+    if (playerChoiceId === computerChoiceId) {
         return {
             result: Result.Tie,
+            player: playerChoiceId,
+            computer: computerChoiceId,
+            winnerChoice: playerChoice,
             verb: null,
-            player: playerChoice,
-            computer: computerChoice,
+            loserChoice: computerChoice
         };
     }
     if (winningCombinations[winCombo]) {
         return {
             result: Result.Win,
-            player: playerChoice,
+            player: playerChoiceId,
+            computer: computerChoiceId,
+            winnerChoice: playerChoice,
             verb: winningCombinations[winCombo],
-            computer: computerChoice,
+            loserChoice: computerChoice
         };
     }
     if (winningCombinations[loseCombo]) {
         return {
             result: Result.Lose,
-            computer: computerChoice,
+            computer: computerChoiceId,
+            player: playerChoiceId,
+            winnerChoice: computerChoice,
             verb: winningCombinations[loseCombo],
-            player: playerChoice,
+            loserChoice: playerChoice
         };
     }
     return {
         result: Result.Tie,
+        player: playerChoiceId,
+        computer: computerChoiceId,
+        winnerChoice: playerChoice,
         verb: null,
-        player: playerChoice,
-        computer: computerChoice,
+        loserChoice: computerChoice
     };
 }
 

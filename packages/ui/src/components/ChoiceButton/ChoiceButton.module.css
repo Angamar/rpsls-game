@@ -1,0 +1,63 @@
+.draggable {
+    position: relative;
+    user-select: none;
+    /* Prevent text selection while dragging */
+    z-index: 200;
+    /* Ensure it's above other elements while dragging */
+    transition: left 0.2s cubic-bezier(0.4, 0, 0.2, 1), top 0.2s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.2s;
+}
+
+.dragging {
+    position: absolute;
+    pointer-events: none;
+    /* Prevent pointer events while dragging */
+    z-index: 999;
+    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.25);
+    transition: none;
+    /* Disable transition for instant movement */
+    cursor: grabbing;
+}
+
+.cardButton {
+    width: 120px;
+    height: 170px;
+    background-color: white;
+    border: 2px solid #e0e0e0;
+    border-radius: 12px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    font-family: 'Inter', sans-serif;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: #333;
+    cursor: pointer;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    padding: 1rem;
+}
+
+.cardButton:hover {
+    transform: translate(-4px);
+    box-shadow: 0 6px 14px rgba(0, 0, 0, 0.15);
+    z-index: 100;
+}
+
+.cardSuit {
+    font-size: 2rem;
+    margin-bottom: 0.5rem;
+}
+
+.cardValue {
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+
+.cardButton:active {
+    transform: scale(1.04);
+    box-shadow: 0 8px 18px rgba(0, 0, 0, 0.18);
+    transition: transform 0.1s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.1s cubic-bezier(0.4, 0, 0.2, 1);
+    border: 3px solid #646cff;
+}
