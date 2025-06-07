@@ -4,6 +4,7 @@ import axios from "axios";
 import "./App.css";
 import { type ChoiceItem, type Result, type RoundOutcome } from "../../shared/src/types";
 import ChoiceButton from "./components/ChoiceButton";
+import Typography from "./components/Typography";
 
 function App() {
   const [choices, setChoices] = useState<ChoiceItem[]>([]);
@@ -25,46 +26,45 @@ function App() {
   };
 
   return (
-    <>
-      <h1>
-        Welcome to the Game!
-      </h1>
-      <p className="read-the-docs">
-        {roundOutcome && (
-          <div className="roundOutcome">
-            <h3>Round Outcome</h3>
 
-            <h2>{roundOutcome.result === 'win' ? 'You win!' : roundOutcome.result === 'lose' ? 'You lose!' : 'It\'s a tie!'}</h2>
-            {roundOutcome &&
-              <span className="win">{`${roundOutcome.winnerChoice} ${roundOutcome.verb ?? "&"} ${roundOutcome.loserChoice}!`}</span>
-            }
-          </div>
-        )}
+    <div>
+      {roundOutcome && (
+        <div className="roundOutcome">
+          <Typography variant="h1" as="h1">
+            Round Outcome
+          </Typography>
 
-
-        {!choices.length && <button onClick={handleClick} >Play</button>}
-        <div className="cardsContainer">
-          {choices.length > 0 && (
-            choices.map((choice: ChoiceItem) => <ChoiceButton key={choice.id} label={choice.name} suit={choice.icon} onClick={() => handleChoiceClick(choice.id)} />)
-          )}
+          <h2>{roundOutcome.result === 'win' ? 'You win!' : roundOutcome.result === 'lose' ? 'You lose!' : 'It\'s a tie!'}</h2>
+          {roundOutcome &&
+            <span className="win">{`${roundOutcome.winnerChoice} ${roundOutcome.verb ?? "&"} ${roundOutcome.loserChoice}!`}</span>
+          }
         </div>
+      )}
 
-        <p>
-          Last 10 results:
-        </p>
-        {
-          results.length > 0 && (
-            <div className="resultsContainer" >
-              {results.slice(-10).map((result, index) => (
-                <div key={index} className={"resultItem"} style={{ background: result === 'win' ? 'green' : result === 'lose' ? 'red' : 'black' }}>
-                  {result}
-                </div>
-              ))}
-            </div>
-          )
-        }
+
+      {!choices.length && <button onClick={handleClick} >Play</button>}
+      <div className="cardsContainer">
+        {choices.length > 0 && (
+          choices.map((choice: ChoiceItem) => <ChoiceButton key={choice.id} label={choice.name} suit={choice.icon} onClick={() => handleChoiceClick(choice.id)} />)
+        )}
+      </div>
+
+      <p>
+        Last 10 results:
       </p>
-    </>
+      {
+        results.length > 0 && (
+          <div className="resultsContainer" >
+            {results.slice(-10).map((result, index) => (
+              <div key={index} className={"resultItem"} style={{ background: result === 'win' ? 'green' : result === 'lose' ? 'red' : 'black' }}>
+                {result}
+              </div>
+            ))}
+          </div>
+        )
+      }
+    </div>
+
   );
 }
 
