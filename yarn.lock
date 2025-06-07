@@ -932,11 +932,29 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@rpsls-game/shared@npm:1.0.0, @rpsls-game/shared@workspace:packages/shared":
+"@rpsls-game/shared@npm:*, @rpsls-game/shared@workspace:packages/shared":
   version: 0.0.0-use.local
   resolution: "@rpsls-game/shared@workspace:packages/shared"
   languageName: unknown
   linkType: soft
+
+"@tanstack/query-core@npm:5.80.6":
+  version: 5.80.6
+  resolution: "@tanstack/query-core@npm:5.80.6"
+  checksum: 10c0/ce52d962036bf84845c9dafb654075bbc8eafd9236069b7c234b7f72a30e4e61daf222940d9f28b4359858277cc1e1d08dd1f8e6cc0adac72acc083fc5c0195c
+  languageName: node
+  linkType: hard
+
+"@tanstack/react-query@npm:^5.80.6":
+  version: 5.80.6
+  resolution: "@tanstack/react-query@npm:5.80.6"
+  dependencies:
+    "@tanstack/query-core": "npm:5.80.6"
+  peerDependencies:
+    react: ^18 || ^19
+  checksum: 10c0/ec2dc548ff28d92778e851d64b0c24e3289218b496694c0b7bed1e92b5b96b03f8b047d4a8a04c6924937c56e257d53fbe42e046745da10d9dababe48505f843
+  languageName: node
+  linkType: hard
 
 "@types/babel__core@npm:^7.20.5":
   version: 7.20.5
@@ -4576,7 +4594,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "rpsls-game-api@workspace:packages/api"
   dependencies:
-    "@rpsls-game/shared": "npm:1.0.0"
+    "@rpsls-game/shared": "npm:*"
     "@types/express": "npm:^5.0.2"
     express: "npm:^5.1.0"
     tsx: "npm:^4.19.4"
@@ -4589,7 +4607,8 @@ __metadata:
   dependencies:
     "@emotion/react": "npm:^11.14.0"
     "@emotion/styled": "npm:^11.14.0"
-    "@rpsls-game/shared": "npm:1.0.0"
+    "@rpsls-game/shared": "npm:*"
+    "@tanstack/react-query": "npm:^5.80.6"
     "@types/react": "npm:^19.1.2"
     "@types/react-dom": "npm:^19.1.2"
     "@vitejs/plugin-react": "npm:^4.4.1"

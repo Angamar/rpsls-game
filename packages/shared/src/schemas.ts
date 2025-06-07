@@ -10,6 +10,3 @@ export const PlayRoundSchema = z.object({
 });
 
 export const ChoiceListSchema = z.array(ChoiceSchema);
-
-export type Choice = z.infer<typeof ChoiceSchema>;
-export type ChoiceList = z.infer<typeof ChoiceListSchema>;

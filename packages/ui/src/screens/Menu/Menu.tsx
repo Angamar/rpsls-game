@@ -1,4 +1,4 @@
-import { Page } from '../../App';
+import { Page } from '../../types';
 import Typography from '../../components/Typography';
 import styles from './Menu.module.css';
 
@@ -19,9 +19,7 @@ const Menu = ({ onPageChange }: MenuProps) => {
       <Typography variant="body" as="p">
         Choose your opponent and play a game of Rock, Paper, Scissors.
       </Typography>
-      <button>
-        <span onClick={() => onPageChange(Page.Game)}>Play vs computer </span>
-      </button>
+      <button onClick={() => onPageChange(Page.Game)}>Play vs computer</button>
     </section>
   );
 };

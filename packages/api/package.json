@@ -18,7 +18,7 @@
   },
   "homepage": "https://github.com/Angamar/rpsls-game#readme",
   "dependencies": {
-    "@rpsls-game/shared": "1.0.0",
+    "@rpsls-game/shared": "*",
     "express": "^5.1.0"
   },
   "devDependencies": {
