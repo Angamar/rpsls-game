@@ -2,12 +2,14 @@ import eslintPluginReact from "eslint-plugin-react";
 import eslintPluginReactHooks from "eslint-plugin-react-hooks";
 import js from "@eslint/js";
 import tseslint from "typescript-eslint";
+import reactRefresh from "eslint-plugin-react-refresh";
+import eslintConfigPrettier from "eslint-config-prettier/flat";
 
 export default [
+  eslintConfigPrettier,
   {
-    ignores: ["**/eslint.config.*"],
+    ignores: ["**/eslint.config.*", "**/node_modules/**", "**/*.config.*"],
   },
-
   js.configs.recommended,
   ...tseslint.configs.recommendedTypeChecked,
   {
@@ -38,10 +40,15 @@ export default [
     plugins: {
       react: eslintPluginReact,
       "react-hooks": eslintPluginReactHooks,
+      "react-refresh": reactRefresh,
     },
     rules: {
       "react-hooks/rules-of-hooks": "error",
       "react-hooks/exhaustive-deps": "warn",
+      "react-refresh/only-export-components": [
+        "warn",
+        { allowConstantExport: true },
+      ],
     },
     settings: {
       react: {

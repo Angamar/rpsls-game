@@ -20,16 +20,18 @@ function App() {
   const [roundOutcome, setRoundOutcome] = useState<RoundOutcome>();
 
   const handleChoiceClick = async (choiceId: number) => {
-    const response = await axios.post('api/play', { player: choiceId });
+    const response = await axios.post<RoundOutcome>('api/play', {
+      player: choiceId,
+    });
     setResults((prevResults) => [...prevResults, response.data.result]);
     setRoundOutcome(response.data);
   };
 
   const handleClick = async () => {
-    try {
-      const response = await axios.get('api/choices');
-      setChoices(response.data ?? []);
-    } catch (error) {}
+    // try {
+    const response = await axios.get<ChoiceItem[]>('api/choices');
+    setChoices(response.data ?? []);
+    // } catch (error) {}
   };
 
   const handlePageChange = (page: Page) => {
