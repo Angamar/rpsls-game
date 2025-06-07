@@ -5,6 +5,9 @@ import ChoiceButton from '../../components/ChoiceButton';
 import Typography from '../../components/Typography';
 import { useQuery } from '@tanstack/react-query';
 
+import styles from './Game.module.css';
+import PlayHistory from '../../components/PlayHistory/PlayHistory';
+
 const Game = () => {
   const [results, setResults] = useState<Result[]>([]);
   const [roundOutcome, setRoundOutcome] = useState<RoundOutcome | null>(null);
@@ -24,12 +27,14 @@ const Game = () => {
     const response = await axios.post<RoundOutcome>('api/play', {
       player: choiceId,
     });
-    setResults((prevResults) => [...prevResults, response.data.result]);
+    setResults((prevResults) => [response.data.result, ...prevResults]);
     setRoundOutcome(response.data);
   };
 
   return (
-    <div>
+    <section className={styles.gameContainer}>
+      <PlayHistory results={results} />
+
       {roundOutcome && (
         <div className="roundOutcome">
           <Typography variant="h1" as="h1">
@@ -49,7 +54,7 @@ const Game = () => {
         </div>
       )}
 
-      <div className="cardsContainer">
+      <div className={styles.cardsContainer}>
         {choicesData &&
           choicesData.length > 0 &&
           choicesData.map((choice: ChoiceItem) => (
@@ -63,24 +68,7 @@ const Game = () => {
             />
           ))}
       </div>
-
-      <p>Last 10 results:</p>
-      {results.length > 0 && (
-        <div className="resultsContainer">
-          {results.slice(-10).map((result, index) => (
-            <div
-              key={index}
-              className={'resultItem'}
-              style={{
-                background: result === Result.Win ? 'green' : Result.Lose ? 'red' : 'black',
-              }}
-            >
-              {result}
-            </div>
-          ))}
-        </div>
-      )}
-    </div>
+    </section>
   );
 };
 

@@ -1,0 +1,4 @@
+.appContainer {
+  background: radial-gradient(circle at center, #0f2a47 0%, #081a2e 100%);
+  height: 100vh;
+}

@@ -2,13 +2,10 @@ import { useState } from 'react';
 // import axios from 'axios';
 import { Page } from './types';
 
-import './App.css';
+import styles from './App.module.css';
 // import { type ChoiceItem, type Result, type RoundOutcome } from '@rpsls-game/shared';
 import Menu from './screens/Menu';
 import Game from './screens/Game'; // typically in App.tsx or main.tsx
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-
-const queryClient = new QueryClient();
 
 function App() {
   const [currentPage, setCurrentPage] = useState(Page.Menu);
@@ -23,10 +20,11 @@ function App() {
   };
 
   return (
-    <QueryClientProvider client={queryClient}>
+    <section className={styles.appContainer}>
+      gg
       {currentPage === Page.Menu && <Menu onPageChange={handlePageChange} />}
       {currentPage === Page.Game && <Game />}
-    </QueryClientProvider>
+    </section>
   );
 }
 
