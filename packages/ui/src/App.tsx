@@ -21,7 +21,6 @@ function App() {
 
   return (
     <section className={styles.appContainer}>
-      gg
       {currentPage === Page.Menu && <Menu onPageChange={handlePageChange} />}
       {currentPage === Page.Game && <Game />}
     </section>

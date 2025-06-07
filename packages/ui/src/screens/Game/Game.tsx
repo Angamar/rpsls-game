@@ -1,16 +1,15 @@
 import { useState } from 'react';
-import axios from 'axios';
 import { Result, type ChoiceItem, type RoundOutcome } from '@rpsls-game/shared';
-import ChoiceButton from '../../components/ChoiceButton';
 import Typography from '../../components/Typography';
 import { useQuery } from '@tanstack/react-query';
 
 import styles from './Game.module.css';
 import PlayHistory from '../../components/PlayHistory/PlayHistory';
+import Hand from '../../components/Hand';
 
 const Game = () => {
   const [results, setResults] = useState<Result[]>([]);
-  const [roundOutcome, setRoundOutcome] = useState<RoundOutcome | null>(null);
+  const [cardSelected, setCardSelected] = useState<number | null>(null);
   const { data: choicesData } = useQuery<ChoiceItem[]>({
     queryKey: ['choices'],
     queryFn: async () => {
@@ -23,12 +22,36 @@ const Game = () => {
     },
   });
 
-  const handleChoiceClick = async (choiceId: number) => {
-    const response = await axios.post<RoundOutcome>('api/play', {
-      player: choiceId,
-    });
-    setResults((prevResults) => [response.data.result, ...prevResults]);
-    setRoundOutcome(response.data);
+  const { data: roundOutcome, refetch: playCard } = useQuery<RoundOutcome | null>({
+    queryKey: ['roundOutcome'],
+    queryFn: async () => {
+      const response = await fetch('/api/play', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ player: cardSelected }),
+      });
+      if (!response.ok) {
+        throw new Error('Failed to fetch round outcome');
+      }
+      const roundOutcome = (await response.json()) as RoundOutcome;
+      setResults((prevResults) => [roundOutcome.result, ...prevResults]);
+      return roundOutcome;
+    },
+    enabled: false,
+  });
+
+  const handleCardSelect = (choiceId: number) => {
+    setCardSelected(choiceId);
+    console.log('Card selected:', choiceId);
+  };
+
+  const handleCardPlay = () => {
+    if (cardSelected !== null) {
+      void playCard();
+    }
+    setCardSelected(null);
   };
 
   return (
@@ -54,20 +77,12 @@ const Game = () => {
         </div>
       )}
 
-      <div className={styles.cardsContainer}>
-        {choicesData &&
-          choicesData.length > 0 &&
-          choicesData.map((choice: ChoiceItem) => (
-            <ChoiceButton
-              key={choice.id}
-              label={choice.name}
-              suit={choice.icon}
-              onClick={() => {
-                void handleChoiceClick(choice.id);
-              }}
-            />
-          ))}
-      </div>
+      <Hand
+        choices={choicesData ?? []}
+        onCardSelect={handleCardSelect}
+        onCardPlay={handleCardPlay}
+        selectedCardId={cardSelected}
+      />
     </section>
   );
 };
