@@ -11,9 +11,7 @@ const DuelingField = ({ playerCard, computerCard }: DuelingFieldProps) => {
   return (
     <section className={styles.duelingFieldSection}>
       <div className={styles.playerCard}>{playerCard && <Card card={playerCard} />}</div>
-      <div className={styles.computerCard}>
-        {computerCard && <Card card={computerCard} isFaceDown />}
-      </div>
+      <div className={styles.computerCard}>{computerCard && <Card card={computerCard} />}</div>
     </section>
   );
 };

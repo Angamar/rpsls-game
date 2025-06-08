@@ -31,12 +31,14 @@ const Card = ({
   isComputerCard,
 }: CardProps) => {
   const cardRef = useRef<HTMLButtonElement>(null);
+  // const [isDragged, setIsDragged] = useState(false);
 
   return (
     <motion.button
       layout
       drag
       // dragConstraints={{ left: -300, right: 300 }}
+      // onDragStart={isFaceDown || isDueling ? undefined : onClick}
       dragMomentum={false}
       dragElastic={0.1}
       dragSnapToOrigin
@@ -54,6 +56,7 @@ const Card = ({
       whileTap={cardTap}
       transition={cardTransition}
       className={styles.cardButton}
+      style={{ zIndex: isSelected ? 999999 : undefined }}
     >
       <motion.div
         className={styles.cardInner}

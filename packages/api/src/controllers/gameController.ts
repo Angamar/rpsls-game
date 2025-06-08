@@ -24,8 +24,9 @@ export const getChoices = (req: Request, res: Response) => {
 };
 
 export const getComputerChoice = async (req: Request, res: Response) => {
+  const availableChoices = choices.map((choice) => choice.id);
   try {
-    const computerChoice = await getRandomChoice();
+    const computerChoice = await getRandomChoice(availableChoices);
     res.json(computerChoice);
   } catch (error) {
     console.error("Error fetching computer choice:", error);
@@ -56,7 +57,8 @@ export const playRound = async (req: Request, res: Response) => {
       return;
     }
 
-    const computerChoice = await getRandomChoice();
+    const availableChoices = parsed.data.availableComputerChoices;
+    const computerChoice = await getRandomChoice(availableChoices);
 
     const roundOutcome = getRoundOutcome(playerChoiceId, computerChoice.id);
 

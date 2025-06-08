@@ -7,6 +7,7 @@ export const ChoiceSchema = z.object({
 
 export const PlayRoundSchema = z.object({
   player: z.number().min(1).max(5),
+  availableComputerChoices: z.array(z.number().min(1).max(5)),
 });
 
 export const ChoiceListSchema = z.array(ChoiceSchema);

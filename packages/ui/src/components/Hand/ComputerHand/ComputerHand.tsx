@@ -25,8 +25,8 @@ function ComputerHand({ cardChoices, isDueling }: ComputerHand) {
           cardChoices.length > 0 &&
           cardChoices.map((choice: ChoiceItem) => (
             <Card
-              card={choice}
               isComputerCard
+              card={choice}
               isFaceDown
               key={'computer_' + choice.id}
               // isSelected={selectedCardId === choice.id}

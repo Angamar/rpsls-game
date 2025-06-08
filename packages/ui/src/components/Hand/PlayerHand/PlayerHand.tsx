@@ -22,7 +22,7 @@ function PlayerHand({
   playedCardId,
 }: PlayerHandProps) {
   return (
-    <section className={styles.handContainer}>
+    <section className={styles.handSection}>
       {selectedCardId && (
         <motion.button
           className={styles.playButton}

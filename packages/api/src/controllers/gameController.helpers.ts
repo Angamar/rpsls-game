@@ -76,10 +76,22 @@ export function getRoundOutcome(
   };
 }
 
-export async function getRandomChoice() {
+export async function getRandomChoice(
+  availableChoices: ChoiceItem["id"][],
+): Promise<ChoiceItem> {
+  if (availableChoices.length === 0) {
+    throw new Error("No available choices to select from");
+  }
   const randomNumber = await fetchRandomNumber();
-  const index = Math.floor((randomNumber - 1) / 20);
-  const choice = choices[index];
-  if (!choice) throw new Error("Invalid random number for choice selection");
-  return choice;
+
+  //calculate the index based on the random number and the number of available choices
+  const index = Math.floor(
+    (randomNumber - 1) / (100 / availableChoices.length),
+  );
+  const choiceId = availableChoices[index];
+  const choiceItem = choices.find((c) => c.id === choiceId);
+  if (!choiceItem) {
+    throw new Error("Invalid random number for choice selection");
+  }
+  return choiceItem;
 }
