@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { Choice, Result, type ChoiceItem, type RoundOutcome } from '@rpsls-game/shared';
 import { useQuery, useQueryClient } from '@tanstack/react-query';
 
@@ -15,6 +15,7 @@ const Game = () => {
   const [selectedCardId, setSelectedCardId] = useState<ChoiceItem['id'] | null>();
   const [playedCardId, setPlayedCardId] = useState<ChoiceItem['id'] | null>(null);
   const [cardsInHand, setCardsInHand] = useState<ChoiceItem[]>([]);
+  const [isDuelComplete, setIsDuelComplete] = useState(false);
   const { data: cardChoices } = useQuery<ChoiceItem[]>({
     queryKey: ['cardChoices'],
     queryFn: async () => {
@@ -49,9 +50,9 @@ const Game = () => {
   });
   const queryClient = useQueryClient();
 
-  const startNewRound = () => {
+  const startNewRound = useCallback(() => {
     queryClient.setQueryData(['roundOutcome'], null);
-  };
+  }, [queryClient]);
 
   const handleCardSelect = (choiceId: number) => {
     if (roundOutcome) {
@@ -72,6 +73,22 @@ const Game = () => {
     // setPlayedCardId(null);
   };
 
+  useEffect(() => {
+    if (roundOutcome) {
+      setTimeout(() => {
+        setIsDuelComplete(true);
+      }, 2000);
+    }
+
+    if (isDuelComplete) {
+      setTimeout(() => {
+        setIsDuelComplete(false);
+        setPlayedCardId(null);
+        startNewRound();
+      }, 2500);
+    }
+  }, [roundOutcome, isDuelComplete, startNewRound]);
+
   return (
     <section className={styles.gameContainer}>
       <ComputerHand
@@ -81,10 +98,10 @@ const Game = () => {
         // onCardPlay={handleCardPlay}
       />
 
-      <Outcome roundOutcome={roundOutcome ?? null} />
+      {isDuelComplete && <Outcome roundOutcome={roundOutcome ?? null} />}
       <DuelingField
         playerCard={
-          playedCardId && cardChoices
+          playedCardId && cardChoices && roundOutcome
             ? (cardChoices.find((choice) => choice.id === playedCardId) ?? null)
             : null
         }

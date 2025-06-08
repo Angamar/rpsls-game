@@ -9,7 +9,7 @@ type OutcomeProps = {
 
 export default function Outcome({ roundOutcome }: OutcomeProps) {
   return (
-    <section className={styles.outcomeContainer}>
+    <section className={styles.outcomeSection}>
       {roundOutcome && (
         <div className="roundOutcome">
           <Typography variant={resultMessageVariantMap[roundOutcome.result] ?? 'body'} as="h1">
