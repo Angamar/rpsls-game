@@ -23,7 +23,7 @@ const ScoreTracker = ({ results, setNumber, playerSets, computerSets }: ScoreTra
   return (
     <motion.aside
       className={styles.scoreTrackerAside}
-      initial={{ x: -220, opacity: 0 }}
+      initial={{ x: -20, opacity: 0 }}
       animate={{ x: 0, opacity: 1 }}
       transition={{ type: 'tween', duration: 0.8, ease: 'easeInOut' }}
     >

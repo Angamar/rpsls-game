@@ -4,6 +4,7 @@ import type { ChoiceItem } from '@shared/types';
 import styles from './PlayerHand.module.css';
 import Card from '../Card';
 import PlayButton from '../../PlayButton';
+import { getFanCardStyle } from '../Hand.helpers';
 
 type PlayerHandProps = {
   cardChoices: ChoiceItem[];
@@ -30,30 +31,27 @@ function PlayerHand({
       )}
       <motion.div
         className={styles.cardsContainer}
-        animate={{ y: playedCardId ? 150 : 0 }} // Move hand down when dueling
+        animate={{ y: playedCardId ? 150 : 0 }}
         transition={{
-          delay: playedCardId ? 0.5 : 0, // 0.5 second delay when moving down, no delay when moving up
+          delay: playedCardId ? 1 : 0,
           type: 'spring',
           stiffness: 120,
           damping: 18,
           duration: 0.4,
         }}
       >
-        {/* TODO: Implement card rotation logic instead of using CSS  */}
         <AnimatePresence>
-          {cardChoices.map((cardChoice) => {
-            const isDueling = playedCardId === cardChoice.id;
-            return (
+          {cardChoices.map((cardChoice, i) => (
+            <motion.div key={cardChoice.id} style={getFanCardStyle(i, cardChoices.length)}>
               <Card
                 card={cardChoice}
-                key={cardChoice.id}
                 isComputerCard={false}
                 isSelected={selectedCardId === cardChoice.id}
-                isDueling={isDueling}
+                isDueling={playedCardId === cardChoice.id}
                 onClick={playedCardId ? undefined : () => onCardSelect(cardChoice.id)}
               />
-            );
-          })}
+            </motion.div>
+          ))}
         </AnimatePresence>
       </motion.div>
     </section>

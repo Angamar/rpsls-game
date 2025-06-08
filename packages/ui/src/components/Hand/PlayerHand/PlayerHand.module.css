@@ -25,7 +25,7 @@
   border: #24964a 1px solid;
 }
 
-.cardsContainer > *:nth-child(1) {
+/* .cardsContainer > *:nth-child(1) {
   rotate: -10deg;
   margin-bottom: -2rem;
 }
@@ -50,4 +50,4 @@
 
 .cardsContainer > * {
   margin-left: -2rem;
-}
+} */

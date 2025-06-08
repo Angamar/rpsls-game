@@ -30,6 +30,8 @@ const fetchCardChoices = async (): Promise<ChoiceItem[]> => {
   return (await response.json()) as ChoiceItem[];
 };
 
+//TODO: // Refactor this to use a mutation instead of a query
+//TODO: player: null problem
 const fetchRoundOutcome = async (
   playedCardId: ChoiceItem['id'] | null,
   availableComputerChoices: ChoiceItem[],

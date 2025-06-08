@@ -97,6 +97,7 @@
   color: #fff;
   margin-bottom: 0.75em;
   -webkit-background-clip: text;
+  background-clip: text;
   -webkit-text-fill-color: transparent;
   text-shadow: 0 4px 24px rgba(0, 0, 0, 0.5);
   animation: hero-pop 0.7s cubic-bezier(0.23, 1, 0.32, 1);

@@ -10,26 +10,26 @@
 }
 
 .cardsContainer > *:nth-child(1) {
-  rotate: -5deg;
-  margin-bottom: -2rem;
+  rotate: 5deg;
+  margin-bottom: 2rem;
 }
 
 .cardsContainer > *:nth-child(2) {
-  rotate: -2.5deg;
+  rotate: 2.5deg;
 }
 
 .cardsContainer > *:nth-child(3) {
   rotate: 0deg;
-  margin-bottom: 1rem;
+  margin-bottom: -1rem;
 }
 
 .cardsContainer > *:nth-child(4) {
-  rotate: 2.5deg;
+  rotate: -2.5deg;
 }
 
 .cardsContainer > *:nth-child(5) {
-  rotate: 5deg;
-  margin-bottom: -2rem;
+  rotate: -5deg;
+  margin-bottom: 2rem;
 }
 
 .cardsContainer > * {
