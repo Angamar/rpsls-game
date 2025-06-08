@@ -62,7 +62,7 @@ const Game = () => {
 
   const handleCardPlay = (cardId: Choice) => {
     setCardPlayed(cardId);
-    // setCardsInHand((prevCards) => prevCards.filter((card) => card.id !== cardId));
+    setCardsInHand((prevCards) => prevCards.filter((card) => card.id !== cardId));
     setCardSelected(null);
     // if (cardSelected !== null) {
     //   void playCard();

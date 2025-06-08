@@ -35,6 +35,7 @@ const Card = ({
 
   return (
     <motion.button
+      layout
       ref={cardRef}
       onClick={isFaceDown || isDueling ? undefined : onClick}
       animate={{
@@ -44,6 +45,7 @@ const Card = ({
         zIndex: isDueling ? 999 : undefined,
       }}
       variants={cardVariants}
+      exit={{ opacity: 0, y: 150, transition: { duration: 0.4 } }} // fade and shrink out
       whileHover={isSelected || isDueling ? undefined : cardHover}
       whileTap={cardTap}
       transition={cardTransition}
