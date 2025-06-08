@@ -3,11 +3,11 @@ export const cardVariants = {
     scale: 1.02,
     borderWidth: '0.5rem',
     borderStyle: 'solid',
-    borderColor: '#90caf9', // initial color
+    borderColor: '#90caf9',
     backgroundColor: '#f5faff',
     zIndex: 10,
     y: '-1.5rem',
-    rotateY: 0,
+    // rotateY: 0,
     transition: { duration: 0.4 },
   },
   unselected: {
@@ -15,7 +15,7 @@ export const cardVariants = {
     border: 'none',
     backgroundColor: '#fff',
     zIndex: 1,
-    rotateY: 0,
+    // rotateY: 0,
     transition: { duration: 0.4 },
   },
   faceUp: {
@@ -23,6 +23,18 @@ export const cardVariants = {
   },
   faceDown: {
     rotateY: 180,
+  },
+};
+
+export const pulsingBorderAnimation = {
+  borderColor: ['#90caf9', '#1976d2', '#90caf9'],
+  transition: {
+    borderColor: {
+      duration: 2,
+      repeat: Infinity,
+      repeatType: 'loop',
+      ease: 'easeInOut',
+    },
   },
 };
 

@@ -1,6 +1,13 @@
 import { motion } from 'framer-motion';
 import styles from './Card.module.css';
-import { cardVariants, cardHover, cardTransition, cardTap } from './Card.motion';
+import {
+  cardVariants,
+  cardHover,
+  cardTransition,
+  cardTap,
+  pulsingBorderAnimation,
+} from './Card.motion';
+import { useRef } from 'react';
 
 interface CardProps {
   label: string;
@@ -10,6 +17,8 @@ interface CardProps {
   isSelected?: boolean;
   isFaceDown?: boolean;
   imageSrc?: string;
+  isDueling?: boolean;
+  isComputerCard: boolean;
 }
 
 const Card = ({
@@ -17,38 +26,25 @@ const Card = ({
   suit,
   onClick,
   isSelected,
+  isDueling,
   isFaceDown = false,
   imageSrc = '/card-back.png',
+  isComputerCard,
 }: CardProps) => {
-  const borderColorPulse = isSelected
-    ? {
-        borderColor: ['#90caf9', '#1976d2', '#90caf9'],
-        transition: {
-          borderColor: {
-            duration: 2,
-            repeat: Infinity,
-            repeatType: 'loop',
-            ease: 'easeInOut',
-          },
-        },
-      }
-    : {};
+  const cardRef = useRef<HTMLButtonElement>(null);
+
   return (
     <motion.button
-      drag={!isFaceDown}
-      dragMomentum={false}
-      onClick={isFaceDown ? undefined : onClick}
+      ref={cardRef}
+      onClick={isFaceDown || isDueling ? undefined : onClick}
       animate={{
-        ...(isFaceDown
-          ? cardVariants.faceDown
-          : isSelected
-            ? cardVariants.selected
-            : cardVariants.unselected),
-        ...borderColorPulse,
-        y: isSelected ? -24 : 0, // go up once when selected, not looping
+        ...(isSelected ? cardVariants.selected : cardVariants.unselected),
+        ...(isSelected ? pulsingBorderAnimation : {}),
+        y: isSelected ? -24 : 0,
+        zIndex: isDueling ? 999 : undefined,
       }}
       variants={cardVariants}
-      whileHover={cardHover}
+      whileHover={isSelected || isDueling ? undefined : cardHover}
       whileTap={cardTap}
       transition={cardTransition}
       className={styles.cardButton}
@@ -56,7 +52,11 @@ const Card = ({
       <motion.div
         className={styles.cardInner}
         initial={{ rotateY: isFaceDown ? 180 : 0 }}
-        transition={{ duration: 0.6, ease: [0.23, 1, 0.32, 1] }}
+        animate={{ rotateY: isFaceDown ? 180 : 0 }}
+        transition={{
+          duration: isComputerCard ? 0 : 0.6,
+          ease: [0.23, 1, 0.32, 1],
+        }}
       >
         <div className={styles.cardFront}>
           <div className={styles.cardSuit}>{suit}</div>

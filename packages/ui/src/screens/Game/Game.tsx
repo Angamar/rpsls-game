@@ -1,16 +1,19 @@
 import { useState } from 'react';
-import { Result, type ChoiceItem, type RoundOutcome } from '@rpsls-game/shared';
+import { Choice, Result, type ChoiceItem, type RoundOutcome } from '@rpsls-game/shared';
 import { useQuery, useQueryClient } from '@tanstack/react-query';
 
 import styles from './Game.module.css';
-import PlayHistory from '../../components/PlayHistory/PlayHistory';
+// import PlayHistory from '../../components/PlayHistory/PlayHistory';
 import PlayerHand from '../../components/Hand/PlayerHand';
 import ComputerHand from '../../components/Hand/ComputerHand';
 import Outcome from '../../components/Outcome';
 
 const Game = () => {
   const [results, setResults] = useState<Result[]>([]);
-  const [cardSelected, setCardSelected] = useState<string | null>();
+  console.log(results);
+  const [cardSelected, setCardSelected] = useState<number | null>();
+  const [cardPlayed, setCardPlayed] = useState<number | null>(null);
+  const [cardsInHand, setCardsInHand] = useState<ChoiceItem[]>([]);
   const { data: choicesData } = useQuery<ChoiceItem[]>({
     queryKey: ['choices'],
     queryFn: async () => {
@@ -18,12 +21,13 @@ const Game = () => {
       if (!response.ok) {
         throw new Error('Failed to fetch choices');
       }
-
-      return response.json() as Promise<ChoiceItem[]>;
+      const cards = (await response.json()) as ChoiceItem[];
+      setCardsInHand(cards);
+      return cards;
     },
   });
 
-  const { data: roundOutcome, refetch: playCard } = useQuery<RoundOutcome | null>({
+  const { data: roundOutcome } = useQuery<RoundOutcome | null>({
     queryKey: ['roundOutcome'],
     queryFn: async () => {
       const response = await fetch('/api/play', {
@@ -52,35 +56,39 @@ const Game = () => {
     if (roundOutcome) {
       startNewRound();
     }
-    setCardSelected(`player_card_${choiceId}`);
+    setCardSelected(choiceId);
     console.log('Card selected:', choiceId);
   };
 
-  const handleCardPlay = () => {
-    if (cardSelected !== null) {
-      void playCard();
-    }
+  const handleCardPlay = (cardId: Choice) => {
+    setCardPlayed(cardId);
+    // setCardsInHand((prevCards) => prevCards.filter((card) => card.id !== cardId));
     setCardSelected(null);
+    // if (cardSelected !== null) {
+    //   void playCard();
+    // }
+    // setCardSelected(null);
   };
 
   return (
     <section className={styles.gameContainer}>
       <ComputerHand
+        isDueling={!!cardPlayed}
         choices={choicesData ?? []}
         onCardSelect={handleCardSelect}
-        onCardPlay={handleCardPlay}
-        // selectedCardId={cardSelected}
+        // onCardPlay={handleCardPlay}
       />
 
       <Outcome roundOutcome={roundOutcome ?? null} />
       <PlayerHand
-        choices={choicesData ?? []}
+        choices={cardsInHand ?? []}
         onCardSelect={handleCardSelect}
         onCardPlay={handleCardPlay}
         selectedCardId={cardSelected}
+        playedCardId={cardPlayed}
       />
 
-      <PlayHistory results={results} />
+      {/* <PlayHistory results={results} /> */}
     </section>
   );
 };
