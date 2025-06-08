@@ -17,6 +17,7 @@
   perspective: 1000px;
   position: relative;
   overflow: hidden;
+  background: transparent;
 }
 
 .cardImage {

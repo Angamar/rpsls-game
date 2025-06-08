@@ -6,14 +6,14 @@ import Card from '../Card';
 
 type ComputerHand = {
   isDueling?: boolean;
-  choices: ChoiceItem[];
+  cardChoices: ChoiceItem[];
   selectedCardId?: string | null;
   playedCardId?: number | null;
   onCardSelect: (choiceId: number) => void;
   onCardPlay?: () => void;
 };
 
-function ComputerHand({ choices, isDueling }: ComputerHand) {
+function ComputerHand({ cardChoices, isDueling }: ComputerHand) {
   return (
     <section className={styles.handContainer}>
       <motion.div
@@ -21,16 +21,15 @@ function ComputerHand({ choices, isDueling }: ComputerHand) {
         animate={{ y: isDueling ? -150 : 0 }} // Move hand down when dueling
         transition={{ type: 'spring', stiffness: 120, damping: 18 }}
       >
-        {choices &&
-          choices.length > 0 &&
-          choices.map((choice: ChoiceItem) => (
+        {cardChoices &&
+          cardChoices.length > 0 &&
+          cardChoices.map((choice: ChoiceItem) => (
             <Card
+              card={choice}
               isComputerCard
               isFaceDown
               key={'computer_' + choice.id}
               // isSelected={selectedCardId === choice.id}
-              label={choice.name}
-              suit={choice.icon}
             />
           ))}
       </motion.div>

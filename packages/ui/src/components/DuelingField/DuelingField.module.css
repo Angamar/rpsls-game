@@ -1,0 +1,10 @@
+.duelingFieldSection {
+  display: flex;
+  flex-direction: column-reverse;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  border: 2px dotted royalblue;
+  gap: 5rem;
+}

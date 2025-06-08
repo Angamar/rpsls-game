@@ -8,22 +8,21 @@ import {
   pulsingBorderAnimation,
 } from './Card.motion';
 import { useRef } from 'react';
+import type { ChoiceItem } from '@shared/types';
 
 interface CardProps {
-  label: string;
+  card: ChoiceItem;
   onClick?: () => void;
-  suit: string;
   rotation?: number;
   isSelected?: boolean;
   isFaceDown?: boolean;
   imageSrc?: string;
   isDueling?: boolean;
-  isComputerCard: boolean;
+  isComputerCard?: boolean;
 }
 
 const Card = ({
-  label,
-  suit,
+  card,
   onClick,
   isSelected,
   isDueling,
@@ -66,8 +65,8 @@ const Card = ({
         }}
       >
         <div className={styles.cardFront}>
-          <div className={styles.cardSuit}>{suit}</div>
-          <div className={styles.cardValue}>{label}</div>
+          <div className={styles.cardSuit}>{card.icon}</div>
+          <div className={styles.cardValue}>{card.name}</div>
         </div>
         <div className={styles.cardBack}>
           <img src={imageSrc} alt="Card back" className={styles.cardImage} />

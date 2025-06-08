@@ -7,7 +7,7 @@ import Typography from '../../Typography';
 import { playButtonAnimate, playButtonHover, playButtonTap } from './PlayerHand.motion';
 
 type PlayerHandProps = {
-  choices: ChoiceItem[];
+  cardChoices: ChoiceItem[];
   selectedCardId?: number | null;
   playedCardId: number | null;
   onCardSelect: (choiceId: number) => void;
@@ -15,7 +15,7 @@ type PlayerHandProps = {
 };
 
 function PlayerHand({
-  choices,
+  cardChoices,
   onCardSelect,
   onCardPlay,
   selectedCardId,
@@ -48,17 +48,16 @@ function PlayerHand({
         }}
       >
         <AnimatePresence>
-          {choices.map((choice) => {
-            const isDueling = playedCardId === choice.id;
+          {cardChoices.map((cardChoice) => {
+            const isDueling = playedCardId === cardChoice.id;
             return (
               <Card
-                key={choice.id}
+                card={cardChoice}
+                key={cardChoice.id}
                 isComputerCard={false}
-                isSelected={selectedCardId === choice.id}
+                isSelected={selectedCardId === cardChoice.id}
                 isDueling={isDueling}
-                label={choice.name}
-                suit={choice.icon}
-                onClick={playedCardId ? undefined : () => onCardSelect(choice.id)}
+                onClick={playedCardId ? undefined : () => onCardSelect(cardChoice.id)}
               />
             );
           })}
