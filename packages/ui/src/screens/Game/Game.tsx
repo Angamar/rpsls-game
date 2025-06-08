@@ -6,7 +6,7 @@ import styles from './Game.module.css';
 import PointsTracker from '../../components/PointsTracker';
 import PlayerHand from '../../components/Hand/PlayerHand';
 import ComputerHand from '../../components/Hand/ComputerHand';
-import Outcome from '../../components/Outcome';
+import RoundOutcomeMessage from '../../components/RoundOutcomeMessage';
 import DuelingField from '../../components/DuelingField';
 
 import { delay } from '../../utils/delay';
@@ -138,7 +138,7 @@ const Game = () => {
           // onCardPlay={handleCardPlay}
         />
 
-        {isDuelComplete && <Outcome roundOutcome={roundOutcome ?? null} />}
+        {isDuelComplete && <RoundOutcomeMessage roundOutcome={roundOutcome ?? null} />}
         <DuelingField
           playerCard={
             playedCardId && cardChoices && roundOutcome
