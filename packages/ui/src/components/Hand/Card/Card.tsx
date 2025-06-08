@@ -36,6 +36,11 @@ const Card = ({
   return (
     <motion.button
       layout
+      drag
+      // dragConstraints={{ left: -300, right: 300 }}
+      dragMomentum={false}
+      dragElastic={0.1}
+      dragSnapToOrigin
       ref={cardRef}
       onClick={isFaceDown || isDueling ? undefined : onClick}
       animate={{
