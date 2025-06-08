@@ -48,17 +48,20 @@ function PlayerHand({
         }}
       >
         <AnimatePresence>
-          {choices.map((choice) => (
-            <Card
-              key={choice.id}
-              isComputerCard={false}
-              isSelected={selectedCardId === choice.id}
-              isDueling={playedCardId === choice.id}
-              label={choice.name}
-              suit={choice.icon}
-              onClick={() => onCardSelect(choice.id)}
-            />
-          ))}
+          {choices.map((choice) => {
+            const isDueling = playedCardId === choice.id;
+            return (
+              <Card
+                key={choice.id}
+                isComputerCard={false}
+                isSelected={selectedCardId === choice.id}
+                isDueling={isDueling}
+                label={choice.name}
+                suit={choice.icon}
+                onClick={playedCardId ? undefined : () => onCardSelect(choice.id)}
+              />
+            );
+          })}
         </AnimatePresence>
       </motion.div>
     </section>
