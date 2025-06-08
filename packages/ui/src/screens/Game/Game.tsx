@@ -9,14 +9,16 @@ import {
 import { useQuery, useQueryClient } from '@tanstack/react-query';
 
 import styles from './Game.module.css';
-import PointsTracker from '../../components/PointsTracker';
+
 import PlayerHand from '../../components/Hand/PlayerHand';
 import ComputerHand from '../../components/Hand/ComputerHand';
 import RoundOutcomeMessage from '../../components/RoundOutcomeMessage';
 import DuelingField from '../../components/DuelingField';
+import ScoreTracker from '../../components/ScoreTracker';
 
 import { delay } from '../../utils/delay';
 import SetOutcomeMessage from '../../components/SetOutcomeMessage';
+import { calculateSetWinner } from './Game.helpers';
 
 const fetchCardChoices = async (): Promise<ChoiceItem[]> => {
   const response = await fetch('/api/choices');
@@ -51,12 +53,17 @@ const fetchRoundOutcome = async (
 
 const Game = () => {
   const [roundResults, setRoundResults] = useState<Result[]>([]);
-  const [setResult, setSetResult] = useState<SetOutcome>();
+  const [setResult, setSetResult] = useState<SetOutcome>({
+    result: Result.Tie,
+    set: 0,
+    playerSets: 0,
+    computerSets: 0,
+  });
   console.log(setResult);
   const [selectedCardId, setSelectedCardId] = useState<ChoiceItem['id'] | null>();
   const [playedCardId, setPlayedCardId] = useState<ChoiceItem['id'] | null>(null);
-  const [cardsInPlayerHand, setCardsInPlayerHand] = useState<ChoiceItem[]>([]);
-  const [cardsInComputerHand, setCardsInComputerHand] = useState<ChoiceItem[]>([]);
+  const [playerHand, setPlayerHand] = useState<ChoiceItem[]>([]);
+  const [computerHand, setComputerHand] = useState<ChoiceItem[]>([]);
   const [isDuelComplete, setIsDuelComplete] = useState(false);
   const [isSetComplete, setIsSetComplete] = useState(false);
 
@@ -67,7 +74,7 @@ const Game = () => {
   });
   const { data: roundOutcome, refetch: playCard } = useQuery<RoundOutcome | null>({
     queryKey: ['roundOutcome'],
-    queryFn: () => fetchRoundOutcome(selectedCardId ?? null, cardsInComputerHand),
+    queryFn: () => fetchRoundOutcome(selectedCardId ?? null, computerHand),
     enabled: false,
   });
 
@@ -75,6 +82,7 @@ const Game = () => {
 
   const startNewRound = useCallback(() => {
     setIsDuelComplete(false);
+    setSelectedCardId(null);
     setPlayedCardId(null);
     queryClient.setQueryData(['roundOutcome'], null);
   }, [queryClient]);
@@ -84,63 +92,45 @@ const Game = () => {
     setIsResultsBarVisible(false);
     setIsDuelComplete(false);
     setRoundResults([]);
-    setSetResult({
-      result: Result.Lose,
-      set: 1, // This should be dynamic based on the game state
-      playerSets: 0,
-      computerSets: 0,
-    });
-    console.log('Set completed');
-  }, []);
+    const result = calculateSetWinner(roundResults);
+    setSetResult((prev) => ({
+      result: result,
+      set: prev.set + 1,
+      playerSets: prev.playerSets + (result === Result.Win ? 1 : 0),
+      computerSets: prev.computerSets + (result === Result.Lose ? 1 : 0),
+    }));
+  }, [roundResults]);
 
-  // const startNewSet = useCallback(() => {
-  //   startNewRound();
-  //   setRoundResults([]);
-  //   setSetResult({
-  //     result: Result.Lose,
-  //     set: 1, // This should be dynamic based on the game state
-  //     playerSets: 0,
-  //     computerSets: 0,
-  //   });
-  //   setIsResultsBarVisible(false);
-  //   setCardsInPlayerHand(cardChoices ?? []);
-  //   setCardsInComputerHand(cardChoices ?? []);
-  //   setSelectedCardId(null);
-  //   setPlayedCardId(null);
-  //   console.log('New set started');
-  // }, [cardChoices, startNewRound]);
+  const startNewSet = useCallback(() => {
+    startNewRound();
+    setIsSetComplete(false);
+    setRoundResults([]);
+    setPlayerHand(cardChoices ?? []);
+    setComputerHand(cardChoices ?? []);
+  }, [cardChoices, startNewRound]);
 
   const handleCardSelect = (choiceId: number) => {
-    if (roundOutcome) {
-      startNewRound();
-    }
     setSelectedCardId(choiceId);
-    console.log('Card selected:', choiceId);
   };
 
   const handleCardPlay = (cardId: Choice) => {
     setPlayedCardId(cardId);
-    setCardsInPlayerHand((prevCards) => prevCards.filter((card) => card.id !== cardId));
-
+    setPlayerHand((prevCards) => prevCards.filter((card) => card.id !== cardId));
     setSelectedCardId(null);
     if (selectedCardId !== null) {
       void playCard().then((outcome) => {
-        console.log('Round outcome:', outcome);
-        const filteredComputerCards = cardsInComputerHand.filter(
+        const filteredComputerCards = computerHand.filter(
           (card) => card.id !== outcome.data?.computer,
         );
-        setCardsInComputerHand(filteredComputerCards);
-        console.log('Computer cards after filtering:', filteredComputerCards);
+        setComputerHand(filteredComputerCards);
       });
     }
     setSelectedCardId(null);
-    // setPlayedCardId(null);
   };
 
   // Handle the round outcome and update the game state
   useEffect(() => {
     if (roundOutcome && !isDuelComplete) {
-      console.log('useEffect ran in roundOutcome', roundOutcome);
       delay(1, () => {
         if (!isResultsBarVisible) setIsResultsBarVisible(true);
         setIsDuelComplete(true);
@@ -148,16 +138,13 @@ const Game = () => {
     }
 
     if (isDuelComplete) {
-      console.log('Duel is complete');
       if (roundResults.length < 5) {
         delay(1, () => {
           startNewRound();
-          console.log('Starting new round');
         });
       } else {
         delay(1, () => {
           finishSet();
-          console.log('Finishing set');
         });
       }
     }
@@ -172,8 +159,8 @@ const Game = () => {
 
   useEffect(() => {
     if (cardChoices) {
-      setCardsInPlayerHand(cardChoices);
-      setCardsInComputerHand(cardChoices);
+      setPlayerHand(cardChoices);
+      setComputerHand(cardChoices);
     }
   }, [cardChoices]);
 
@@ -187,27 +174,25 @@ const Game = () => {
 
   return (
     <section className={styles.gameSection}>
-      {isResultsBarVisible && <PointsTracker results={roundResults} />}
+      {isResultsBarVisible && (
+        <ScoreTracker
+          results={roundResults}
+          setNumber={setResult.set}
+          playerSets={setResult.playerSets}
+          computerSets={setResult.computerSets}
+        />
+      )}
       <div className={styles.gameContainer}>
         <ComputerHand
           isDueling={!!playedCardId}
-          cardChoices={cardsInComputerHand ?? []}
+          cardChoices={computerHand ?? []}
           onCardSelect={handleCardSelect}
           // onCardPlay={handleCardPlay}
         />
 
         {isDuelComplete && <RoundOutcomeMessage roundOutcome={roundOutcome ?? null} />}
 
-        {isSetComplete && (
-          <SetOutcomeMessage
-            setOutcome={{
-              result: Result.Lose,
-              set: 1, // This should be dynamic based on the game state
-              playerSets: roundResults.filter((result) => result === Result.Win).length,
-              computerSets: roundResults.filter((result) => result === Result.Lose).length,
-            }}
-          />
-        )}
+        {isSetComplete && <SetOutcomeMessage setOutcome={setResult} onNextSetClick={startNewSet} />}
 
         {!isSetComplete && (
           <DuelingField
@@ -224,7 +209,7 @@ const Game = () => {
           />
         )}
         <PlayerHand
-          cardChoices={cardsInPlayerHand ?? []}
+          cardChoices={playerHand ?? []}
           onCardSelect={handleCardSelect}
           onCardPlay={handleCardPlay}
           selectedCardId={selectedCardId}

@@ -1,12 +1,13 @@
-.resultsTrackerAside {
+.scoreTrackerAside {
   display: flex;
+  flex-direction: column;
+  justify-content: space-between;
   position: absolute;
   padding: 1rem;
   width: 5rem;
-  height: 45vh;
+  height: 53vh;
   background: rgba(6, 58, 68, 0.85);
   color: white;
-  flex-direction: column;
   border-right: 2px solid #14535b;
   border-radius: 0 2rem 2rem 0;
   box-sizing: border-box;
@@ -37,4 +38,28 @@
   border-radius: 0.5rem;
   font-size: 1.3rem;
   text-align: center;
+}
+
+.setInfo {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-size: 1.1rem;
+  font-weight: 500;
+  background: rgba(255, 255, 255, 0.05);
+  padding: 0.5rem;
+  border-radius: 0.75rem;
+  margin-bottom: 1rem;
+  text-align: center;
+  line-height: 1.2;
+}
+
+.setNumber {
+  font-weight: bold;
+  font-size: 1.2rem;
+}
+
+.setScore {
+  opacity: 0.85;
+  font-size: 1rem;
 }

@@ -22,7 +22,12 @@ function PlayerHand({
 }: PlayerHandProps) {
   return (
     <section className={styles.handSection}>
-      {selectedCardId && <PlayButton onClick={() => onCardPlay && onCardPlay(selectedCardId)} />}
+      {selectedCardId && (
+        <PlayButton
+          className={styles.playButton}
+          onClick={() => onCardPlay && onCardPlay(selectedCardId)}
+        />
+      )}
       <motion.div
         className={styles.cardsContainer}
         animate={{ y: playedCardId ? 150 : 0 }} // Move hand down when dueling

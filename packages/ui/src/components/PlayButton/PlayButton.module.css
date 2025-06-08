@@ -1,6 +1,4 @@
 .playButton {
-  position: absolute;
-  top: -2rem;
   padding: 0.5rem 1rem;
   width: 8rem;
   background: radial-gradient(circle at 50% 50%, #24964a 0%, rgb(18, 110, 58) 100%);

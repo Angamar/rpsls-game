@@ -1,0 +1,16 @@
+.setOutcomeSection {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 1000;
+  /* border: 1px solid red; */
+}
+
+.setText {
+  color: red;
+}
+
+.nextSetButton {
+  margin-top: 3rem;
+}

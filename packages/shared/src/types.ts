@@ -22,3 +22,10 @@ export type RoundOutcome = {
   winnerChoice: string;
   loserChoice: string;
 };
+
+export type SetOutcome = {
+  result: Result;
+  set: number;
+  playerSets: number;
+  computerSets: number;
+};

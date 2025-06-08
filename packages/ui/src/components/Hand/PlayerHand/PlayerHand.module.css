@@ -1,15 +1,18 @@
 .handSection {
   position: relative;
-  width: 100%;
-  height: 100%;
+  width: 60%;
+  height: 16rem;
   display: flex;
+  border: 1px solid #ccc;
+  align-items: end;
   justify-content: center;
-  align-items: center;
+  margin-bottom: 1rem;
+  /* flex-grow: 0; */
 }
 
 .playButton {
   position: absolute;
-  top: -2rem;
+  top: -6rem;
   padding: 0.5rem 1rem;
   width: 8rem;
   background: radial-gradient(circle at 50% 50%, #24964a 0%, rgb(18, 110, 58) 100%);
@@ -18,13 +21,8 @@
 
 .cardsContainer {
   display: flex;
-  justify-content: center;
-  align-items: flex-end;
-  margin: 2rem 0 4rem;
-}
 
-.cardsContainer {
-  margin-bottom: 6rem;
+  border: #24964a 1px solid;
 }
 
 .cardsContainer > *:nth-child(1) {
