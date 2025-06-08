@@ -8,7 +8,12 @@ import eslintConfigPrettier from "eslint-config-prettier/flat";
 export default [
   eslintConfigPrettier,
   {
-    ignores: ["**/eslint.config.*", "**/node_modules/**", "**/*.config.*"],
+    ignores: [
+      "**/eslint.config.*",
+      "**/node_modules/**",
+      "**/*.config.*",
+      "*.js",
+    ],
   },
   js.configs.recommended,
   ...tseslint.configs.recommendedTypeChecked,

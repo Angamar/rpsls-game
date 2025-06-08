@@ -1,16 +1,38 @@
 .setOutcomeSection {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  z-index: 1000;
-  /* border: 1px solid red; */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+  /* background-color: #f0f0f0; */
+  border-radius: 8px;
+  width: 40rem;
+  /* border: 1.5px solid white;
+  border-radius: 0.75rem; */
 }
 
-.setText {
-  color: red;
+.setScoreContainer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  width: 20rem;
+  height: 10rem;
+  margin: 2rem 0 3.5rem;
+  border-radius: 0.75rem;
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.playerText {
+  font-weight: bold;
+  color: #2196f3;
+}
+
+.computerText {
+  font-weight: bold;
+  color: #f44336;
 }
 
 .nextSetButton {
-  margin-top: 3rem;
+  margin-bottom: 1.5rem;
 }

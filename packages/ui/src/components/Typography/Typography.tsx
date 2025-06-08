@@ -7,6 +7,7 @@ interface TypographyProps {
   variant?: TypographyVariant;
   as?: React.ElementType;
   style?: React.CSSProperties;
+  className?: string;
 }
 
 const Typography = ({

@@ -1,0 +1,31 @@
+.modalWrapper {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.5); /* soft overlay */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 999;
+}
+
+.modalContentWrapper {
+  background: rgba(6, 58, 68, 0.85);
+  border-radius: 1rem;
+  padding: 3rem;
+  max-width: 90vw;
+  max-height: 80vh;
+  min-width: 34vw;
+  overflow-y: auto;
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.25);
+  transition:
+    transform 0.3s ease,
+    opacity 0.3s ease;
+}
+
+.modalContent {
+  border: 1px solid white;
+  border-radius: 0.75rem;
+}

@@ -9,7 +9,8 @@
     "lint": "eslint . --ext .ts,.tsx",
     "postinstall": "husky install",
     "prepare": "husky",
-    "check-types": "yarn tsc --noEmit -p packages/shared/tsconfig.json && yarn tsc --noEmit -p packages/api/tsconfig.json && yarn tsc --noEmit -p packages/ui/tsconfig.json"
+    "check-types": "yarn tsc --noEmit -p packages/shared/tsconfig.json && yarn tsc --noEmit -p packages/api/tsconfig.json && yarn tsc --noEmit -p packages/ui/tsconfig.json",
+    "create-component": "node create-component.js"
   },
   "type": "module",
   "dependencies": {

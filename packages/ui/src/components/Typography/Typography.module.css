@@ -123,6 +123,16 @@
   /* background: linear-gradient(90deg, #ff8686 0%, #ff2e2e 100%); */
 }
 
+.setResultHero {
+  font-family: var(--font-family-sans);
+  font-size: 4rem;
+  font-weight: var(--font-weight-bold);
+  line-height: 1.1;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: #fff;
+}
+
 @keyframes hero-pop {
   0% {
     transform: scale(0.8) rotate(-2deg);

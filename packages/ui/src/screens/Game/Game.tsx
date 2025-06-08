@@ -19,6 +19,8 @@ import ScoreTracker from '../../components/ScoreTracker';
 import { delay } from '../../utils/delay';
 import SetOutcomeMessage from '../../components/SetOutcomeMessage';
 import { calculateSetWinner } from './Game.helpers';
+import Modal from '../../components/Modal';
+import PlayButton from '../../components/PlayButton';
 
 const fetchCardChoices = async (): Promise<ChoiceItem[]> => {
   const response = await fetch('/api/choices');
@@ -29,11 +31,11 @@ const fetchCardChoices = async (): Promise<ChoiceItem[]> => {
 };
 
 const fetchRoundOutcome = async (
-  selectedCardId: ChoiceItem['id'] | null,
+  playedCardId: ChoiceItem['id'] | null,
   availableComputerChoices: ChoiceItem[],
 ) => {
   const body = JSON.stringify({
-    player: selectedCardId,
+    player: playedCardId,
     availableComputerChoices: availableComputerChoices.map((choice) => choice.id),
   });
   const response = await fetch('/api/play', {
@@ -75,7 +77,7 @@ const Game = () => {
   const { data: roundOutcome, refetch: playCard } = useQuery<RoundOutcome | null>({
     queryKey: ['roundOutcome'],
     queryFn: () => fetchRoundOutcome(selectedCardId ?? null, computerHand),
-    enabled: false,
+    enabled: !!playedCardId,
   });
 
   const queryClient = useQueryClient();
@@ -192,7 +194,14 @@ const Game = () => {
 
         {isDuelComplete && <RoundOutcomeMessage roundOutcome={roundOutcome ?? null} />}
 
-        {isSetComplete && <SetOutcomeMessage setOutcome={setResult} onNextSetClick={startNewSet} />}
+        {isSetComplete && setResult && (
+          <Modal modalContentStyle={styles.setOutcomeModal}>
+            <SetOutcomeMessage setOutcome={setResult} />
+            <PlayButton className={styles.nextSetButton} onClick={startNewSet}>
+              Play Set {setResult.set + 1}
+            </PlayButton>
+          </Modal>
+        )}
 
         {!isSetComplete && (
           <DuelingField
