@@ -78,7 +78,7 @@ function PlayerHand({
                 // dragConstraints={{ top: -300, left: -300, right: 300, bottom: 0 }}
                 // dragSnapToOrigin
               >
-                <Card card={cardChoice} />
+                <Card cardFaceSrc={`/card-${cardChoice.name}.png`} />
               </motion.button>
             );
           })}

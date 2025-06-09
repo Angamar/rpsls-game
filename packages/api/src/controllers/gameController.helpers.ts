@@ -16,11 +16,11 @@ export const winningCombinations: Record<string, string> = {
 };
 
 export const choices: ChoiceItem[] = [
-  { id: Choice.Rock, name: "Rock", icon: "🪨" },
-  { id: Choice.Paper, name: "Paper", icon: "📄" },
-  { id: Choice.Scissors, name: "Scissors", icon: "✂️" },
-  { id: Choice.Lizard, name: "Lizard", icon: "🦎" },
-  { id: Choice.Spock, name: "Spock", icon: "🖖" },
+  { id: Choice.Rock, name: "rock", icon: "🪨" },
+  { id: Choice.Paper, name: "paper", icon: "📄" },
+  { id: Choice.Scissors, name: "scissors", icon: "✂️" },
+  { id: Choice.Lizard, name: "lizard", icon: "🦎" },
+  { id: Choice.Spock, name: "spock", icon: "🖖" },
 ] as const;
 
 const choiceNameMap = new Map(

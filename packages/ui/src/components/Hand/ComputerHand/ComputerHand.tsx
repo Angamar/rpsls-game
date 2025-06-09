@@ -49,7 +49,7 @@ function ComputerHand({ cardChoices, isDueling }: ComputerHandProps) {
                 tabIndex={-1}
                 type="button"
               >
-                <Card card={cardChoice} isFaceDown />
+                <Card isFaceDown />
               </motion.button>
             );
           })}

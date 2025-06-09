@@ -4,8 +4,8 @@ import Card from '../Hand/Card';
 import styles from './DuelingField.module.css';
 
 interface DuelingFieldProps {
-  playerCard: ChoiceItem | null;
-  computerCard: ChoiceItem | null;
+  playerCard: ChoiceItem['name'] | null;
+  computerCard: ChoiceItem['name'] | null;
 }
 
 const DuelingField = ({ playerCard, computerCard }: DuelingFieldProps) => {
@@ -25,7 +25,7 @@ const DuelingField = ({ playerCard, computerCard }: DuelingFieldProps) => {
                 ease: 'easeOut',
               }}
             >
-              <Card card={playerCard} />
+              <Card cardFaceSrc={`card-${playerCard}.png`} />
             </motion.div>
 
             <motion.div
@@ -53,7 +53,7 @@ const DuelingField = ({ playerCard, computerCard }: DuelingFieldProps) => {
                 ease: 'easeOut',
               }}
             >
-              <Card card={computerCard} />
+              <Card cardFaceSrc={`card-${computerCard}.png`} />
             </motion.div>
           </>
         )}

@@ -1,27 +1,23 @@
-import { motion } from 'framer-motion';
 import styles from './Card.module.css';
-import type { ChoiceItem } from '@rpsls-game/shared';
 
 interface CardProps {
-  card: ChoiceItem;
   isFaceDown?: boolean;
-  imageSrc?: string;
+  cardFaceSrc?: string;
 }
 
-const Card = ({ card, isFaceDown = false, imageSrc = '/card-back.png' }: CardProps) => {
+const Card = ({ isFaceDown, cardFaceSrc }: CardProps) => {
   return (
-    <motion.div className={styles.cardWrapper}>
+    <div className={styles.cardWrapper}>
       {!isFaceDown ? (
         <div className={styles.cardFront}>
-          <div className={styles.cardSuit}>{card.icon}</div>
-          <div className={styles.cardValue}>{card.name.toLowerCase()}</div>
+          <img src={cardFaceSrc} alt="Card front" className={styles.cardImage} />
         </div>
       ) : (
         <div className={styles.cardBack}>
-          <img src={imageSrc} alt="Card back" className={styles.cardImage} />
+          <img src="/card-back.png" alt="Card back" className={styles.cardImage} />
         </div>
       )}
-    </motion.div>
+    </div>
   );
 };
 

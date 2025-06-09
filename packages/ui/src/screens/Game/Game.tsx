@@ -204,12 +204,12 @@ const Game = () => {
         <DuelingField
           playerCard={
             playedCardId && cardChoices && roundOutcome
-              ? (cardChoices.find((choice) => choice.id === playedCardId) ?? null)
+              ? (cardChoices.find((choice) => choice.id === playedCardId)?.name ?? null)
               : null
           }
           computerCard={
-            playedCardId && cardChoices
-              ? (cardChoices.find((choice) => choice.id === roundOutcome?.computer) ?? null)
+            playedCardId && cardChoices && roundOutcome
+              ? (cardChoices.find((choice) => choice.id === roundOutcome.computer)?.name ?? null)
               : null
           }
         />
