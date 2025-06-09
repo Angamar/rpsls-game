@@ -6,7 +6,7 @@ import {
   type RoundOutcome,
   type SetOutcome,
 } from '@rpsls-game/shared';
-import { useQuery, useQueryClient } from '@tanstack/react-query';
+import { useQuery, useMutation } from '@tanstack/react-query';
 
 import styles from './Game.module.css';
 
@@ -30,29 +30,29 @@ const fetchCardChoices = async (): Promise<ChoiceItem[]> => {
   return (await response.json()) as ChoiceItem[];
 };
 
-//TODO: // Refactor this to use a mutation instead of a query
-//TODO: player: null problem
-const fetchRoundOutcome = async (
-  playedCardId: ChoiceItem['id'] | null,
-  availableComputerChoices: ChoiceItem[],
-) => {
+const getRoundOutcome = async ({
+  playedCardId,
+  availableComputerChoices,
+}: {
+  playedCardId: ChoiceItem['id'] | null;
+  availableComputerChoices: ChoiceItem[];
+}) => {
   const body = JSON.stringify({
     player: playedCardId,
     availableComputerChoices: availableComputerChoices.map((choice) => choice.id),
   });
+
   const response = await fetch('/api/play', {
     method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
+    headers: { 'Content-Type': 'application/json' },
     body: body,
   });
+
   if (!response.ok) {
     throw new Error('Failed to fetch round outcome');
   }
-  const roundOutcome = (await response.json()) as RoundOutcome;
 
-  return roundOutcome;
+  return (await response.json()) as RoundOutcome;
 };
 
 const Game = () => {
@@ -75,20 +75,35 @@ const Game = () => {
     queryKey: ['cardChoices'],
     queryFn: fetchCardChoices,
   });
-  const { data: roundOutcome, refetch: playCard } = useQuery<RoundOutcome | null>({
-    queryKey: ['roundOutcome'],
-    queryFn: () => fetchRoundOutcome(selectedCardId ?? null, computerHand),
-    enabled: !!playedCardId,
+  const {
+    data: roundOutcome,
+    mutateAsync: playCard,
+    reset: resetRoundOutcome,
+  } = useMutation({
+    mutationFn: ({
+      playedCardId,
+      availableComputerChoices,
+    }: {
+      playedCardId: ChoiceItem['id'] | null;
+      availableComputerChoices: ChoiceItem[];
+    }) => getRoundOutcome({ playedCardId, availableComputerChoices }),
+    onSuccess: (outcome) => {
+      const filteredComputerCards = computerHand.filter((card) => card.id !== outcome.computer);
+      setComputerHand(filteredComputerCards);
+      setSelectedCardId(null);
+    },
+    onError: (error) => {
+      // Handle error if needed
+      console.error('Failed to play card:', error);
+    },
   });
-
-  const queryClient = useQueryClient();
 
   const startNewRound = useCallback(() => {
     setIsDuelComplete(false);
     setSelectedCardId(null);
     setPlayedCardId(null);
-    queryClient.setQueryData(['roundOutcome'], null);
-  }, [queryClient]);
+    resetRoundOutcome();
+  }, [resetRoundOutcome]);
 
   const finishSet = useCallback(() => {
     setIsSetComplete(true);
@@ -118,16 +133,13 @@ const Game = () => {
   const handleCardPlay = (cardId: Choice) => {
     setPlayedCardId(cardId);
     setPlayerHand((prevCards) => prevCards.filter((card) => card.id !== cardId));
-    setSelectedCardId(null);
+
     if (selectedCardId !== null) {
-      void playCard().then((outcome) => {
-        const filteredComputerCards = computerHand.filter(
-          (card) => card.id !== outcome.data?.computer,
-        );
-        setComputerHand(filteredComputerCards);
+      void playCard({
+        playedCardId: cardId,
+        availableComputerChoices: computerHand,
       });
     }
-    setSelectedCardId(null);
   };
 
   // Handle the round outcome and update the game state
