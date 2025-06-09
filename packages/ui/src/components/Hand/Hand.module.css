@@ -4,10 +4,17 @@
   height: 16rem;
   display: flex;
   border: 1px solid #ccc;
-  align-items: end;
   justify-content: center;
-  margin-bottom: 1rem;
+  margin: 0.5rem;
   /* flex-grow: 0; */
+}
+
+.playerHandSection {
+  align-items: start;
+}
+
+.computerHandSection {
+  align-items: start;
 }
 
 .playButton {

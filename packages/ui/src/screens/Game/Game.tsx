@@ -187,12 +187,7 @@ const Game = () => {
         />
       )}
       <div className={styles.gameContainer}>
-        <ComputerHand
-          isDueling={!!playedCardId}
-          cardChoices={computerHand ?? []}
-          onCardSelect={handleCardSelect}
-          // onCardPlay={handleCardPlay}
-        />
+        <ComputerHand isDueling={!!playedCardId} cardChoices={computerHand ?? []} />
 
         {isDuelComplete && <RoundOutcomeMessage roundOutcome={roundOutcome ?? null} />}
 

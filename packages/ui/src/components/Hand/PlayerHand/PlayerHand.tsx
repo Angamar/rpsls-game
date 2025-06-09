@@ -1,12 +1,14 @@
 import { AnimatePresence, motion } from 'framer-motion';
 import type { ChoiceItem } from '@shared/types';
 
-import styles from './PlayerHand.module.css';
+import styles from '../Hand.module.css';
+import clsx from 'clsx';
+
 import Card from '../Card';
 import PlayButton from '../../PlayButton';
 import { getFanCardStyle } from '../Hand.helpers';
 import {
-  cardHover,
+  playerCardHover,
   cardTap,
   cardTransition,
   pulsingBorderAnimation,
@@ -29,7 +31,7 @@ function PlayerHand({
   isDueling,
 }: PlayerHandProps) {
   return (
-    <section className={styles.handSection}>
+    <section className={clsx(styles.handSection, styles.computerHandSection)}>
       {selectedCardId && (
         <PlayButton
           className={styles.playButton}
@@ -63,7 +65,7 @@ function PlayerHand({
                   ...(isSelected ? pulsingBorderAnimation : {}),
                 }}
                 exit={{ opacity: 0, y: -50, transition: { duration: 0.4 } }}
-                whileHover={isSelected || isDueling ? undefined : cardHover}
+                whileHover={isSelected || isDueling ? undefined : playerCardHover}
                 whileTap={cardTap}
                 transition={cardTransition}
                 onClick={isFaceDown || isDueling ? undefined : () => onCardSelect(cardChoice.id)}
@@ -76,7 +78,7 @@ function PlayerHand({
                 // dragConstraints={{ top: -300, left: -300, right: 300, bottom: 0 }}
                 // dragSnapToOrigin
               >
-                <Card card={cardChoice} isComputerCard={false} isFaceDown={isFaceDown} />
+                <Card card={cardChoice} />
               </motion.button>
             );
           })}

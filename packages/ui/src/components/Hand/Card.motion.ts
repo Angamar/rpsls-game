@@ -20,11 +20,7 @@ export const cardVariants = {
 };
 
 export const pulsingBorderAnimation = {
-  boxShadow: [
-    '0 0 0 0px #90caf9',
-    '0 0 0 8px #1976d2', // Increased from 4px to 8px for a thicker border
-    '0 0 0 0px #90caf9',
-  ],
+  boxShadow: ['0 0 0 0px #90caf9', '0 0 0 8px #1976d2', '0 0 0 0px #90caf9'],
   transition: {
     boxShadow: {
       duration: 2,
@@ -35,10 +31,15 @@ export const pulsingBorderAnimation = {
   },
 };
 
-export const cardHover = {
+export const playerCardHover = {
   y: -4,
   boxShadow: '0 6px 14px rgba(0,0,0,0.15)',
   zIndex: 5,
+};
+
+export const computerCardHover = {
+  y: -4,
+  boxShadow: '0 6px 14px rgba(0,0,0,0.15)',
 };
 
 export const cardTap = {
