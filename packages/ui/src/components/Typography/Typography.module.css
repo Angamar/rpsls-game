@@ -79,14 +79,6 @@
   font-style: italic;
 }
 
-.uppercase {
-  text-transform: uppercase;
-}
-
-.capitalize {
-  text-transform: capitalize;
-}
-
 .lowercase {
   text-transform: lowercase;
 }
@@ -94,11 +86,10 @@
 /* Hero */
 .resultHero {
   font-family: var(--font-family-sans);
-  font-size: 3rem;
   font-weight: var(--font-weight-bold);
-
+  font-size: 3rem;
   letter-spacing: 0.05em;
-  text-transform: uppercase;
+  text-transform: lowercase;
   color: #fff;
   -webkit-background-clip: text;
   background-clip: text;
@@ -108,24 +99,15 @@
 }
 
 .resultHero.tie {
-  text-shadow:
-    0 4px 24px rgba(0, 0, 0, 0.5),
-    0 1px 0 #d1db73;
-  /* background: linear-gradient(90deg, #ffe066 0%, #fff700 100%); */
+  text-shadow: 0 1px 0 #d1db73;
 }
 
 .resultHero.win {
-  text-shadow:
-    0 4px 24px rgba(0, 0, 0, 0.5),
-    0 1px 0 #6fdc8c;
-  /* background: linear-gradient(90deg, #7fff8c 0%, #00ff85 100%); */
+  text-shadow: 0 1px 0 #6fdc8c;
 }
 
 .resultHero.lose {
-  text-shadow:
-    0 4px 24px rgba(0, 0, 0, 0.5),
-    0 1px 0 #e57373;
-  /* background: linear-gradient(90deg, #ff8686 0%, #ff2e2e 100%); */
+  text-shadow: 0 1px 0 #e57373;
 }
 
 .setResultHero {
@@ -134,7 +116,7 @@
   font-weight: var(--font-weight-bold);
   line-height: 1.1;
   letter-spacing: 0.05em;
-  text-transform: uppercase;
+  text-transform: lowercase;
   color: #fff;
 }
 
@@ -152,7 +134,6 @@
   font-size: 1.25rem;
   font-weight: var(--font-weight-bold);
   color: #fff;
-  text-transform: uppercase;
   letter-spacing: 0.05em;
 }
 

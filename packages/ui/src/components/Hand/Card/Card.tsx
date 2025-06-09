@@ -14,7 +14,7 @@ const Card = ({ card, isFaceDown = false, imageSrc = '/card-back.png' }: CardPro
       {!isFaceDown ? (
         <div className={styles.cardFront}>
           <div className={styles.cardSuit}>{card.icon}</div>
-          <div className={styles.cardValue}>{card.name}</div>
+          <div className={styles.cardValue}>{card.name.toLowerCase()}</div>
         </div>
       ) : (
         <div className={styles.cardBack}>

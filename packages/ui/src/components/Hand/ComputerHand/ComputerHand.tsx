@@ -3,7 +3,7 @@ import { AnimatePresence, motion } from 'framer-motion';
 
 import styles from '../Hand.module.css';
 import Card from '../Card';
-import { getFanCardStyle } from '../Hand.helpers';
+import { getComputerFanCardStyle } from '../Hand.helpers';
 import { cardTap, cardTransition, computerCardHover } from '../Card.motion';
 import clsx from 'clsx';
 
@@ -29,19 +29,22 @@ function ComputerHand({ cardChoices, isDueling }: ComputerHandProps) {
       >
         <AnimatePresence>
           {cardChoices.map((cardChoice, i) => {
-            const fanStyle = getFanCardStyle(i, cardChoices.length);
+            const fanStyle = getComputerFanCardStyle(i, cardChoices.length, false);
 
             return (
               <motion.button
                 key={cardChoice.id}
-                layout
-                animate={{
-                  ...fanStyle,
+                initial={{ opacity: 0, rotate: fanStyle.rotate, y: fanStyle.y }}
+                animate={{ opacity: 1, rotate: fanStyle.rotate, y: fanStyle.y }}
+                exit={{
+                  opacity: 0,
+                  rotate: fanStyle.rotate,
+                  y: fanStyle.y - 50, // move upward from current y
+                  transition: { duration: 0.4 },
                 }}
-                exit={{ opacity: 0, y: -50, transition: { duration: 0.4 } }}
+                transition={cardTransition}
                 whileHover={computerCardHover}
                 whileTap={cardTap}
-                transition={cardTransition}
                 className={styles.cardButton}
                 tabIndex={-1}
                 type="button"

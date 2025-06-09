@@ -42,7 +42,7 @@ function PlayerHand({
         className={styles.cardsContainer}
         animate={{ y: isDueling ? 150 : 0 }}
         transition={{
-          delay: isDueling ? 1 : 0,
+          delay: isDueling ? 0.4 : 0,
           type: 'spring',
           stiffness: 120,
           damping: 18,
@@ -53,18 +53,18 @@ function PlayerHand({
           {cardChoices.map((cardChoice, i) => {
             const isSelected = selectedCardId === cardChoice.id;
             const fanStyle = getFanCardStyle(i, cardChoices.length);
-            const isFaceDown = false; // or your logic if needed
+            const isFaceDown = false;
 
             return (
               <motion.button
                 key={cardChoice.id}
                 layout
                 animate={{
-                  ...fanStyle,
                   ...(isSelected ? cardVariants.selected : cardVariants.unselected),
                   ...(isSelected ? pulsingBorderAnimation : {}),
+                  ...fanStyle,
                 }}
-                exit={{ opacity: 0, y: -50, transition: { duration: 0.4 } }}
+                exit={{ opacity: 0, y: -70, transition: { duration: 0.2 } }}
                 whileHover={isSelected || isDueling ? undefined : playerCardHover}
                 whileTap={cardTap}
                 transition={cardTransition}

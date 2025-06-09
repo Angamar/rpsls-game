@@ -1,6 +1,7 @@
 import { motion } from 'framer-motion';
 import styles from './ScoreTracker.module.css';
 import { Result } from '@rpsls-game/shared';
+import Typography from '../Typography';
 
 interface ScoreTrackerProps {
   results: Result[];
@@ -27,7 +28,9 @@ const ScoreTracker = ({ results, setNumber, playerSets, computerSets }: ScoreTra
       transition={{ type: 'tween', duration: 0.8, ease: 'easeInOut' }}
     >
       <div>
-        <p className={styles.setText}>Set {setNumber + 1}</p>
+        <Typography variant="bold" as="div" className={styles.set}>
+          set {setNumber + 1}
+        </Typography>
 
         <div className={styles.victoryCount}>🏆 {victories}</div>
         <div className={styles.historyList}>

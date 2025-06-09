@@ -40,7 +40,7 @@ const DuelingField = ({ playerCard, computerCard }: DuelingFieldProps) => {
               ease: 'easeOut',
             }}
           >
-            VS
+            vs
           </motion.div>
         )}
       </AnimatePresence>
@@ -53,7 +53,7 @@ const DuelingField = ({ playerCard, computerCard }: DuelingFieldProps) => {
             animate={{ opacity: 1, x: 0 }}
             exit={{ opacity: 0, x: -200 }}
             transition={{
-              duration: 0.4,
+              duration: 0.5,
               ease: 'easeOut',
             }}
           >

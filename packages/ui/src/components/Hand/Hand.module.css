@@ -22,9 +22,12 @@
   width: 8rem;
   background: radial-gradient(circle at 50% 50%, #24964a 0%, rgb(18, 110, 58) 100%);
   border-radius: 0.6rem;
+  text-transform: lowercase;
 }
 
 .cardButton {
+  position: relative;
+  margin-bottom: 0;
   display: flex;
   width: 7.5rem;
   height: 10.625rem;

@@ -133,7 +133,7 @@ const Game = () => {
   // Handle the round outcome and update the game state
   useEffect(() => {
     if (roundOutcome && !isDuelComplete) {
-      delay(1, () => {
+      delay(2, () => {
         setIsDuelComplete(true);
       });
     }
@@ -144,7 +144,7 @@ const Game = () => {
           startNewRound();
         });
       } else {
-        delay(1, () => {
+        delay(2, () => {
           finishSet();
         });
       }
@@ -160,7 +160,7 @@ const Game = () => {
 
   useEffect(() => {
     if (roundOutcome) {
-      delay(1.5, () => {
+      delay(3, () => {
         setRoundResults((prevResults) => [roundOutcome.result, ...prevResults]);
       });
     }
@@ -184,7 +184,7 @@ const Game = () => {
           <Modal modalContentStyle={styles.setOutcomeModal}>
             <SetOutcomeMessage setOutcome={setResult} />
             <PlayButton className={styles.nextSetButton} onClick={startNewSet}>
-              Play Set {setResult.set + 1}
+              play set {setResult.set + 1}
             </PlayButton>
           </Modal>
         )}
