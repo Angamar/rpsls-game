@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
-import { Choice } from "@shared/types";
-import { ChoiceListSchema, PlayRoundSchema } from "@shared/schemas";
+import { Choice, ChoiceListSchema, PlayRoundSchema } from "@rpsls-game/shared";
+
 import {
   choices,
   getRandomChoice,

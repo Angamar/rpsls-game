@@ -6,6 +6,8 @@
   ],
   "scripts": {
     "dev": "concurrently --kill-others \"yarn workspace rpsls-game-api dev\" \"yarn workspace rpsls-game-ui dev\"",
+    "build": "yarn workspace @rpsls-game/shared build && yarn workspace rpsls-game-api build && yarn workspace rpsls-game-ui build",
+    "clean": "rimraf packages/*/dist",
     "lint": "eslint . --ext .ts,.tsx",
     "postinstall": "husky install",
     "prepare": "husky",
@@ -28,6 +30,7 @@
     "lint-staged": "^16.1.0",
     "pinst": "^3.0.0",
     "prettier": "3.5.3",
+    "rimraf": "^6.0.1",
     "typescript": "^5.8.3",
     "typescript-eslint": "^8.33.1"
   },

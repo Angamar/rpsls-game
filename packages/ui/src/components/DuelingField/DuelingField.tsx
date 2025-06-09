@@ -1,4 +1,4 @@
-import type { ChoiceItem } from '@shared/types';
+import type { ChoiceItem } from '@rpsls-game/shared';
 import { motion, AnimatePresence } from 'framer-motion';
 import Card from '../Hand/Card';
 import styles from './DuelingField.module.css';

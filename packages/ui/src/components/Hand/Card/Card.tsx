@@ -1,6 +1,6 @@
 import { motion } from 'framer-motion';
 import styles from './Card.module.css';
-import type { ChoiceItem } from '@shared/types';
+import type { ChoiceItem } from '@rpsls-game/shared';
 
 interface CardProps {
   card: ChoiceItem;

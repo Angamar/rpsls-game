@@ -1,4 +1,4 @@
-import type { ChoiceItem } from '@shared/types';
+import type { ChoiceItem } from '@rpsls-game/shared';
 import { AnimatePresence, motion } from 'framer-motion';
 
 import styles from '../Hand.module.css';

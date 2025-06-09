@@ -1,4 +1,4 @@
-import { Choice, ChoiceItem, Result, RoundOutcome } from "@shared/types";
+import { Choice, ChoiceItem, Result, RoundOutcome } from "@rpsls-game/shared";
 
 import { fetchRandomNumber } from "../services/randomNumberService";
 

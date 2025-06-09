@@ -1,5 +1,5 @@
 import { AnimatePresence, motion } from 'framer-motion';
-import type { ChoiceItem } from '@shared/types';
+import type { ChoiceItem } from '@rpsls-game/shared';
 
 import styles from '../Hand.module.css';
 import clsx from 'clsx';
