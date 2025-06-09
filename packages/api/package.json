@@ -5,8 +5,8 @@
   "main": "dist/app.js",
   "scripts": {
     "dev": "tsx watch src/app.ts",
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "tsc --watch",
+    "test": "vitest run",
+    "build": "tsc",
     "start": "node dist/api/src/app.js"
   },
   "repository": {
@@ -25,6 +25,8 @@
   },
   "devDependencies": {
     "@types/express": "^5.0.2",
+    "@types/supertest": "^6.0.3",
+    "supertest": "^7.1.1",
     "tsx": "^4.19.4",
     "typescript": "^5.8.3"
   }

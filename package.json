@@ -8,6 +8,7 @@
     "dev": "concurrently --kill-others \"yarn workspace rpsls-game-api dev\" \"yarn workspace rpsls-game-ui dev\"",
     "build": "yarn workspace @rpsls-game/shared build && yarn workspace rpsls-game-api build && yarn workspace rpsls-game-ui build",
     "clean": "rimraf packages/*/dist",
+    "test": "yarn workspaces foreach -A run test",
     "lint": "eslint . --ext .ts,.tsx",
     "postinstall": "husky install",
     "prepare": "husky",
@@ -26,13 +27,17 @@
     "eslint-config-prettier": "^10.1.5",
     "eslint-plugin-react": "^7.37.5",
     "eslint-plugin-react-hooks": "^5.2.0",
+    "globals": "^16.2.0",
     "husky": "^9.1.7",
     "lint-staged": "^16.1.0",
     "pinst": "^3.0.0",
     "prettier": "3.5.3",
     "rimraf": "^6.0.1",
+    "ts-node": "^10.9.2",
     "typescript": "^5.8.3",
-    "typescript-eslint": "^8.33.1"
+    "typescript-eslint": "^8.33.1",
+    "vite": "^6.3.5",
+    "vitest": "^3.2.3"
   },
   "paths": {
     "@shared/*": [
@@ -44,5 +49,8 @@
       "eslint --fix",
       "prettier --write"
     ]
+  },
+  "resolutions": {
+    "vite": "^5.2.0"
   }
 }

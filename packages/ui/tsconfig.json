@@ -7,7 +7,7 @@
     "moduleResolution": "bundler",
     "verbatimModuleSyntax": true,
     "moduleDetection": "force",
-    "noEmit": true, // ✅ Vite does the emitting, not TypeScript
+    "noEmit": true,
     "jsx": "react-jsx",
     "noUnusedLocals": true,
     "noUnusedParameters": true,
@@ -18,5 +18,5 @@
       "@rpsls-game/shared": ["../shared/src/index.ts"]
     }
   },
-  "include": ["src", "types/generated.d.ts"]
+  "include": ["src", "src/setupTests.ts"]
 }
