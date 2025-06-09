@@ -11,11 +11,15 @@ type SetOutcomeMessageProps = {
 export default function SetOutcomeMessage({ setOutcome }: SetOutcomeMessageProps) {
   const winner = setOutcome.result === Result.Win ? 'Player' : 'Computer';
   return (
-    <section className={styles.setOutcomeSection}>
-      <Typography variant={setResultMessageVariantMap[setOutcome.result] ?? 'body'} as="h1">
-        {setResultsMessageMap[setOutcome?.result] ?? 'Uh, oh! Something went wrong.'}
+    <section className={styles.setOutcomeSection} data-testId="section_set_outcome">
+      <Typography
+        variant={setResultMessageVariantMap[setOutcome.result]}
+        as="h1"
+        dataTestId="text_set_outcome"
+      >
+        {setResultsMessageMap[setOutcome?.result]}
       </Typography>
-      <Typography variant="h2" as="h2">
+      <Typography variant="h2" as="h2" dataTestId="text_set_winner">
         <span
           className={clsx(
             setOutcome.result === Result.Win ? styles.playerText : styles.computerText,
@@ -26,7 +30,7 @@ export default function SetOutcomeMessage({ setOutcome }: SetOutcomeMessageProps
         has won Set {setOutcome.set}
       </Typography>
       <div className={styles.setScoreContainer}>
-        <Typography variant="setResultHero" as="h2">
+        <Typography variant="setResultHero" as="h2" dataTestId="text_set_score">
           {`${setOutcome.playerSets} - ${setOutcome.computerSets}`}
         </Typography>
       </div>

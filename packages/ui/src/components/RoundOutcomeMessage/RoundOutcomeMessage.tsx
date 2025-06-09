@@ -11,13 +11,17 @@ type RoundOutcomeMessageProps = {
 
 export default function RoundOutcomeMessage({ roundOutcome }: RoundOutcomeMessageProps) {
   return (
-    <section className={styles.roundOutcomeSection}>
+    <section className={styles.roundOutcomeSection} data-testId="section_round_outcome">
       <motion.div
         className={`${styles.resultHero} ${styles[roundOutcome.result]}`}
         {...heroPopAnimation}
       >
-        <Typography variant={resultMessageVariantMap[roundOutcome.result] ?? 'body'} as="h1">
-          {resultMessageMap[roundOutcome.result] ?? 'Uh, oh! Something went wrong.'}
+        <Typography
+          dataTestId="text_round_outcome"
+          variant={resultMessageVariantMap[roundOutcome.result] ?? 'body'}
+          as="h1"
+        >
+          {resultMessageMap[roundOutcome.result]}
         </Typography>
       </motion.div>
 
@@ -26,8 +30,8 @@ export default function RoundOutcomeMessage({ roundOutcome }: RoundOutcomeMessag
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5, ease: 'easeOut' }}
       >
-        <Typography variant="h3" as="h3">
-          {`${roundOutcome.winnerChoice} ${roundOutcome.verb ?? '&'} ${roundOutcome.loserChoice}!`}
+        <Typography dataTestId="text_outcome_sentence" variant="h3" as="h3">
+          {`${roundOutcome.winnerChoice} ${roundOutcome.verb ?? 'ties with'} ${roundOutcome.loserChoice}!`}
         </Typography>
       </motion.div>
     </section>
