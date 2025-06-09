@@ -87,6 +87,11 @@
   text-transform: capitalize;
 }
 
+.lowercase {
+  text-transform: lowercase;
+}
+
+/* Hero */
 .resultHero {
   font-family: var(--font-family-sans);
   font-size: 3rem;
@@ -131,4 +136,50 @@
   letter-spacing: 0.05em;
   text-transform: uppercase;
   color: #fff;
+}
+
+.menuHero {
+  font-family: var(--font-family-sans);
+  font-size: 4rem;
+  line-height: 0.6;
+  font-weight: var(--font-weight-bold);
+  color: #fff;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.buttonText {
+  font-family: var(--font-family-sans);
+  font-size: 1.25rem;
+  font-weight: var(--font-weight-bold);
+  color: #fff;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.heroButtonText {
+  font-family: var(--font-family-sans);
+  font-size: 2.5rem;
+  font-weight: var(--font-weight-bold);
+  color: #fff;
+  letter-spacing: 0.05em;
+}
+
+.rock {
+  color: var(--rock-color);
+}
+
+.paper {
+  color: var(--paper-color);
+}
+
+.scissors {
+  color: var(--scissors-color);
+}
+
+.lizard {
+  color: var(--lizard-color);
+}
+
+.spock {
+  color: var(--spock-color);
 }

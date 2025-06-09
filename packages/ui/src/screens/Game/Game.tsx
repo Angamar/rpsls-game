@@ -71,7 +71,6 @@ const Game = () => {
   const [isDuelComplete, setIsDuelComplete] = useState(false);
   const [isSetComplete, setIsSetComplete] = useState(false);
 
-  const [isResultsBarVisible, setIsResultsBarVisible] = useState(false);
   const { data: cardChoices } = useQuery<ChoiceItem[]>({
     queryKey: ['cardChoices'],
     queryFn: fetchCardChoices,
@@ -93,7 +92,6 @@ const Game = () => {
 
   const finishSet = useCallback(() => {
     setIsSetComplete(true);
-    setIsResultsBarVisible(false);
     setIsDuelComplete(false);
     setRoundResults([]);
     const result = calculateSetWinner(roundResults);
@@ -136,7 +134,6 @@ const Game = () => {
   useEffect(() => {
     if (roundOutcome && !isDuelComplete) {
       delay(1, () => {
-        if (!isResultsBarVisible) setIsResultsBarVisible(true);
         setIsDuelComplete(true);
       });
     }
@@ -152,14 +149,7 @@ const Game = () => {
         });
       }
     }
-  }, [
-    roundOutcome,
-    isDuelComplete,
-    startNewRound,
-    isResultsBarVisible,
-    roundResults.length,
-    finishSet,
-  ]);
+  }, [roundOutcome, isDuelComplete, startNewRound, roundResults.length, finishSet]);
 
   useEffect(() => {
     if (cardChoices) {
@@ -178,14 +168,13 @@ const Game = () => {
 
   return (
     <section className={styles.gameSection}>
-      {isResultsBarVisible && (
-        <ScoreTracker
-          results={roundResults}
-          setNumber={setResult.set}
-          playerSets={setResult.playerSets}
-          computerSets={setResult.computerSets}
-        />
-      )}
+      <ScoreTracker
+        results={roundResults}
+        setNumber={setResult.set}
+        playerSets={setResult.playerSets}
+        computerSets={setResult.computerSets}
+      />
+
       <div className={styles.gameContainer}>
         <ComputerHand isDueling={!!playedCardId} cardChoices={computerHand ?? []} />
 

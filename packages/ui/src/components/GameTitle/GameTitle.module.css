@@ -1,10 +1,7 @@
-.menuSection {
+.gameTitleSection {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  height: 100%;
-  align-items: center;
-  padding: 20px;
-  overflow: hidden;
+  width: 100%;
 }

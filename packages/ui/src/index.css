@@ -11,8 +11,6 @@
 
   color-scheme: light dark;
   color: rgba(255, 255, 255, 0.87);
-  background: black;
-
   box-sizing: border-box;
   font-synthesis: none;
   text-rendering: optimizeLegibility;
@@ -20,7 +18,6 @@
   -moz-osx-font-smoothing: grayscale;
 
   max-width: 1280px;
-  margin: 0 auto;
   text-align: center;
 }
 
@@ -29,6 +26,7 @@ body {
   margin: 0;
   padding: 0;
   height: 100vh;
+  width: 100vw;
   overflow-y: hidden;
 }
 

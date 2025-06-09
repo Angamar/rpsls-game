@@ -1,6 +1,43 @@
 .playButton {
   padding: 0.5rem 1rem;
-  width: 8rem;
+  min-width: 8rem;
   background: radial-gradient(circle at 50% 50%, #24964a 0%, rgb(18, 110, 58) 100%);
   border-radius: 0.6rem;
+}
+
+.menuContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100vh;
+  background: radial-gradient(circle at 50% 50%, #24964a 0%, rgb(18, 110, 58) 100%);
+
+  color: white;
+  font-family: 'Arial', sans-serif;
+  text-align: center;
+}
+
+.heroText {
+  margin-bottom: 2rem;
+  font-size: 3rem;
+  font-weight: bold;
+  text-shadow: 0 4px 10px rgba(0, 0, 0, 0.3); /* Add depth */
+}
+
+p {
+  font-size: 1.2rem;
+  margin-bottom: 2rem;
+}
+
+.hero {
+  width: 12rem;
+  font-weight: bold;
+  color: white;
+  background: radial-gradient(circle at 50% 50%, #24964a 0%, rgb(18, 110, 58) 100%);
+  border: none;
+  border-radius: 1rem;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+  cursor: pointer;
 }

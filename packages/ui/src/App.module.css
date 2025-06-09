@@ -1,4 +1,10 @@
 .appContainer {
-  background: radial-gradient(circle at center, #206356 0%, #0d3939 100%);
   height: 100vh;
+  width: 100%;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: radial-gradient(circle at center, #257666 0%, #0d3939 50%, #000 100%);
 }

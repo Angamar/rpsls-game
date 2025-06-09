@@ -15,6 +15,14 @@ export const variantClassMap: Record<string, string> = {
   winResultHero: 'resultHero win',
   loseResultHero: 'resultHero lose',
   setResultHero: 'setResultHero',
+  menuHero: 'menuHero',
+  scissors: 'scissors',
+  rock: 'rock',
+  paper: 'paper',
+  lizard: 'lizard',
+  spock: 'spock',
+  buttonText: 'buttonText',
+  heroButtonText: 'heroButtonText',
 };
 
 export type TypographyVariant = keyof typeof variantClassMap;

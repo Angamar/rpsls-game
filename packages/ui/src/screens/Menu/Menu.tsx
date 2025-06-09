@@ -1,6 +1,9 @@
+import { motion } from 'framer-motion';
 import { Page } from '../../types';
-import Typography from '../../components/Typography';
 import styles from './Menu.module.css';
+import PlayButton from '../../components/PlayButton';
+import LoopingTextBanner from '../../components/LoopingTextBanner';
+import GameTitle from '../../components/GameTitle';
 
 interface MenuProps {
   onPageChange: (page: number) => void;
@@ -8,18 +11,20 @@ interface MenuProps {
 
 const Menu = ({ onPageChange }: MenuProps) => {
   return (
-    <section className={styles.menuContainer}>
-      <Typography variant="h1" as="h1">
-        Welcome to <span style={{ color: 'var(--rock-color)' }}>Rock</span>,{' '}
-        <span style={{ color: 'var(--paper-color)' }}>Paper</span>,{' '}
-        <span style={{ color: 'var(--scissors-color)' }}>Scissors</span>,{' '}
-        <span style={{ color: 'var(--lizard-color)' }}>Lizard</span>,{' '}
-        <span style={{ color: 'var(--spock-color)' }}>Spock</span>!
-      </Typography>
-      <Typography variant="body" as="p">
-        Choose your opponent and play a game of Rock, Paper, Scissors.
-      </Typography>
-      <button onClick={() => onPageChange(Page.Game)}>Play vs computer</button>
+    <section className={styles.menuSection}>
+      <LoopingTextBanner position="top" />
+      <GameTitle />
+      <motion.div
+        animate={{ y: [0, -6, 0] }}
+        transition={{ duration: 2, repeat: Infinity, ease: 'easeInOut' }}
+        whileHover={{ scale: 1.05, y: 0 }}
+        whileTap={{ scale: 0.98 }}
+      >
+        <PlayButton variant="hero" onClick={() => onPageChange(Page.Game)}>
+          PLAY!
+        </PlayButton>
+      </motion.div>
+      <LoopingTextBanner />
     </section>
   );
 };

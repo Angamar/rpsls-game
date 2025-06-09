@@ -15,11 +15,12 @@ const Typography = ({
   as: Component = 'p',
   children,
   style,
+  className,
 }: TypographyProps) => {
   const classNames = clsx(...(variantClassMap[variant] || 'body').split(' ').map((c) => styles[c]));
 
   return (
-    <Component className={classNames} style={style}>
+    <Component className={clsx(classNames, className, styles.lowercase)} style={style}>
       {children}
     </Component>
   );
