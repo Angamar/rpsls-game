@@ -135,6 +135,7 @@
   font-weight: var(--font-weight-bold);
   color: #fff;
   letter-spacing: 0.05em;
+  text-transform: lowercase;
 }
 
 .heroButtonText {
@@ -143,6 +144,7 @@
   font-weight: var(--font-weight-bold);
   color: #fff;
   letter-spacing: 0.05em;
+  text-transform: lowercase;
 }
 
 .rock {

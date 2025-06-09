@@ -24,13 +24,13 @@ const AnimatedWord = ({
 
 export default function GameTitle() {
   return (
-    <section className={styles.gameTitleSection}>
+    <section className={styles.gameTitleSection} data-testId="section_game_title">
       <AnimatedWord word="Rock" className={typographyStyles.rock} delay={0} />
       <AnimatedWord word="Paper" className={typographyStyles.paper} delay={0.8} />
       <AnimatedWord word="Scissors" className={typographyStyles.scissors} delay={1.6} />
       <AnimatedWord word="Lizard" className={typographyStyles.lizard} delay={2.4} />
       <AnimatedWord word="Spock!" className={typographyStyles.spock} delay={3.2} />
-      <Typography variant="h2" as="p" style={{ margin: '4rem 0' }}>
+      <Typography variant="h2" as="p" className={styles.subtitle}>
         Five choices. Infinite glory.
       </Typography>
     </section>

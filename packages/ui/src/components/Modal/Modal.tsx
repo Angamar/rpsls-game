@@ -9,9 +9,11 @@ interface ModalProps {
 
 export default function Modal({ children, modalContentStyle }: ModalProps) {
   return (
-    <div className={styles.modalWrapper}>
-      <div className={styles.modalContentWrapper}>
-        <div className={clsx(styles.modalContent, modalContentStyle)}>{children}</div>
+    <div className={styles.modalWrapper} data-testId="wrapper_modal">
+      <div className={styles.modalContentWrapper} data-testId="wrapper_modal_content">
+        <div className={clsx(styles.modalContent, modalContentStyle)} data-testId="content_modal">
+          {children}
+        </div>
       </div>
     </div>
   );

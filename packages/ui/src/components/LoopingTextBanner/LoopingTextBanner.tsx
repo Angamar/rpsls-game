@@ -62,6 +62,7 @@ export default function LoopingTextBanner({ position }: { position?: 'top' | 'bo
         styles.loopingTextBannerSection,
         position === 'top' ? styles.top : styles.bottom,
       )}
+      data-testid="section_looping_text_banner"
     >
       <motion.div
         className={styles.scrollingText}
@@ -73,7 +74,13 @@ export default function LoopingTextBanner({ position }: { position?: 'top' | 'bo
         }}
       >
         {Array.from({ length: 6 }).map((_, idx) => (
-          <Typography key={idx} variant="h3" as="p" className={styles.text}>
+          <Typography
+            key={idx}
+            variant="h3"
+            as="p"
+            dataTestId="text_banner_sentence"
+            className={styles.text}
+          >
             {textContent}
           </Typography>
         ))}

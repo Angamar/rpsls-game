@@ -6,21 +6,26 @@ interface TypographyProps {
   children: React.ReactNode;
   variant?: TypographyVariant;
   as?: React.ElementType;
-  style?: React.CSSProperties;
   className?: string;
+  dataTestId?: string;
 }
 
 const Typography = ({
   variant = 'body',
   as: Component = 'p',
   children,
-  style,
   className,
+  dataTestId,
+  ...rest
 }: TypographyProps) => {
   const classNames = clsx(...(variantClassMap[variant] || 'body').split(' ').map((c) => styles[c]));
 
   return (
-    <Component className={clsx(classNames, className, styles.lowercase)} style={style}>
+    <Component
+      className={clsx(classNames, className, styles.lowercase)}
+      data-testid={dataTestId || 'component_typography'}
+      {...rest}
+    >
       {children}
     </Component>
   );
