@@ -189,7 +189,7 @@ const Game = () => {
       <div className={styles.gameContainer}>
         <ComputerHand isDueling={!!playedCardId} cardChoices={computerHand ?? []} />
 
-        {isDuelComplete && <RoundOutcomeMessage roundOutcome={roundOutcome ?? null} />}
+        {isDuelComplete && roundOutcome && <RoundOutcomeMessage roundOutcome={roundOutcome} />}
 
         {isSetComplete && setResult && (
           <Modal modalContentStyle={styles.setOutcomeModal}>

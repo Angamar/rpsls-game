@@ -91,11 +91,10 @@
   font-family: var(--font-family-sans);
   font-size: 3rem;
   font-weight: var(--font-weight-bold);
-  line-height: 1.1;
+
   letter-spacing: 0.05em;
   text-transform: uppercase;
   color: #fff;
-  margin-bottom: 0.75em;
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -132,19 +131,4 @@
   letter-spacing: 0.05em;
   text-transform: uppercase;
   color: #fff;
-}
-
-@keyframes hero-pop {
-  0% {
-    transform: scale(0.8) rotate(-2deg);
-    opacity: 0;
-  }
-  60% {
-    transform: scale(1.05) rotate(2deg);
-    opacity: 1;
-  }
-  100% {
-    transform: scale(1) rotate(0deg);
-    opacity: 1;
-  }
 }

@@ -4,11 +4,8 @@
   align-items: center;
   justify-content: center;
   padding: 2rem;
-  /* background-color: #f0f0f0; */
   border-radius: 8px;
   width: 40rem;
-  /* border: 1.5px solid white;
-  border-radius: 0.75rem; */
 }
 
 .setScoreContainer {

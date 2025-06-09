@@ -3,10 +3,8 @@
   width: 60%;
   height: 16rem;
   display: flex;
-  border: 1px solid #ccc;
   justify-content: center;
   margin: 0.5rem;
-  /* flex-grow: 0; */
 }
 
 .playerHandSection {
@@ -37,6 +35,4 @@
 
 .cardsContainer {
   display: flex;
-
-  border: #24964a 1px solid;
 }
