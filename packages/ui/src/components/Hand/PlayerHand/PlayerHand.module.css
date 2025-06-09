@@ -19,35 +19,17 @@
   border-radius: 0.6rem;
 }
 
+.cardButton {
+  display: flex;
+  width: 7.5rem;
+  height: 10.625rem;
+  align-items: center;
+  justify-content: center;
+  border-radius: 0.75rem;
+}
+
 .cardsContainer {
   display: flex;
 
   border: #24964a 1px solid;
 }
-
-/* .cardsContainer > *:nth-child(1) {
-  rotate: -10deg;
-  margin-bottom: -2rem;
-}
-
-.cardsContainer > *:nth-child(2) {
-  rotate: -5deg;
-}
-
-.cardsContainer > *:nth-child(3) {
-  rotate: 0deg;
-  margin-bottom: 1rem;
-}
-
-.cardsContainer > *:nth-child(4) {
-  rotate: 5deg;
-}
-
-.cardsContainer > *:nth-child(5) {
-  rotate: 10deg;
-  margin-bottom: -2rem;
-}
-
-.cardsContainer > * {
-  margin-left: -2rem;
-} */

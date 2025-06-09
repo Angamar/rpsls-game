@@ -224,7 +224,7 @@ const Game = () => {
           onCardSelect={handleCardSelect}
           onCardPlay={handleCardPlay}
           selectedCardId={selectedCardId}
-          playedCardId={playedCardId}
+          isDueling={!!playedCardId}
         />
       </div>
     </section>

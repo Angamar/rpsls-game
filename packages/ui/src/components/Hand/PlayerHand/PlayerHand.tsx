@@ -5,11 +5,18 @@ import styles from './PlayerHand.module.css';
 import Card from '../Card';
 import PlayButton from '../../PlayButton';
 import { getFanCardStyle } from '../Hand.helpers';
+import {
+  cardHover,
+  cardTap,
+  cardTransition,
+  pulsingBorderAnimation,
+  cardVariants,
+} from '../Card.motion';
 
 type PlayerHandProps = {
   cardChoices: ChoiceItem[];
   selectedCardId?: number | null;
-  playedCardId: number | null;
+  isDueling: boolean;
   onCardSelect: (choiceId: number) => void;
   onCardPlay?: (cardId: number) => void;
 };
@@ -19,21 +26,21 @@ function PlayerHand({
   onCardSelect,
   onCardPlay,
   selectedCardId,
-  playedCardId,
+  isDueling,
 }: PlayerHandProps) {
   return (
     <section className={styles.handSection}>
       {selectedCardId && (
         <PlayButton
           className={styles.playButton}
-          onClick={() => onCardPlay && onCardPlay(selectedCardId)}
+          onClick={() => onCardPlay && selectedCardId && !isDueling && onCardPlay(selectedCardId)}
         />
       )}
       <motion.div
         className={styles.cardsContainer}
-        animate={{ y: playedCardId ? 150 : 0 }}
+        animate={{ y: isDueling ? 150 : 0 }}
         transition={{
-          delay: playedCardId ? 1 : 0,
+          delay: isDueling ? 1 : 0,
           type: 'spring',
           stiffness: 120,
           damping: 18,
@@ -41,17 +48,38 @@ function PlayerHand({
         }}
       >
         <AnimatePresence>
-          {cardChoices.map((cardChoice, i) => (
-            <motion.div key={cardChoice.id} style={getFanCardStyle(i, cardChoices.length)}>
-              <Card
-                card={cardChoice}
-                isComputerCard={false}
-                isSelected={selectedCardId === cardChoice.id}
-                isDueling={playedCardId === cardChoice.id}
-                onClick={playedCardId ? undefined : () => onCardSelect(cardChoice.id)}
-              />
-            </motion.div>
-          ))}
+          {cardChoices.map((cardChoice, i) => {
+            const isSelected = selectedCardId === cardChoice.id;
+            const fanStyle = getFanCardStyle(i, cardChoices.length);
+            const isFaceDown = false; // or your logic if needed
+
+            return (
+              <motion.button
+                key={cardChoice.id}
+                layout
+                animate={{
+                  ...fanStyle,
+                  ...(isSelected ? cardVariants.selected : cardVariants.unselected),
+                  ...(isSelected ? pulsingBorderAnimation : {}),
+                }}
+                exit={{ opacity: 0, y: -50, transition: { duration: 0.4 } }}
+                whileHover={isSelected || isDueling ? undefined : cardHover}
+                whileTap={cardTap}
+                transition={cardTransition}
+                onClick={isFaceDown || isDueling ? undefined : () => onCardSelect(cardChoice.id)}
+                className={styles.cardButton}
+                tabIndex={isFaceDown ? -1 : 0}
+                type="button"
+                // drag
+                // dragMomentum={false}
+                // dragElastic={0.1}
+                // dragConstraints={{ top: -300, left: -300, right: 300, bottom: 0 }}
+                // dragSnapToOrigin
+              >
+                <Card card={cardChoice} isComputerCard={false} isFaceDown={isFaceDown} />
+              </motion.button>
+            );
+          })}
         </AnimatePresence>
       </motion.div>
     </section>

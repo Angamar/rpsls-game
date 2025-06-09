@@ -1,21 +1,14 @@
 export const cardVariants = {
   selected: {
     scale: 1.02,
-    borderWidth: '0.5rem',
-    borderStyle: 'solid',
-    borderColor: '#90caf9',
-    backgroundColor: '#f5faff',
     zIndex: 10,
-    y: '-1.5rem',
-    // rotateY: 0,
+    y: -24,
     transition: { duration: 0.4 },
   },
   unselected: {
     scale: 1,
-    border: 'none',
-    backgroundColor: '#fff',
     zIndex: 1,
-    // rotateY: 0,
+    y: 0,
     transition: { duration: 0.4 },
   },
   faceUp: {
@@ -27,9 +20,13 @@ export const cardVariants = {
 };
 
 export const pulsingBorderAnimation = {
-  borderColor: ['#90caf9', '#1976d2', '#90caf9'],
+  boxShadow: [
+    '0 0 0 0px #90caf9',
+    '0 0 0 8px #1976d2', // Increased from 4px to 8px for a thicker border
+    '0 0 0 0px #90caf9',
+  ],
   transition: {
-    borderColor: {
+    boxShadow: {
       duration: 2,
       repeat: Infinity,
       repeatType: 'loop',
