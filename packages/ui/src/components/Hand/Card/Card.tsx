@@ -10,15 +10,7 @@ interface CardProps {
 
 const Card = ({ card, isFaceDown = false, imageSrc = '/card-back.png' }: CardProps) => {
   return (
-    <motion.div
-      className={styles.cardWrapper}
-      initial={{ rotateY: isFaceDown ? 180 : 0 }}
-      animate={{ rotateY: isFaceDown ? 180 : 0 }}
-      transition={{
-        duration: isFaceDown ? 0 : 0.6,
-        ease: [0.23, 1, 0.32, 1],
-      }}
-    >
+    <motion.div className={styles.cardWrapper}>
       {!isFaceDown ? (
         <div className={styles.cardFront}>
           <div className={styles.cardSuit}>{card.icon}</div>

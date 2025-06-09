@@ -51,7 +51,7 @@ const fetchRoundOutcome = async (
     throw new Error('Failed to fetch round outcome');
   }
   const roundOutcome = (await response.json()) as RoundOutcome;
-  // setResults((prevResults) => [roundOutcome.result, ...prevResults]);
+
   return roundOutcome;
 };
 
@@ -200,20 +200,19 @@ const Game = () => {
           </Modal>
         )}
 
-        {!isSetComplete && (
-          <DuelingField
-            playerCard={
-              playedCardId && cardChoices && roundOutcome
-                ? (cardChoices.find((choice) => choice.id === playedCardId) ?? null)
-                : null
-            }
-            computerCard={
-              playedCardId && cardChoices
-                ? (cardChoices.find((choice) => choice.id === roundOutcome?.computer) ?? null)
-                : null
-            }
-          />
-        )}
+        <DuelingField
+          playerCard={
+            playedCardId && cardChoices && roundOutcome
+              ? (cardChoices.find((choice) => choice.id === playedCardId) ?? null)
+              : null
+          }
+          computerCard={
+            playedCardId && cardChoices
+              ? (cardChoices.find((choice) => choice.id === roundOutcome?.computer) ?? null)
+              : null
+          }
+        />
+
         <PlayerHand
           cardChoices={playerHand ?? []}
           onCardSelect={handleCardSelect}

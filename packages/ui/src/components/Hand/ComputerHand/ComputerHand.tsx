@@ -38,7 +38,7 @@ function ComputerHand({ cardChoices, isDueling }: ComputerHandProps) {
                 animate={{
                   ...fanStyle,
                 }}
-                exit={{ opacity: 0, y: -50, transition: { duration: 0.4 } }} // Reverse exit animation
+                exit={{ opacity: 0, y: -50, transition: { duration: 0.4 } }}
                 whileHover={computerCardHover}
                 whileTap={cardTap}
                 transition={cardTransition}
