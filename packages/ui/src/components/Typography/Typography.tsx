@@ -1,4 +1,4 @@
-import styles from './typography.module.css';
+import styles from './Typography.module.css';
 import { variantClassMap, type TypographyVariant } from './Typography.helpers';
 import clsx from 'clsx';
 
