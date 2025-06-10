@@ -17,7 +17,7 @@
 
 .playButton {
   position: absolute;
-  top: -6rem;
+  top: -10rem;
   padding: 0.5rem 1rem;
   width: 8rem;
   background: radial-gradient(circle at 50% 50%, #24964a 0%, rgb(18, 110, 58) 100%);
@@ -29,8 +29,8 @@
   position: relative;
   margin-bottom: 0;
   display: flex;
-  width: 7.5rem;
-  height: 10.625rem;
+  width: 9.5rem;
+  height: 12.625rem;
   align-items: center;
   justify-content: center;
   border-radius: 0.75rem;

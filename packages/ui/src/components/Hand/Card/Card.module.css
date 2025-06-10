@@ -4,8 +4,6 @@
   flex-direction: column;
   height: 100%;
   width: 100%;
-  min-width: 9rem;
-  min-height: 12.625rem;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
   overflow: hidden;
   transform-style: preserve-3d;

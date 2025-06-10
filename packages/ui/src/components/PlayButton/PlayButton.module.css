@@ -1,13 +1,17 @@
 .playButton {
-  padding: 0.5rem 1rem;
-  min-width: 8rem;
+  padding: 1rem;
+  min-width: 12rem;
+  height: 4rem;
+  justify-content: center;
+  display: flex;
+  align-items: center;
   background: radial-gradient(circle at 50% 50%, #24964a 0%, rgb(18, 110, 58) 100%);
   border-radius: 0.6rem;
   text-transform: lowercase;
 }
 
 p {
-  font-size: 1.2rem;
+  font-size: 1.5rem;
   margin-bottom: 2rem;
 }
 

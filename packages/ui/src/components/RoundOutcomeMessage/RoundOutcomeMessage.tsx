@@ -11,7 +11,7 @@ type RoundOutcomeMessageProps = {
 
 export default function RoundOutcomeMessage({ roundOutcome }: RoundOutcomeMessageProps) {
   return (
-    <section className={styles.roundOutcomeSection} data-testId="section_round_outcome">
+    <section className={styles.roundOutcomeSection} data-testid="section_round_outcome">
       <motion.div
         className={`${styles.resultHero} ${styles[roundOutcome.result]}`}
         {...heroPopAnimation}

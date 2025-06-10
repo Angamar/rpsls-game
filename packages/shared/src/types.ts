@@ -1,3 +1,10 @@
+export enum GameState {
+  Selecting = "selecting",
+  Dueling = "dueling",
+  RoundComplete = "roundComplete",
+  SetComplete = "setComplete",
+}
+
 export enum Choice {
   Rock = 1,
   Paper,

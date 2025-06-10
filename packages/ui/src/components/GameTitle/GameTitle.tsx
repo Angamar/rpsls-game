@@ -24,7 +24,7 @@ const AnimatedWord = ({
 
 export default function GameTitle() {
   return (
-    <section className={styles.gameTitleSection} data-testId="section_game_title">
+    <section className={styles.gameTitleSection} data-testid="section_game_title">
       <AnimatedWord word="Rock" className={typographyStyles.rock} delay={0} />
       <AnimatedWord word="Paper" className={typographyStyles.paper} delay={0.8} />
       <AnimatedWord word="Scissors" className={typographyStyles.scissors} delay={1.6} />

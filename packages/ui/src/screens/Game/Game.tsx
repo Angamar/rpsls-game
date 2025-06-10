@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 import {
   Choice,
   Result,
@@ -63,7 +63,6 @@ const Game = () => {
     playerSets: 0,
     computerSets: 0,
   });
-  console.log(setResult);
   const [selectedCardId, setSelectedCardId] = useState<ChoiceItem['id'] | null>();
   const [playedCardId, setPlayedCardId] = useState<ChoiceItem['id'] | null>(null);
   const [playerHand, setPlayerHand] = useState<ChoiceItem[]>([]);
@@ -90,10 +89,8 @@ const Game = () => {
     onSuccess: (outcome) => {
       const filteredComputerCards = computerHand.filter((card) => card.id !== outcome.computer);
       setComputerHand(filteredComputerCards);
-      setSelectedCardId(null);
     },
     onError: (error) => {
-      // Handle error if needed
       console.error('Failed to play card:', error);
     },
   });
@@ -131,6 +128,7 @@ const Game = () => {
   };
 
   const handleCardPlay = (cardId: Choice) => {
+    setSelectedCardId(null);
     setPlayedCardId(cardId);
     setPlayerHand((prevCards) => prevCards.filter((card) => card.id !== cardId));
 
@@ -141,6 +139,20 @@ const Game = () => {
       });
     }
   };
+
+  const duelingFieldProps = useMemo(
+    () => ({
+      playerCard:
+        playedCardId && cardChoices
+          ? (cardChoices.find((choice) => choice.id === playedCardId)?.name ?? null)
+          : null,
+      computerCard:
+        playedCardId && cardChoices && roundOutcome
+          ? (cardChoices.find((choice) => choice.id === roundOutcome.computer)?.name ?? null)
+          : null,
+    }),
+    [playedCardId, cardChoices, roundOutcome],
+  );
 
   // Handle the round outcome and update the game state
   useEffect(() => {
@@ -201,18 +213,7 @@ const Game = () => {
           </Modal>
         )}
 
-        <DuelingField
-          playerCard={
-            playedCardId && cardChoices && roundOutcome
-              ? (cardChoices.find((choice) => choice.id === playedCardId)?.name ?? null)
-              : null
-          }
-          computerCard={
-            playedCardId && cardChoices && roundOutcome
-              ? (cardChoices.find((choice) => choice.id === roundOutcome.computer)?.name ?? null)
-              : null
-          }
-        />
+        <DuelingField {...duelingFieldProps} />
 
         <PlayerHand
           cardChoices={playerHand ?? []}

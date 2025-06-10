@@ -6,14 +6,7 @@ import clsx from 'clsx';
 
 import Card from '../Card';
 import PlayButton from '../../PlayButton';
-import { getFanCardStyle } from '../Hand.helpers';
-import {
-  playerCardHover,
-  cardTap,
-  cardTransition,
-  pulsingBorderAnimation,
-  cardVariants,
-} from '../Card.motion';
+import { cardTap, cardTransition, cardVariants, getHoverAnimation } from '../Card.motion';
 
 type PlayerHandProps = {
   cardChoices: ChoiceItem[];
@@ -30,13 +23,20 @@ function PlayerHand({
   selectedCardId,
   isDueling,
 }: PlayerHandProps) {
+  const handleCardSelect = (choiceId: number) => {
+    onCardSelect(choiceId);
+  };
+
+  const handleCardPlay = (selectedCardId?: number | null) => {
+    console.log('handleCardPlay', selectedCardId);
+    if (onCardPlay && selectedCardId && !isDueling) {
+      onCardPlay(selectedCardId);
+    }
+  };
   return (
     <section className={clsx(styles.handSection, styles.computerHandSection)}>
       {selectedCardId && (
-        <PlayButton
-          className={styles.playButton}
-          onClick={() => onCardPlay && selectedCardId && !isDueling && onCardPlay(selectedCardId)}
-        />
+        <PlayButton className={styles.playButton} onClick={() => handleCardPlay(selectedCardId)} />
       )}
       <motion.div
         className={styles.cardsContainer}
@@ -52,31 +52,27 @@ function PlayerHand({
         <AnimatePresence>
           {cardChoices.map((cardChoice, i) => {
             const isSelected = selectedCardId === cardChoice.id;
-            const fanStyle = getFanCardStyle(i, cardChoices.length);
-            const isFaceDown = false;
 
             return (
               <motion.button
                 key={cardChoice.id}
                 layout
-                animate={{
-                  ...(isSelected ? cardVariants.selected : cardVariants.unselected),
-                  ...(isSelected ? pulsingBorderAnimation : {}),
-                  ...fanStyle,
+                animate={isSelected ? 'selected' : 'unselected'}
+                variants={{
+                  unselected: cardVariants.unselected(i, isDueling),
+                  selected: cardVariants.selected(isDueling),
                 }}
+                initial={cardVariants.unselected(i, isDueling)}
                 exit={{ opacity: 0, y: -70, transition: { duration: 0.2 } }}
-                whileHover={isSelected || isDueling ? undefined : playerCardHover}
+                whileHover={getHoverAnimation(isDueling)}
                 whileTap={cardTap}
                 transition={cardTransition}
-                onClick={isFaceDown || isDueling ? undefined : () => onCardSelect(cardChoice.id)}
+                onClick={() => !isDueling && handleCardSelect(cardChoice.id)}
                 className={styles.cardButton}
-                tabIndex={isFaceDown ? -1 : 0}
                 type="button"
-                // drag
-                // dragMomentum={false}
-                // dragElastic={0.1}
-                // dragConstraints={{ top: -300, left: -300, right: 300, bottom: 0 }}
-                // dragSnapToOrigin
+                disabled={isDueling}
+                dragSnapToOrigin
+                drag
               >
                 <Card cardFaceSrc={`/card-${cardChoice.name}.png`} />
               </motion.button>

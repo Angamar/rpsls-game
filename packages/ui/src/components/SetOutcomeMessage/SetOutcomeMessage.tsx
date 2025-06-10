@@ -11,7 +11,7 @@ type SetOutcomeMessageProps = {
 export default function SetOutcomeMessage({ setOutcome }: SetOutcomeMessageProps) {
   const winner = setOutcome.result === Result.Win ? 'Player' : 'Computer';
   return (
-    <section className={styles.setOutcomeSection} data-testId="section_set_outcome">
+    <section className={styles.setOutcomeSection} data-testid="section_set_outcome">
       <Typography
         variant={setResultMessageVariantMap[setOutcome.result]}
         as="h1"
