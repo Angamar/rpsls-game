@@ -1,3 +1,9 @@
 node_modules
+.pnp*
+.yarn/cache
+.yarn/unplugged
+.yarn/install-state.gz
 dist
+packages/**/dist
+*.log
 **/*.tsbuildinfo

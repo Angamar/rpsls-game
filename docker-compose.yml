@@ -1,0 +1,25 @@
+version: "3.8"
+
+services:
+  api:
+    build:
+      context: .
+      dockerfile: packages/api/Dockerfile
+    ports:
+      - "3000:3000"
+    networks:
+      - app
+
+  ui:
+    build:
+      context: .
+      dockerfile: packages/ui/Dockerfile
+    ports:
+      - "8080:80"
+    depends_on:
+      - api
+    networks:
+      - app
+
+networks:
+  app:
