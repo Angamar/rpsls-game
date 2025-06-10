@@ -6,5 +6,6 @@ export default defineConfig({
   test: {
     ...base.test,
     environment: "node",
+    setupFiles: ["./src/vitest.setup.ts"],
   },
 });
