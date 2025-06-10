@@ -9,7 +9,7 @@ COPY . .
 
 WORKDIR /app/packages/ui
 
-RUN yarn install --immutable
+RUN yarn workspaces focus rpsls-game-ui
 RUN yarn build
 
 # Nginx stage

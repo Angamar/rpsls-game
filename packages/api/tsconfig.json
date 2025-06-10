@@ -2,11 +2,12 @@
   "extends": "../../tsconfig.json",
   "compilerOptions": {
     "outDir": "dist",
+    "rootDir": "src",
     "baseUrl": ".",
     "paths": {
       "@rpsls-game/shared": ["../shared/dist"]
     },
     "types": ["vitest/globals", "node"]
   },
-  "include": ["src/**/*"]
+  "include": ["src", "index.ts"]
 }

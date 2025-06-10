@@ -1,9 +1,14 @@
-node_modules
-.pnp*
+**/node_modules
 .yarn/cache
 .yarn/unplugged
+.yarn/build-state.yml
 .yarn/install-state.gz
-dist
+.yarn/patches
+.yarn/plugins
+.yarn/releases
+.yarn/sdks
+.yarn/versions
+*.tsbuildinfo
 packages/**/dist
 *.log
 **/tsconfig.tsbuildinfo

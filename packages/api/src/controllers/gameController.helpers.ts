@@ -1,6 +1,6 @@
 import { Choice, ChoiceItem, Result, RoundOutcome } from "@rpsls-game/shared";
 
-import { fetchRandomNumber } from "../services/randomNumberService";
+import { fetchRandomNumber } from "../services/randomNumberService.js";
 
 export const winningCombinations: Record<string, string> = {
   [`${Choice.Scissors}->${Choice.Paper}`]: "cuts",

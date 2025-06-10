@@ -7,7 +7,7 @@
   "packageManager": "yarn@4.9.2",
   "scripts": {
     "dev": "concurrently --kill-others \"yarn workspace rpsls-game-api dev\" \"yarn workspace rpsls-game-ui dev\"",
-    "build": "yarn workspace @rpsls-game/shared build && yarn workspace rpsls-game-api build && yarn workspace rpsls-game-ui build",
+    "build": "yarn workspace rpsls-game-api build && yarn workspace rpsls-game-ui build",
     "clean": "rimraf packages/*/dist",
     "test": "yarn workspaces foreach -A run test",
     "lint": "eslint . --ext .ts,.tsx",

@@ -5,7 +5,7 @@ import {
   choices,
   getRandomChoice,
   getRoundOutcome,
-} from "./gameController.helpers";
+} from "./gameController.helpers.js";
 
 export const getChoices = (req: Request, res: Response) => {
   const parsed = ChoiceListSchema.safeParse(choices);

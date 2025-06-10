@@ -6626,6 +6626,7 @@ __metadata:
     react: "npm:^19.1.0"
     react-dom: "npm:^19.1.0"
     vite: "npm:^6.3.5"
+    zod: "npm:^3.25.6"
   languageName: unknown
   linkType: soft
 
@@ -8171,7 +8172,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"zod@npm:^3.25.56":
+"zod@npm:^3.25.56, zod@npm:^3.25.6":
   version: 3.25.57
   resolution: "zod@npm:3.25.57"
   checksum: 10c0/3b3d98bf31d4ca9ce92e151ec6a69f6d63a9a7e4e74ce2bd0dfac87a1955d77934fc0fd5caf0017c9c9746e86cdcd27c63b0e3378bbf5e8b62ec5833f94395ac
