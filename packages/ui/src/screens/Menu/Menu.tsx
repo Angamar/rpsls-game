@@ -11,7 +11,7 @@ interface MenuProps {
 
 const Menu = ({ onPageChange }: MenuProps) => {
   return (
-    <section className={styles.menuSection}>
+    <section className={styles.menuSection} data-testid="section_menu">
       <LoopingTextBanner position="top" />
       <GameTitle />
       <motion.div
@@ -24,7 +24,7 @@ const Menu = ({ onPageChange }: MenuProps) => {
           PLAY!
         </PlayButton>
       </motion.div>
-      <LoopingTextBanner />
+      <LoopingTextBanner position="bottom" />
     </section>
   );
 };

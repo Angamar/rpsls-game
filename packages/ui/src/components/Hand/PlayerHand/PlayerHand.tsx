@@ -36,12 +36,16 @@ function PlayerHand({
   };
 
   return (
-    <section className={clsx(styles.handSection, styles.computerHandSection)}>
+    <section
+      className={clsx(styles.handSection, styles.computerHandSection)}
+      data-testid="section_player_hand"
+    >
       {selectedCardId && !isDisabled && (
         <PlayButton className={styles.playButton} onClick={() => handleCardPlay(selectedCardId)} />
       )}
       <motion.div
         className={styles.cardsContainer}
+        data-testid="container_player_hand"
         animate={{ y: isDisabled ? 150 : 0 }}
         transition={{
           delay: 0.4,
@@ -58,6 +62,8 @@ function PlayerHand({
             return (
               <motion.button
                 key={cardChoice.id}
+                card-number={i}
+                data-testid={`button_player_card_${cardChoice.name}`}
                 layout
                 animate={isSelected ? 'selected' : 'unselected'}
                 variants={{

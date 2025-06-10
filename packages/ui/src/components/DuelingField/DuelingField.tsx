@@ -16,7 +16,7 @@ const DuelingField = ({ playerCard, computerCard }: DuelingFieldProps) => {
           <>
             <motion.div
               className={styles.playerCard}
-              data-testid="card_player"
+              data-testid={`card_duel_player_${playerCard}`}
               initial={{ opacity: 0, x: -200 }}
               animate={{ opacity: 1, x: 0 }}
               exit={{ opacity: 0, x: 200 }}
@@ -44,7 +44,7 @@ const DuelingField = ({ playerCard, computerCard }: DuelingFieldProps) => {
 
             <motion.div
               className={styles.computerCard}
-              data-testid="card_computer"
+              data-testid={`card_duel_computer_${computerCard}`}
               initial={{ opacity: 0, x: 200 }}
               animate={{ opacity: 1, x: 0 }}
               exit={{ opacity: 0, x: -200 }}

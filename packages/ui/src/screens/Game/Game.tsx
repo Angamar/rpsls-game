@@ -204,7 +204,7 @@ const Game = () => {
   }, [cardChoices, playerHand.length, gameState]);
 
   return (
-    <section className={styles.gameSection}>
+    <section className={styles.gameSection} data-testid="section_game">
       <ScoreTracker
         results={roundResults}
         setNumber={setResult.set}
@@ -244,6 +244,7 @@ const Game = () => {
 
       {process.env.NODE_ENV === 'development' && (
         <div
+          data-cy="debug-panel"
           style={{
             position: 'fixed',
             top: 10,

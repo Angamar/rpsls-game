@@ -22,7 +22,7 @@ type PlayButtonProps = {
 
 const PlayButton = ({ onClick, children, className, variant }: PlayButtonProps) => (
   <motion.button
-    data-testid="button_play"
+    data-testid={variant === ButtonVariant.Hero ? 'button_game_start' : 'button_play'}
     className={clsx(styles.playButton, variant === ButtonVariant.Hero && styles.hero, className)}
     animate={variant === ButtonVariant.Hero ? heroButtonAnimate : playButtonAnimate}
     whileHover={variant === ButtonVariant.Hero ? heroButtonHover : playButtonHover}

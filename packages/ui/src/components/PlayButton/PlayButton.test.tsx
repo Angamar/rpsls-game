@@ -27,7 +27,7 @@ describe('PlayButton', () => {
 
   it('applies hero variant styles and props', () => {
     render(<PlayButton variant={ButtonVariant.Hero}>Hero</PlayButton>);
-    const button = screen.getByTestId('button_play');
+    const button = screen.getByTestId('button_game_start');
     expect(button.className).toMatch(/hero/);
     const label = screen.getByTestId('label_button');
     expect(label).toHaveTextContent('Hero');

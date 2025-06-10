@@ -5,6 +5,7 @@ import tseslint from "typescript-eslint";
 import reactRefresh from "eslint-plugin-react-refresh";
 import eslintConfigPrettier from "eslint-config-prettier/flat";
 import globals from "globals";
+import eslintPluginCypress from "eslint-plugin-cypress";
 
 const sharedGlobals = {
   ...globals.node,
@@ -91,13 +92,48 @@ export default [
           args: "after-used",
           argsIgnorePattern: "^_",
           ignoreRestSiblings: true,
-
-          // 👇 Add this
           caughtErrorsIgnorePattern: "^_",
         },
       ],
       "@typescript-eslint/explicit-function-return-type": "off",
       "no-console": "off",
+    },
+  },
+
+  // Cypress
+  {
+    files: ["packages/ui/cypress/**/*.ts", "packages/ui/cypress/**/*.tsx"],
+    ignores: [
+      "packages/ui/src/**/*.test.ts",
+      "packages/ui/src/**/*.test.tsx",
+      "packages/ui/src/**/*.spec.ts",
+      "packages/ui/src/**/*.spec.tsx",
+    ],
+    languageOptions: {
+      parser: tseslint.parser,
+      parserOptions: {
+        project: ["packages/ui/cypress/tsconfig.json"],
+        tsconfigRootDir: process.cwd(),
+        sourceType: "module",
+      },
+      globals: {
+        ...sharedGlobals,
+        ...globals.mocha,
+        cy: "readonly",
+        Cypress: "readonly",
+        JQuery: "readonly",
+        HTMLElement: "readonly",
+      },
+    },
+    plugins: {
+      "@typescript-eslint": tseslint.plugin,
+      cypress: eslintPluginCypress,
+    },
+    rules: {
+      "no-unused-vars": "off",
+      "@typescript-eslint/no-unused-vars": "off",
+      "cypress/no-unnecessary-waiting": "warn",
+      "no-undef": "off",
     },
   },
 ];

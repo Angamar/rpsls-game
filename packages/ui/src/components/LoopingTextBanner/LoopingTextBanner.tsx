@@ -55,14 +55,14 @@ const textContent = (
   </>
 );
 
-export default function LoopingTextBanner({ position }: { position?: 'top' | 'bottom' }) {
+export default function LoopingTextBanner({ position }: { position: 'top' | 'bottom' }) {
   return (
     <section
       className={clsx(
         styles.loopingTextBannerSection,
         position === 'top' ? styles.top : styles.bottom,
       )}
-      data-testid="section_looping_text_banner"
+      data-testid={`section_looping_text_banner_${position}`}
     >
       <motion.div
         className={styles.scrollingText}

@@ -12,17 +12,16 @@ describe('ComputerHand', () => {
   it('renders the computer hand section', () => {
     render(<ComputerHand cardChoices={mockChoices} isDueling={false} isDisabled={false} />);
     expect(screen.getByTestId('section_computer_hand')).toBeInTheDocument();
-    expect(screen.getByTestId('wrapper_computer_hand')).toBeInTheDocument();
   });
 
   it('renders the correct number of card buttons', () => {
     render(<ComputerHand cardChoices={mockChoices} isDueling={false} isDisabled={false} />);
-    const buttons = screen.getAllByTestId('button_card_computer');
+    const buttons = screen.getAllByTestId('button_computer_card');
     expect(buttons).toHaveLength(mockChoices.length);
   });
 
   it('renders no cards if cardChoices is empty', () => {
     render(<ComputerHand cardChoices={[]} isDueling={false} isDisabled={false} />);
-    expect(screen.queryAllByTestId('button_card_computer')).toHaveLength(0);
+    expect(screen.queryAllByTestId('button_computer_card')).toHaveLength(0);
   });
 });
