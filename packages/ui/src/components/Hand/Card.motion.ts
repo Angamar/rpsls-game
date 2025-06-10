@@ -55,28 +55,28 @@ export const cardVariants = {
 };
 
 export const computerCardVariants = {
-  unselected: (custom: { cardIndex: number; isDueling: boolean }) => ({
+  unselected: (custom: { cardIndex: number; isDisabled: boolean }) => ({
     rotateY: 0,
     rotateX: 0,
     scale: 1,
-    y: custom.isDueling ? 0 : [0, -8, 0],
+    y: custom?.isDisabled ? 0 : [0, -8, 0],
     transition: {
-      y: custom.isDueling
+      y: custom?.isDisabled
         ? { duration: 0 }
         : {
-            duration: 3 + custom.cardIndex * 0.3,
+            duration: 3 + custom?.cardIndex * 0.3,
             repeat: Infinity,
             ease: 'easeInOut',
-            delay: custom.cardIndex * 0.3,
+            delay: custom?.cardIndex * 0.3,
           },
     },
   }),
 };
 
-export const getHoverAnimation = (isDueling: boolean) => {
+export const getHoverAnimation = (isDisabled: boolean) => {
   return {
     scale: 1.05,
-    filter: !isDueling ? 'brightness(1.1)' : 'brightness(1)',
+    filter: !isDisabled ? 'brightness(1.1)' : 'brightness(1)',
     transition: {
       duration: 0.2,
       ease: 'easeOut',

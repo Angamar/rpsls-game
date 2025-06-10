@@ -15,21 +15,21 @@ export const playButtonTap = {
 };
 
 export const heroButtonHover = {
-  scale: 1.1, // Slight zoom effect
-  boxShadow: '0 12px 30px rgba(0, 0, 0, 0.4)', // Enhance shadow
-  background: 'linear-gradient(135deg, #ff6a3d, #e02a8f)', // Brighten gradient
+  scale: 1.1,
+  boxShadow: '0 12px 30px rgba(0, 0, 0, 0.4)',
+  background: 'linear-gradient(135deg, #ff6a3d, #e02a8f)',
 };
 
 export const heroButtonTap = {
-  scale: 0.95, // Press-down effect
-  boxShadow: '0 6px 15px rgba(0, 0, 0, 0.2)', // Reduce shadow
+  scale: 0.95,
+  boxShadow: '0 6px 15px rgba(0, 0, 0, 0.2)',
 };
 
 export const heroButtonAnimate = {
-  y: [0, -6, 0], // Subtle bounce animation
+  y: [0, -6, 0],
 };
 
 export const heroButtonTransition = {
-  duration: 0.3, // Smooth transition for hover and tap
-  ease: 'easeOut', // Natural deceleration effect
+  duration: 0.3,
+  ease: 'easeOut',
 };

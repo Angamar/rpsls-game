@@ -2,6 +2,7 @@ import { useCallback, useEffect, useMemo, useState } from 'react';
 import {
   Choice,
   Result,
+  GameState,
   type ChoiceItem,
   type RoundOutcome,
   type SetOutcome,
@@ -15,8 +16,6 @@ import ComputerHand from '../../components/Hand/ComputerHand';
 import RoundOutcomeMessage from '../../components/RoundOutcomeMessage';
 import DuelingField from '../../components/DuelingField';
 import ScoreTracker from '../../components/ScoreTracker';
-
-import { delay } from '../../utils/delay';
 import SetOutcomeMessage from '../../components/SetOutcomeMessage';
 import { calculateSetWinner } from './Game.helpers';
 import Modal from '../../components/Modal';
@@ -56,6 +55,7 @@ const getRoundOutcome = async ({
 };
 
 const Game = () => {
+  const [gameState, setGameState] = useState<GameState>(GameState.Selecting);
   const [roundResults, setRoundResults] = useState<Result[]>([]);
   const [setResult, setSetResult] = useState<SetOutcome>({
     result: Result.Tie,
@@ -63,83 +63,96 @@ const Game = () => {
     playerSets: 0,
     computerSets: 0,
   });
-  const [selectedCardId, setSelectedCardId] = useState<ChoiceItem['id'] | null>();
+  const [selectedCardId, setSelectedCardId] = useState<ChoiceItem['id'] | null>(null);
   const [playedCardId, setPlayedCardId] = useState<ChoiceItem['id'] | null>(null);
   const [playerHand, setPlayerHand] = useState<ChoiceItem[]>([]);
   const [computerHand, setComputerHand] = useState<ChoiceItem[]>([]);
-  const [isDuelComplete, setIsDuelComplete] = useState(false);
-  const [isSetComplete, setIsSetComplete] = useState(false);
 
   const { data: cardChoices } = useQuery<ChoiceItem[]>({
     queryKey: ['cardChoices'],
     queryFn: fetchCardChoices,
   });
+
   const {
     data: roundOutcome,
     mutateAsync: playCard,
     reset: resetRoundOutcome,
   } = useMutation({
-    mutationFn: ({
-      playedCardId,
-      availableComputerChoices,
-    }: {
-      playedCardId: ChoiceItem['id'] | null;
-      availableComputerChoices: ChoiceItem[];
-    }) => getRoundOutcome({ playedCardId, availableComputerChoices }),
+    mutationFn: getRoundOutcome,
     onSuccess: (outcome) => {
-      const filteredComputerCards = computerHand.filter((card) => card.id !== outcome.computer);
-      setComputerHand(filteredComputerCards);
+      // Remove the computer's played card
+      setComputerHand((prevCards) => prevCards.filter((card) => card.id !== outcome.computer));
     },
     onError: (error) => {
       console.error('Failed to play card:', error);
+      setGameState(GameState.Selecting);
     },
   });
 
+  // Derived states
+  const isDueling = gameState === GameState.Dueling;
+  const isDuelComplete = gameState === GameState.RoundComplete;
+  const isSetComplete = gameState === GameState.SetComplete;
+
+  // Game flow functions
   const startNewRound = useCallback(() => {
-    setIsDuelComplete(false);
+    setGameState(GameState.Selecting);
     setSelectedCardId(null);
     setPlayedCardId(null);
     resetRoundOutcome();
   }, [resetRoundOutcome]);
 
   const finishSet = useCallback(() => {
-    setIsSetComplete(true);
-    setIsDuelComplete(false);
-    setRoundResults([]);
     const result = calculateSetWinner(roundResults);
     setSetResult((prev) => ({
-      result: result,
+      result,
       set: prev.set + 1,
       playerSets: prev.playerSets + (result === Result.Win ? 1 : 0),
       computerSets: prev.computerSets + (result === Result.Lose ? 1 : 0),
     }));
+    setGameState(GameState.SetComplete);
+    setRoundResults([]);
   }, [roundResults]);
 
   const startNewSet = useCallback(() => {
-    startNewRound();
-    setIsSetComplete(false);
-    setRoundResults([]);
-    setPlayerHand(cardChoices ?? []);
-    setComputerHand(cardChoices ?? []);
-  }, [cardChoices, startNewRound]);
-
-  const handleCardSelect = (choiceId: number) => {
-    setSelectedCardId(choiceId);
-  };
-
-  const handleCardPlay = (cardId: Choice) => {
+    setGameState(GameState.Selecting);
     setSelectedCardId(null);
-    setPlayedCardId(cardId);
-    setPlayerHand((prevCards) => prevCards.filter((card) => card.id !== cardId));
+    setPlayedCardId(null);
+    setRoundResults([]);
+    if (cardChoices) {
+      setPlayerHand(cardChoices);
+      setComputerHand(cardChoices);
+    }
+    resetRoundOutcome();
+  }, [cardChoices, resetRoundOutcome]);
 
-    if (selectedCardId !== null) {
+  // Event handlers
+  const handleCardSelect = useCallback(
+    (choiceId: number) => {
+      if (gameState !== GameState.Selecting) return;
+      setSelectedCardId(choiceId);
+    },
+    [gameState],
+  );
+
+  const handleCardPlay = useCallback(
+    (cardId: Choice) => {
+      if (gameState !== GameState.Selecting) return;
+
+      setGameState(GameState.Dueling);
+      setSelectedCardId(null);
+      setPlayedCardId(cardId);
+      setPlayerHand((prevCards) => prevCards.filter((card) => card.id !== cardId));
+
       void playCard({
         playedCardId: cardId,
         availableComputerChoices: computerHand,
       });
-    }
-  };
+    },
+    [gameState, computerHand, playCard],
+  );
 
+  // Dueling field props
   const duelingFieldProps = useMemo(
     () => ({
       playerCard:
@@ -150,45 +163,45 @@ const Game = () => {
         playedCardId && cardChoices && roundOutcome
           ? (cardChoices.find((choice) => choice.id === roundOutcome.computer)?.name ?? null)
           : null,
+      result: roundOutcome?.result,
     }),
     [playedCardId, cardChoices, roundOutcome],
   );
 
-  // Handle the round outcome and update the game state
+  // Game state effects
   useEffect(() => {
-    if (roundOutcome && !isDuelComplete) {
-      delay(2, () => {
-        setIsDuelComplete(true);
-      });
-    }
+    if (gameState === GameState.Dueling && roundOutcome) {
+      const timer = setTimeout(() => {
+        // Add result and move to round complete
+        setRoundResults((prev) => [roundOutcome.result, ...prev]);
+        setGameState(GameState.RoundComplete);
+      }, 2000); // Wait for duel animation
 
-    if (isDuelComplete) {
-      if (roundResults.length < 5) {
-        delay(1, () => {
-          startNewRound();
-        });
-      } else {
-        delay(2, () => {
+      return () => clearTimeout(timer);
+    }
+  }, [gameState, roundOutcome]);
+
+  useEffect(() => {
+    if (gameState === GameState.RoundComplete) {
+      const timer = setTimeout(() => {
+        if (playerHand.length === 0) {
           finishSet();
-        });
-      }
-    }
-  }, [roundOutcome, isDuelComplete, startNewRound, roundResults.length, finishSet]);
+        } else {
+          startNewRound();
+        }
+      }, 1500);
 
+      return () => clearTimeout(timer);
+    }
+  }, [gameState, roundResults.length, playerHand.length, finishSet, startNewRound]);
+
+  // Initialize game
   useEffect(() => {
-    if (cardChoices) {
+    if (cardChoices && playerHand.length === 0 && gameState === GameState.Selecting) {
       setPlayerHand(cardChoices);
       setComputerHand(cardChoices);
     }
-  }, [cardChoices]);
-
-  useEffect(() => {
-    if (roundOutcome) {
-      delay(3, () => {
-        setRoundResults((prevResults) => [roundOutcome.result, ...prevResults]);
-      });
-    }
-  }, [roundOutcome]);
+  }, [cardChoices, playerHand.length, gameState]);
 
   return (
     <section className={styles.gameSection}>
@@ -200,11 +213,15 @@ const Game = () => {
       />
 
       <div className={styles.gameContainer}>
-        <ComputerHand isDueling={!!playedCardId} cardChoices={computerHand ?? []} />
+        <ComputerHand
+          isDueling={isDueling}
+          cardChoices={computerHand}
+          isDisabled={gameState !== GameState.Selecting}
+        />
 
         {isDuelComplete && roundOutcome && <RoundOutcomeMessage roundOutcome={roundOutcome} />}
 
-        {isSetComplete && setResult && (
+        {isSetComplete && (
           <Modal modalContentStyle={styles.setOutcomeModal}>
             <SetOutcomeMessage setOutcome={setResult} />
             <PlayButton className={styles.nextSetButton} onClick={startNewSet}>
@@ -216,13 +233,34 @@ const Game = () => {
         <DuelingField {...duelingFieldProps} />
 
         <PlayerHand
-          cardChoices={playerHand ?? []}
+          cardChoices={playerHand}
           onCardSelect={handleCardSelect}
           onCardPlay={handleCardPlay}
           selectedCardId={selectedCardId}
-          isDueling={!!playedCardId}
+          isDueling={isDueling}
+          isDisabled={gameState !== GameState.Selecting}
         />
       </div>
+
+      {process.env.NODE_ENV === 'development' && (
+        <div
+          style={{
+            position: 'fixed',
+            top: 10,
+            right: 10,
+            background: 'rgba(0,0,0,0.8)',
+            color: 'white',
+            padding: '10px',
+            borderRadius: '5px',
+            fontSize: '12px',
+          }}
+        >
+          <div>State: {gameState}</div>
+          <div>Rounds: {roundResults.length}/5</div>
+          <div>Player Cards: {playerHand.length}</div>
+          <div>Computer Cards: {computerHand.length}</div>
+        </div>
+      )}
     </section>
   );
 };

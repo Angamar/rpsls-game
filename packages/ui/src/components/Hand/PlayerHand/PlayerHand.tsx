@@ -12,6 +12,7 @@ type PlayerHandProps = {
   cardChoices: ChoiceItem[];
   selectedCardId?: number | null;
   isDueling: boolean;
+  isDisabled?: boolean; // Add this
   onCardSelect: (choiceId: number) => void;
   onCardPlay?: (cardId: number) => void;
 };
@@ -22,27 +23,28 @@ function PlayerHand({
   onCardPlay,
   selectedCardId,
   isDueling,
+  isDisabled = false,
 }: PlayerHandProps) {
   const handleCardSelect = (choiceId: number) => {
+    if (isDisabled) return;
     onCardSelect(choiceId);
   };
 
   const handleCardPlay = (selectedCardId?: number | null) => {
-    console.log('handleCardPlay', selectedCardId);
-    if (onCardPlay && selectedCardId && !isDueling) {
-      onCardPlay(selectedCardId);
-    }
+    if (isDisabled || !onCardPlay || !selectedCardId || isDueling) return;
+    onCardPlay(selectedCardId);
   };
+
   return (
     <section className={clsx(styles.handSection, styles.computerHandSection)}>
-      {selectedCardId && (
+      {selectedCardId && !isDisabled && (
         <PlayButton className={styles.playButton} onClick={() => handleCardPlay(selectedCardId)} />
       )}
       <motion.div
         className={styles.cardsContainer}
-        animate={{ y: isDueling ? 150 : 0 }}
+        animate={{ y: isDisabled ? 150 : 0 }}
         transition={{
-          delay: isDueling ? 0.4 : 0,
+          delay: 0.4,
           type: 'spring',
           stiffness: 120,
           damping: 18,
@@ -64,15 +66,15 @@ function PlayerHand({
                 }}
                 initial={cardVariants.unselected(i, isDueling)}
                 exit={{ opacity: 0, y: -70, transition: { duration: 0.2 } }}
-                whileHover={getHoverAnimation(isDueling)}
+                whileHover={getHoverAnimation(isDueling || isDisabled)}
                 whileTap={cardTap}
                 transition={cardTransition}
-                onClick={() => !isDueling && handleCardSelect(cardChoice.id)}
+                onClick={() => !isDueling && !isDisabled && handleCardSelect(cardChoice.id)}
                 className={styles.cardButton}
                 type="button"
-                disabled={isDueling}
+                disabled={isDueling || isDisabled}
                 dragSnapToOrigin
-                drag
+                drag={!isDisabled}
               >
                 <Card cardFaceSrc={`/card-${cardChoice.name}.png`} />
               </motion.button>

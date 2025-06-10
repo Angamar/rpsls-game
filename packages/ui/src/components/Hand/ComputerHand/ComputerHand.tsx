@@ -9,16 +9,17 @@ import clsx from 'clsx';
 type ComputerHandProps = {
   cardChoices: ChoiceItem[];
   isDueling: boolean;
+  isDisabled: boolean;
 };
 
-function ComputerHand({ cardChoices, isDueling }: ComputerHandProps) {
+function ComputerHand({ cardChoices, isDisabled = false }: ComputerHandProps) {
   return (
     <section className={clsx(styles.handSection, styles.computerHandSection)}>
       <motion.div
         className={styles.cardsContainer}
-        animate={{ y: isDueling ? -150 : 0 }}
+        animate={{ y: isDisabled ? -150 : 0 }}
         transition={{
-          delay: isDueling ? 0.4 : 0,
+          delay: 0.4,
           type: 'spring',
           stiffness: 120,
           damping: 18,
@@ -28,7 +29,7 @@ function ComputerHand({ cardChoices, isDueling }: ComputerHandProps) {
       >
         <AnimatePresence>
           {cardChoices.map((cardChoice, i) => {
-            const customProps = { cardIndex: i, isDueling };
+            const customProps = { cardIndex: i, isDisabled };
 
             return (
               <motion.button
@@ -36,11 +37,10 @@ function ComputerHand({ cardChoices, isDueling }: ComputerHandProps) {
                 layout
                 animate="unselected"
                 variants={computerCardVariants}
-                custom={customProps}
                 initial={computerCardVariants.unselected(customProps)}
                 exit={{ opacity: 0, y: -70, transition: { duration: 0.2 } }}
                 transition={cardTransition}
-                whileTap={isDueling ? undefined : cardTap}
+                whileTap={isDisabled ? undefined : cardTap}
                 className={styles.cardButton}
                 type="button"
               >
