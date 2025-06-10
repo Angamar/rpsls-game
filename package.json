@@ -4,7 +4,7 @@
   "workspaces": [
     "packages/*"
   ],
-  "packageManager": "yarn@4.1.1",
+  "packageManager": "yarn@4.9.2",
   "scripts": {
     "dev": "concurrently --kill-others \"yarn workspace rpsls-game-api dev\" \"yarn workspace rpsls-game-ui dev\"",
     "build": "yarn workspace @rpsls-game/shared build && yarn workspace rpsls-game-api build && yarn workspace rpsls-game-ui build",
