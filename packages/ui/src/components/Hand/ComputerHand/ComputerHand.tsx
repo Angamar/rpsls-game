@@ -14,9 +14,13 @@ type ComputerHandProps = {
 
 function ComputerHand({ cardChoices, isDisabled = false }: ComputerHandProps) {
   return (
-    <section className={clsx(styles.handSection, styles.computerHandSection)}>
+    <section
+      className={clsx(styles.handSection, styles.computerHandSection)}
+      data-testid="section_computer_hand"
+    >
       <motion.div
         className={styles.cardsContainer}
+        data-testid="wrapper_computer_hand"
         animate={{ y: isDisabled ? -150 : 0 }}
         transition={{
           delay: 0.4,
@@ -35,6 +39,7 @@ function ComputerHand({ cardChoices, isDisabled = false }: ComputerHandProps) {
               <motion.button
                 key={cardChoice.id}
                 layout
+                data-testid="button_card_computer"
                 animate="unselected"
                 variants={computerCardVariants}
                 initial={computerCardVariants.unselected(customProps)}
