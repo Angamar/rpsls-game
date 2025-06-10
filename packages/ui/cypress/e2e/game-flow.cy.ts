@@ -39,7 +39,6 @@ describe('RPSLS Game Flow', () => {
     cy.getByTestId(`button_player_card_${playerChoice}`).click();
     cy.getByTestId('button_play').click();
 
-    // Common assertions
     cy.getByTestId('section_dueling_field').should('be.visible');
     cy.getByTestId('text_vs').should('be.visible');
     cy.getByTestId(`card_duel_player_${playerChoice}`).should('be.visible');
@@ -74,7 +73,6 @@ describe('RPSLS Game Flow', () => {
     cy.intercept('POST', '/api/play', bodyWin).as('playRound');
 
     cy.visit('/');
-    // cy.wait('@getChoices');
   });
 
   it('should render landing page with start button', () => {

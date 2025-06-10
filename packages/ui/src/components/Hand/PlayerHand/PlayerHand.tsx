@@ -12,7 +12,7 @@ type PlayerHandProps = {
   cardChoices: ChoiceItem[];
   selectedCardId?: number | null;
   isDueling: boolean;
-  isDisabled?: boolean; // Add this
+  isDisabled?: boolean;
   onCardSelect: (choiceId: number) => void;
   onCardPlay?: (cardId: number) => void;
 };
