@@ -4,6 +4,8 @@
   --scissors-color: #79b799;
   --lizard-color: #f4c549;
   --spock-color: #a66b9a;
+  --card-width: 9.5rem;
+  --card-height: 12.625rem;
 
   font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;

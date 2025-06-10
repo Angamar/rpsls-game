@@ -29,8 +29,8 @@
   position: relative;
   margin-bottom: 0;
   display: flex;
-  width: 9.5rem;
-  height: 12.625rem;
+  width: var(--card-width);
+  height: var(--card-height);
   align-items: center;
   justify-content: center;
   border-radius: 0.75rem;

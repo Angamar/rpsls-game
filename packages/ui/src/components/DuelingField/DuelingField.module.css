@@ -4,28 +4,33 @@
   align-items: center;
   justify-content: center;
   width: 70%;
-  height: 36%;
-  flex-shrink: 0;
+  position: relative;
+  height: 24rem;
   gap: 2.5rem;
   border-radius: 1rem;
+  border: 1px solid blueviolet;
 }
 
 .computerCard,
 .playerCard {
   transform-style: preserve-3d;
   perspective: 1000px;
-  width: 7.5rem;
-  height: 10.625rem;
+  width: var(--card-width);
+  height: var(--card-height);
   display: flex;
   align-items: center;
   justify-content: center;
   transform-origin: center;
+  position: absolute;
 }
 
-.duelingFieldBackground {
-  background: linear-gradient(to bottom, #f0f8ff, #e6e6fa);
-  border-radius: 1rem;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+.computerCard {
+  top: -15%;
+  transform: translateX(-50%);
+}
+.playerCard {
+  bottom: -15%;
+  transform: translateX(-50%);
 }
 
 .vsText {
