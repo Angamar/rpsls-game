@@ -5,7 +5,7 @@
   "main": "dist/app.js",
   "type": "module",
   "scripts": {
-    "dev": "tsx watch src/app.ts",
+    "dev": "yarn workspace @rpsls-game/shared build && tsx watch src/app.ts",
     "test": "vitest run",
     "build:shared": "yarn workspace @rpsls-game/shared build",
     "build": "yarn build:shared && yarn tsc -p tsconfig.json",
