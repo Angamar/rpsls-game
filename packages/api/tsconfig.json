@@ -4,9 +4,9 @@
     "outDir": "dist",
     "baseUrl": ".",
     "paths": {
-      "@rpsls-game/shared": ["../shared/src/index.ts"]
+      "@rpsls-game/shared": ["../shared/dist"]
     },
     "types": ["vitest/globals", "node"]
   },
-  "include": ["src/**/*", "vitest.setup.ts"]
+  "include": ["src/**/*"]
 }

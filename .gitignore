@@ -6,4 +6,4 @@ node_modules
 dist
 packages/**/dist
 *.log
-**/*.tsbuildinfo
+**/tsconfig.tsbuildinfo
