@@ -86,6 +86,7 @@ rpsls-game/
 │   │   ├── src/
 │   │   └── Dockerfile
 │   └── shared/          # Shared types & utilities
+│       └──src/
 └── docker-compose.yml
 ```
 
