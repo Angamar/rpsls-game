@@ -154,11 +154,11 @@ yarn workspace rpsls-game-ui cypress:open
 
 ## 🌐 Endpoints
 
-| Endpoint               | Method | Description                |
-| ---------------------- | ------ | -------------------------- |
-| `/api/choices`         | GET    | Get all available choices  |
-| `/api/computer-choice` | GET    | Get random computer choice |
-| `/api/play`            | POST   | Play a round               |
+| Endpoint       | Method | Description                |
+| -------------- | ------ | -------------------------- |
+| `/api/choices` | GET    | Get all available choices  |
+| `/api/choice`  | GET    | Get random computer choice |
+| `/api/play`    | POST   | Play a round               |
 
 ---
 
