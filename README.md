@@ -153,7 +153,7 @@ yarn workspace rpsls-game-ui cypress:open
 
 ### Shared Package
 
--`yarn workspace @rpsls-game/shared build` - Build shared package
+- `yarn workspace @rpsls-game/shared build` - Build shared package
 
 ---
 
