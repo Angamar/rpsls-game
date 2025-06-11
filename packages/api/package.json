@@ -9,7 +9,7 @@
     "test": "vitest run",
     "build:shared": "yarn workspace @rpsls-game/shared build",
     "build": "yarn build:shared && yarn tsc -p tsconfig.json",
-    "start": "node dist/index.js"
+    "start": "node dist/app.js"
   },
   "repository": {
     "type": "git",

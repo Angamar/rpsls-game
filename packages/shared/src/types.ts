@@ -5,6 +5,15 @@ export enum GameState {
   SetComplete = "setComplete",
 }
 
+export interface GameRoundBody {
+  player: Choice;
+  computer: Choice;
+  result: Result;
+  winnerChoice: string;
+  loserChoice: string;
+  verb: string | null;
+}
+
 export enum Choice {
   Rock = 1,
   Paper,
