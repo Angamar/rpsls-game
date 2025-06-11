@@ -28,7 +28,6 @@
 .cardButton {
   position: relative;
   margin-bottom: 0;
-  display: flex;
   width: var(--card-width);
   height: var(--card-height);
   align-items: center;

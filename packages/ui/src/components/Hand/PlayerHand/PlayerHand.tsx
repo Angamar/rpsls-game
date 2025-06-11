@@ -6,7 +6,13 @@ import clsx from 'clsx';
 
 import Card from '../Card';
 import PlayButton from '../../PlayButton';
-import { cardTap, cardTransition, cardVariants, getHoverAnimation } from '../Card.motion';
+import {
+  cardTap,
+  cardTransition,
+  cardVariants,
+  getHoverAnimation,
+  getFanRotation,
+} from '../Card.motion';
 
 type PlayerHandProps = {
   cardChoices: ChoiceItem[];
@@ -37,7 +43,7 @@ function PlayerHand({
 
   return (
     <section
-      className={clsx(styles.handSection, styles.computerHandSection)}
+      className={clsx(styles.handSection, styles.playerHandSection)}
       data-testid="section_player_hand"
     >
       {selectedCardId && !isDisabled && (
@@ -58,6 +64,7 @@ function PlayerHand({
         <AnimatePresence>
           {cardChoices.map((cardChoice, i) => {
             const isSelected = selectedCardId === cardChoice.id;
+            const fanRotation = getFanRotation(i, cardChoices.length);
 
             return (
               <motion.button
@@ -67,11 +74,28 @@ function PlayerHand({
                 layout
                 animate={isSelected ? 'selected' : 'unselected'}
                 variants={{
-                  unselected: cardVariants.unselected(i, isDueling),
-                  selected: cardVariants.selected(isDueling),
+                  unselected: {
+                    ...cardVariants.unselected(i, isDueling),
+                    rotate: fanRotation,
+                    originY: 1.2, // Rotation origin point (bottom of card)
+                  },
+                  selected: {
+                    ...cardVariants.selected(isDueling),
+                    rotate: fanRotation, // Keep the fan rotation when selected
+                    originY: 1.2,
+                  },
                 }}
-                initial={cardVariants.unselected(i, isDueling)}
-                exit={{ opacity: 0, y: -70, transition: { duration: 0.2 } }}
+                initial={{
+                  ...cardVariants.unselected(i, isDueling),
+                  rotate: fanRotation,
+                  originY: 1.2,
+                }}
+                exit={{
+                  opacity: 0,
+                  y: -70,
+                  rotate: fanRotation,
+                  transition: { duration: 0.2 },
+                }}
                 whileHover={getHoverAnimation(isDueling || isDisabled)}
                 whileTap={cardTap}
                 transition={cardTransition}

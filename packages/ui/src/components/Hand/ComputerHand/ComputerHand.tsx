@@ -3,7 +3,7 @@ import { AnimatePresence, motion } from 'framer-motion';
 
 import styles from '../Hand.module.css';
 import Card from '../Card';
-import { cardTap, cardTransition, computerCardVariants } from '../Card.motion';
+import { cardTap, cardTransition, computerCardVariants, getFanRotation } from '../Card.motion';
 import clsx from 'clsx';
 
 type ComputerHandProps = {
@@ -33,17 +33,29 @@ function ComputerHand({ cardChoices, isDisabled = false }: ComputerHandProps) {
       >
         <AnimatePresence>
           {cardChoices.map((cardChoice, i) => {
-            const customProps = { cardIndex: i, isDisabled };
+            const fanRotation = getFanRotation(i, cardChoices.length);
 
             return (
               <motion.button
                 key={cardChoice.id}
                 layout
                 data-testid="button_computer_card"
-                animate="unselected"
-                variants={computerCardVariants}
-                initial={computerCardVariants.unselected(customProps)}
-                exit={{ opacity: 0, y: -70, transition: { duration: 0.2 } }}
+                animate={{
+                  ...computerCardVariants.unselected(i, isDisabled),
+                  rotate: fanRotation,
+                  originY: 1.2, // Rotation origin point (bottom of card)
+                }}
+                initial={{
+                  ...computerCardVariants.unselected(i, isDisabled),
+                  rotate: fanRotation,
+                  originY: 1.2,
+                }}
+                exit={{
+                  opacity: 0,
+                  y: -70,
+                  rotate: fanRotation,
+                  transition: { duration: 0.2 },
+                }}
                 transition={cardTransition}
                 whileTap={isDisabled ? undefined : cardTap}
                 className={styles.cardButton}

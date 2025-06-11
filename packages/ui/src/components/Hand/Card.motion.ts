@@ -54,20 +54,27 @@ export const cardVariants = {
   }),
 };
 
+export const getFanRotation = (index: number, totalCards: number) => {
+  const maxRotation = 15; //degrees
+  const centerIndex = (totalCards - 1) / 2;
+  const rotationStep = maxRotation / (totalCards - 1);
+  return (index - centerIndex) * rotationStep;
+};
+
 export const computerCardVariants = {
-  unselected: (custom: { cardIndex: number; isDisabled: boolean }) => ({
+  unselected: (cardIndex: number, isDueling: boolean) => ({
     rotateY: 0,
     rotateX: 0,
     scale: 1,
-    y: custom?.isDisabled ? 0 : [0, -8, 0],
+    y: isDueling ? 0 : [0, -8, 0],
     transition: {
-      y: custom?.isDisabled
+      y: isDueling
         ? { duration: 0 }
         : {
-            duration: 3 + custom?.cardIndex * 0.3,
+            duration: 3 + cardIndex * 0.3,
             repeat: Infinity,
             ease: 'easeInOut',
-            delay: custom?.cardIndex * 0.3,
+            delay: cardIndex * 0.3,
           },
     },
   }),
