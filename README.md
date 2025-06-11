@@ -140,7 +140,6 @@ yarn workspace rpsls-game-ui cypress:open
 - `yarn workspace rpsls-game-ui dev` - Start dev server
 - `yarn workspace rpsls-game-ui build` - Build for production
 - `yarn workspace rpsls-game-ui start` - Start production server
-
 - `yarn workspace rpsls-game-ui test` - Run unit tests
 - `yarn workspace rpsls-game-ui cypress:open` - Open Cypress
 
