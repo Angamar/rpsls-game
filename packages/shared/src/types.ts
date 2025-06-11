@@ -3,6 +3,7 @@ export enum GameState {
   Dueling = "dueling",
   RoundComplete = "roundComplete",
   SetComplete = "setComplete",
+  Error = "error",
 }
 
 export interface GameRoundBody {

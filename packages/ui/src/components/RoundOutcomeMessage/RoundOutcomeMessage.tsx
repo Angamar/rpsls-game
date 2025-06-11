@@ -31,7 +31,14 @@ export default function RoundOutcomeMessage({ roundOutcome }: RoundOutcomeMessag
         transition={{ duration: 0.5, ease: 'easeOut' }}
       >
         <Typography dataTestId="text_outcome_sentence" variant="h3" as="h3">
-          {`${roundOutcome.winnerChoice} ${roundOutcome.verb ?? 'ties with'} ${roundOutcome.loserChoice}!`}
+          <span style={{ color: `var(--${roundOutcome.winnerChoice?.toLowerCase()}-color)` }}>
+            {roundOutcome.winnerChoice}
+          </span>{' '}
+          {roundOutcome.verb ?? 'ties with'}{' '}
+          <span style={{ color: `var(--${roundOutcome.loserChoice?.toLowerCase()}-color)` }}>
+            {roundOutcome.loserChoice}
+          </span>
+          !
         </Typography>
       </motion.div>
     </section>

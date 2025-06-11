@@ -14,7 +14,7 @@ function App() {
   return (
     <section className={styles.appContainer}>
       {currentPage === Page.Menu && <Menu onPageChange={handlePageChange} />}
-      {currentPage === Page.Game && <Game />}
+      {currentPage === Page.Game && <Game onPageChange={handlePageChange} />}
     </section>
   );
 }

@@ -33,3 +33,16 @@
   border-radius: 5px;
   font-size: 12px;
 }
+
+.errorModal {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  padding: 2rem;
+  gap: 2rem;
+  border-radius: 8px;
+  width: 40rem;
+}

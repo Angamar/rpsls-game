@@ -20,6 +20,8 @@ import SetOutcomeMessage from '../../components/SetOutcomeMessage';
 import { calculateSetWinner } from './Game.helpers';
 import Modal from '../../components/Modal';
 import PlayButton from '../../components/PlayButton';
+import Typography from '../../components/Typography';
+import { Page } from '../../types';
 
 const fetchCardChoices = async (): Promise<ChoiceItem[]> => {
   const response = await fetch('/api/choices');
@@ -54,7 +56,11 @@ const getRoundOutcome = async ({
   return (await response.json()) as RoundOutcome;
 };
 
-const Game = () => {
+interface GameProps {
+  onPageChange: (page: Page) => void;
+}
+
+const Game = ({ onPageChange }: GameProps) => {
   const [gameState, setGameState] = useState<GameState>(GameState.Selecting);
   const [roundResults, setRoundResults] = useState<Result[]>([]);
   const [setResult, setSetResult] = useState<SetOutcome>({
@@ -85,7 +91,7 @@ const Game = () => {
     },
     onError: (error) => {
       console.error('Failed to play card:', error);
-      setGameState(GameState.Selecting);
+      setGameState(GameState.Error);
     },
   });
 
@@ -101,6 +107,9 @@ const Game = () => {
   }, [resetRoundOutcome]);
 
   const finishSet = useCallback(() => {
+    setRoundResults([]);
+    setSelectedCardId(null);
+    setPlayedCardId(null);
     const result = calculateSetWinner(roundResults);
     setSetResult((prev) => ({
       result,
@@ -109,7 +118,6 @@ const Game = () => {
       computerSets: prev.computerSets + (result === Result.Lose ? 1 : 0),
     }));
     setGameState(GameState.SetComplete);
-    setRoundResults([]);
   }, [roundResults]);
 
   const startNewSet = useCallback(() => {
@@ -186,7 +194,7 @@ const Game = () => {
         } else {
           startNewRound();
         }
-      }, 1500);
+      }, 2000);
 
       return () => clearTimeout(timer);
     }
@@ -201,54 +209,71 @@ const Game = () => {
   }, [cardChoices, playerHand.length, gameState]);
 
   return (
-    <section className={styles.gameSection} data-testid="section_game">
-      <ScoreTracker
-        results={roundResults}
-        setNumber={setResult.set}
-        playerSets={setResult.playerSets}
-        computerSets={setResult.computerSets}
-        isDisabled={gameState !== GameState.Selecting}
-      />
-
-      <div className={styles.gameContainer}>
-        <ComputerHand
-          isDueling={isDueling}
-          cardChoices={computerHand}
+    <>
+      <section className={styles.gameSection} data-testid="section_game">
+        <ScoreTracker
+          results={roundResults}
+          setNumber={setResult.set}
+          playerSets={setResult.playerSets}
+          computerSets={setResult.computerSets}
           isDisabled={gameState !== GameState.Selecting}
         />
 
-        {isDuelComplete && roundOutcome && <RoundOutcomeMessage roundOutcome={roundOutcome} />}
+        <div className={styles.gameContainer}>
+          <ComputerHand
+            isDueling={isDueling}
+            cardChoices={computerHand}
+            isDisabled={gameState !== GameState.Selecting}
+          />
 
-        {isSetComplete && (
-          <Modal modalContentStyle={styles.setOutcomeModal}>
-            <SetOutcomeMessage setOutcome={setResult} />
-            <PlayButton className={styles.nextSetButton} onClick={startNewSet}>
-              play set {setResult.set + 1}
-            </PlayButton>
-          </Modal>
-        )}
+          {isDuelComplete && roundOutcome && <RoundOutcomeMessage roundOutcome={roundOutcome} />}
 
-        <DuelingField {...duelingFieldProps} />
+          <DuelingField {...duelingFieldProps} />
 
-        <PlayerHand
-          cardChoices={playerHand}
-          onCardSelect={handleCardSelect}
-          onCardPlay={handleCardPlay}
-          selectedCardId={selectedCardId}
-          isDueling={isDueling}
-          isDisabled={gameState !== GameState.Selecting}
-        />
-      </div>
-
-      {process.env.NODE_ENV === 'development' && (
-        <div data-testid="panel_debug" className={styles.debugPanel}>
-          <div>State: {gameState}</div>
-          <div>Rounds: {roundResults.length}/5</div>
-          <div>Player Cards: {playerHand.length}</div>
-          <div>Computer Cards: {computerHand.length}</div>
+          <PlayerHand
+            cardChoices={playerHand}
+            onCardSelect={handleCardSelect}
+            onCardPlay={handleCardPlay}
+            selectedCardId={selectedCardId}
+            isDueling={isDueling}
+            isDisabled={gameState !== GameState.Selecting}
+          />
         </div>
+
+        {process.env.NODE_ENV === 'development' && (
+          <div data-testid="panel_debug" className={styles.debugPanel}>
+            <div>State: {gameState}</div>
+            <div>Rounds: {roundResults.length}/5</div>
+            <div>Player Cards: {playerHand.length}</div>
+            <div>Computer Cards: {computerHand.length}</div>
+          </div>
+        )}
+      </section>
+      {isSetComplete && (
+        <Modal modalContentStyle={styles.setOutcomeModal}>
+          <SetOutcomeMessage setOutcome={setResult} />
+          <PlayButton className={styles.nextSetButton} onClick={startNewSet}>
+            play set {setResult.set + 1}
+          </PlayButton>
+        </Modal>
       )}
-    </section>
+
+      {gameState === GameState.Error && (
+        <Modal modalContentStyle={styles.errorModal} data-testid="modal_error">
+          <Typography variant="h1" as="h1" className={styles.errorTitle}>
+            Uh, oh!
+          </Typography>
+          <Typography variant="h2" as="h2" className={styles.errorTitle}>
+            Unfortunately, something went wrong.
+            <br />
+            Please restart the game.
+          </Typography>
+          <PlayButton className={styles.startOverButton} onClick={() => onPageChange(Page.Menu)}>
+            Start over
+          </PlayButton>
+        </Modal>
+      )}
+    </>
   );
 };
 
