@@ -34,7 +34,7 @@ Each choice wins against two others, loses to two others, and ties with itself!
 
 ```bash
 # Clone the repository
-git clone https://github.com/your-username/rpsls-game.git
+git clone https://github.com/Angamar/rpsls-game.git
 cd rpsls-game
 
 # Start with Docker Compose
