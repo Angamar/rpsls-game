@@ -1,19 +1,19 @@
 .scoreTrackerAside {
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
   position: absolute;
   padding: 1rem;
   width: 5.6rem;
-  height: 53vh;
+  max-height: 90vh;
   background: rgba(6, 58, 68, 0.85);
   color: white;
   border-right: 2px solid #14535b;
   border-radius: 0 2rem 2rem 0;
   box-sizing: border-box;
-  /* TODO: add z-index vars  */
   z-index: 100;
+  perspective: 1000px;
 }
 
 .victoryCount {
@@ -21,12 +21,17 @@
   font-weight: bold;
   margin-bottom: 1rem;
   text-align: center;
+  flex-shrink: 0;
 }
 
 .historyList {
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
+  overflow: visible;
+  width: 100%;
+  flex-grow: 1;
+  max-height: none;
 }
 
 .historyItem {
@@ -38,12 +43,45 @@
   border-radius: 0.5rem;
   font-size: 1.3rem;
   text-align: center;
+  transform-style: preserve-3d;
+  backdrop-filter: blur(2px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  position: relative;
+  cursor: pointer;
+}
+
+.historyItem:first-child {
+  background: rgba(255, 255, 255, 0.2);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  font-size: 1.4rem;
+}
+
+.historyItem:not(:first-child) {
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.08);
+  font-size: 1.1rem;
+  opacity: 0.7;
+}
+
+.historyItem:nth-child(2) {
+  opacity: 0.85;
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.historyItem:nth-child(n + 3) {
+  opacity: 0.6;
+  background: rgba(255, 255, 255, 0.04);
+  font-size: 1rem;
 }
 
 .set {
   font-weight: bold;
   font-size: 1.2rem;
   margin-bottom: 0.5rem;
+  flex-shrink: 0;
 }
 
 .gameScoreText {
@@ -57,4 +95,24 @@
   border-radius: 0.75rem;
   text-align: center;
   line-height: 1.2;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  flex-shrink: 0;
+  margin-top: auto;
+}
+
+.centerScoreOverlay {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 8rem;
+  font-weight: 900;
+  color: rgba(255, 255, 255, 0.1);
+  text-shadow: 0 0 30px rgba(255, 255, 255, 0.1);
+  pointer-events: none;
+  z-index: 50;
+  user-select: none;
+  font-family: 'Inter', system-ui, sans-serif;
+  letter-spacing: 0.1em;
+  backdrop-filter: blur(1px);
 }

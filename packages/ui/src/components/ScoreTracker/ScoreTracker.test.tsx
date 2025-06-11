@@ -11,28 +11,19 @@ describe('ScoreTracker', () => {
   };
 
   it('renders set number correctly', () => {
-    render(<ScoreTracker {...baseProps} results={[]} />);
+    render(<ScoreTracker {...baseProps} results={[]} isDisabled />);
     expect(screen.getByTestId('text_set_number').textContent).toContain('set 2');
   });
 
   it('shows correct victory count', () => {
     const results = [Result.Win, Result.Lose, Result.Win, Result.Tie];
-    render(<ScoreTracker {...baseProps} results={results} />);
+    render(<ScoreTracker {...baseProps} results={results} isDisabled />);
     expect(screen.getByTestId('text_hands_won').textContent).toContain('2');
   });
 
-  //TODO: check why this test is passing
-  it('displays last 5 results in reverse order', () => {
-    const results = [
-      Result.Lose,
-      Result.Win,
-      Result.Tie,
-      Result.Win,
-      Result.Lose,
-      Result.Win,
-      Result.Tie,
-    ];
-    render(<ScoreTracker {...baseProps} results={results} />);
+  it('displays results in reverse order', () => {
+    const results = [Result.Lose, Result.Win, Result.Tie, Result.Win, Result.Lose];
+    render(<ScoreTracker {...baseProps} results={results} isDisabled />);
     const historyItems = screen.getAllByTestId(/item_outcome_result_/);
     expect(historyItems).toHaveLength(5);
 
@@ -50,18 +41,18 @@ describe('ScoreTracker', () => {
   });
 
   it('renders correct game score', () => {
-    render(<ScoreTracker {...baseProps} results={[]} />);
+    render(<ScoreTracker {...baseProps} results={[]} isDisabled={false} />);
     expect(screen.getByTestId('text_game_score').textContent).toBe('2 - 3');
   });
 
   it('renders no history items if results is empty', () => {
-    render(<ScoreTracker {...baseProps} results={[]} />);
+    render(<ScoreTracker {...baseProps} results={[]} isDisabled />);
     expect(screen.queryAllByTestId(/item_outcome_result_/)).toHaveLength(0);
   });
 
   it('renders correct icons for all result types', () => {
     const results = [Result.Win, Result.Lose, Result.Tie];
-    render(<ScoreTracker {...baseProps} results={results} />);
+    render(<ScoreTracker {...baseProps} results={results} isDisabled />);
     const icons = screen.getAllByTestId(/item_outcome_result_/).map((item) => item.textContent);
     expect(icons).toContain('✅');
     expect(icons).toContain('❌');

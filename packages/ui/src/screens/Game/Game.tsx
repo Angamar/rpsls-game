@@ -89,11 +89,9 @@ const Game = () => {
     },
   });
 
-  // Derived states
   const isDueling = gameState === GameState.Dueling;
   const isDuelComplete = gameState === GameState.RoundComplete;
   const isSetComplete = gameState === GameState.SetComplete;
-
   // Game flow functions
   const startNewRound = useCallback(() => {
     setGameState(GameState.Selecting);
@@ -152,7 +150,6 @@ const Game = () => {
     [gameState, computerHand, playCard],
   );
 
-  // Dueling field props
   const duelingFieldProps = useMemo(
     () => ({
       playerCard:
@@ -210,6 +207,7 @@ const Game = () => {
         setNumber={setResult.set}
         playerSets={setResult.playerSets}
         computerSets={setResult.computerSets}
+        isDisabled={gameState !== GameState.Selecting}
       />
 
       <div className={styles.gameContainer}>
@@ -243,19 +241,7 @@ const Game = () => {
       </div>
 
       {process.env.NODE_ENV === 'development' && (
-        <div
-          data-cy="debug-panel"
-          style={{
-            position: 'fixed',
-            top: 10,
-            right: 10,
-            background: 'rgba(0,0,0,0.8)',
-            color: 'white',
-            padding: '10px',
-            borderRadius: '5px',
-            fontSize: '12px',
-          }}
-        >
+        <div data-testid="panel_debug" className={styles.debugPanel}>
           <div>State: {gameState}</div>
           <div>Rounds: {roundResults.length}/5</div>
           <div>Player Cards: {playerHand.length}</div>
