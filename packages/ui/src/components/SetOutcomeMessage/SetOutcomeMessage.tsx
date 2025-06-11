@@ -19,6 +19,12 @@ export default function SetOutcomeMessage({ setOutcome }: SetOutcomeMessageProps
       >
         {setResultsMessageMap[setOutcome?.result]}
       </Typography>
+
+      <div className={styles.setScoreContainer}>
+        <Typography variant="setResultHero" as="h2" dataTestId="text_set_score">
+          {`${setOutcome.playerSets} - ${setOutcome.computerSets}`}
+        </Typography>
+      </div>
       <Typography variant="h2" as="h2" dataTestId="text_set_winner">
         <span
           className={clsx(
@@ -29,11 +35,6 @@ export default function SetOutcomeMessage({ setOutcome }: SetOutcomeMessageProps
         </span>{' '}
         has won Set {setOutcome.set}
       </Typography>
-      <div className={styles.setScoreContainer}>
-        <Typography variant="setResultHero" as="h2" dataTestId="text_set_score">
-          {`${setOutcome.playerSets} - ${setOutcome.computerSets}`}
-        </Typography>
-      </div>
     </section>
   );
 }

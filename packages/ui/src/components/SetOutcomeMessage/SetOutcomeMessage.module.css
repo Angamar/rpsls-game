@@ -22,12 +22,14 @@
 
 .playerText {
   font-weight: bold;
-  color: #2196f3;
+  color: #4fc3f7;
+  text-shadow: 0 0 4px rgba(79, 195, 247, 0.3);
 }
 
 .computerText {
   font-weight: bold;
-  color: #f44336;
+  color: #ff8a65;
+  text-shadow: 0 0 4px rgba(255, 138, 101, 0.3);
 }
 
 .nextSetButton {
