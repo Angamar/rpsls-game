@@ -48,7 +48,7 @@ open http://localhost:8080
 
 ```bash
 # Clone and install dependencies
-git clone https://github.com/your-username/rpsls-game.git
+git clone https://github.com/Angamar/rpsls-game.git
 cd rpsls-game
 yarn install
 
