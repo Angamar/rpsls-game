@@ -8,7 +8,10 @@
   "scripts": {
     "dev": "concurrently --kill-others \"yarn workspace rpsls-game-api dev\" \"yarn workspace rpsls-game-ui dev\"",
     "build": "yarn workspace rpsls-game-api build && yarn workspace rpsls-game-ui build",
+    "start": "concurrently --kill-others \"yarn workspace rpsls-game-api start\" \"yarn workspace rpsls-game-ui start\"",
     "clean": "rimraf packages/*/dist",
+    "clean:all": "rimraf packages/*/dist packages/*/node_modules node_modules yarn.lock || echo 'Clean completed (some paths may not have existed)'",
+    "reset": "yarn clean:all && yarn install && yarn workspace @rpsls-game/shared build",
     "test": "yarn workspaces foreach -A run test",
     "lint": "eslint . --ext .ts,.tsx",
     "postinstall": "husky install",

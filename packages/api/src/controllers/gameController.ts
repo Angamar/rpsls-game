@@ -1,6 +1,5 @@
 import { Request, Response } from "express";
 import { Choice, ChoiceListSchema, PlayRoundSchema } from "@rpsls-game/shared";
-import { fetchRandomNumber } from "../services/randomNumberService";
 
 import {
   choices,

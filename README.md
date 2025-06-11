@@ -38,7 +38,7 @@ git clone https://github.com/Angamar/rpsls-game.git
 cd rpsls-game
 
 # Start with Docker Compose
-docker-compose up --build
+docker compose up --build
 
 # Access the game
 open http://localhost:8080
@@ -66,9 +66,8 @@ yarn workspace rpsls-game-ui dev     # UI on :3001
 # Build all packages
 yarn build
 
-# Start production servers
-yarn workspace rpsls-game-api start
-yarn workspace rpsls-game-ui preview
+# Start production packages
+yarn start
 ```
 
 ---
@@ -140,6 +139,8 @@ yarn workspace rpsls-game-ui cypress:open
 
 - `yarn workspace rpsls-game-ui dev` - Start dev server
 - `yarn workspace rpsls-game-ui build` - Build for production
+- `yarn workspace rpsls-game-ui start` - Start production server
+
 - `yarn workspace rpsls-game-ui test` - Run unit tests
 - `yarn workspace rpsls-game-ui cypress:open` - Open Cypress
 
@@ -147,8 +148,12 @@ yarn workspace rpsls-game-ui cypress:open
 
 - `yarn workspace rpsls-game-api dev` - Start dev server
 - `yarn workspace rpsls-game-api build` - Build for production
-- `yarn workspace rpsls-game-api test` - Run tests
 - `yarn workspace rpsls-game-api start` - Start production server
+- `yarn workspace rpsls-game-api test` - Run tests
+
+### Shared Package
+
+-`yarn workspace @rpsls-game/shared build` - Build shared package
 
 ---
 
@@ -181,17 +186,16 @@ kill -9 <PID>
 
 ```bash
 # Reset Docker state
-docker-compose down
+docker compose down
 docker system prune -a
-docker-compose up --build
+docker compose up --build
 ```
 
 **Dependency issues:**
 
 ```bash
 # Clean install
-rm -rf node_modules yarn.lock packages/*/node_modules
-yarn install
+yarn reset
 ```
 
 ## 🙏 Acknowledgments

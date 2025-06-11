@@ -6,6 +6,7 @@
   "scripts": {
     "dev": "yarn workspace @rpsls-game/shared build && vite --port 3001",
     "build": "vite build",
+    "start": "vite preview --port 3001",
     "lint": "eslint .",
     "preview": "vite preview",
     "format": "prettier --write .",
