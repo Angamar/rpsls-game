@@ -1,0 +1,8 @@
+services:
+  api:
+    ports:
+      - "3000:3000"
+
+  ui:
+    ports:
+      - "8080:80"
