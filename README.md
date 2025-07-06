@@ -2,6 +2,8 @@
 
 Welcome to **Rock Paper Scissors Lizard Spock** – an extended twist on the classic game popularized by The Big Bang Theory! Experience the strategic depth of five choices instead of three.
 
+[![Play Now](https://img.shields.io/badge/Play-Now-brightgreen?style=for-the-badge)](https://rpsx.online)
+
 ---
 
 ## 🎮 Game Rules
