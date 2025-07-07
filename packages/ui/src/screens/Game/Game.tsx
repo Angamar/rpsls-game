@@ -231,14 +231,17 @@ const Game = ({ onPageChange }: GameProps) => {
 
           <DuelingField {...duelingFieldProps} />
 
-          <PlayerHand
-            cardChoices={playerHand}
-            onCardSelect={handleCardSelect}
-            onCardPlay={handleCardPlay}
-            selectedCardId={selectedCardId}
-            isDueling={isDueling}
-            isDisabled={gameState !== GameState.Selecting}
-          />
+          {playerHand && (
+            <PlayerHand
+              key={setResult.set}
+              cardChoices={playerHand}
+              onCardSelect={handleCardSelect}
+              onCardPlay={handleCardPlay}
+              selectedCardId={selectedCardId}
+              isDueling={isDueling}
+              isDisabled={gameState !== GameState.Selecting}
+            />
+          )}
         </div>
 
         {process.env.NODE_ENV === 'development' && (
