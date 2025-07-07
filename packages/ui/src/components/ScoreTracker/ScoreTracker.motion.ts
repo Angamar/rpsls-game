@@ -1,4 +1,5 @@
 import type { Variants } from 'framer-motion';
+import { ANIMATION_DURATIONS } from '../../constants/animationDurations';
 
 export const asideVariants = {
   initial: (baseHeight: number) => ({
@@ -14,13 +15,13 @@ export const asideVariants = {
 };
 
 export const asideTransition = {
-  x: { type: 'tween', duration: 0.8, ease: 'easeInOut' },
-  opacity: { type: 'tween', duration: 0.8, ease: 'easeInOut' },
+  x: { type: 'tween', duration: ANIMATION_DURATIONS.ASIDE_TRANSITION, ease: 'easeInOut' },
+  opacity: { type: 'tween', duration: ANIMATION_DURATIONS.ASIDE_TRANSITION, ease: 'easeInOut' },
   height: {
     type: 'spring',
     stiffness: 200,
     damping: 25,
-    duration: 0.6,
+    duration: ANIMATION_DURATIONS.ASIDE_HEIGHT_TRANSITION,
   },
 };
 
@@ -30,7 +31,7 @@ export const victoryCountVariants = {
 };
 
 export const victoryCountTransition = {
-  duration: 0.3,
+  duration: ANIMATION_DURATIONS.VICTORY_COUNT,
 };
 
 export const historyItemVariants: Variants = {
@@ -48,7 +49,7 @@ export const historyItemVariants: Variants = {
     opacity: 0,
     y: 10,
     scale: 0.8,
-    transition: { duration: 0.2 },
+    transition: { duration: ANIMATION_DURATIONS.HISTORY_ITEM_EXIT },
   },
 };
 
@@ -60,7 +61,7 @@ export const historyItemTransition = {
 
 export const historyItemHover = {
   scale: 1.05,
-  transition: { duration: 0.2 },
+  transition: { duration: ANIMATION_DURATIONS.HISTORY_ITEM_HOVER },
 };
 
 export const newHistoryItemVariants: Variants = {
@@ -80,7 +81,7 @@ export const newHistoryItemVariants: Variants = {
     opacity: 0,
     y: 20,
     scale: 0.6,
-    transition: { duration: 0.3 },
+    transition: { duration: ANIMATION_DURATIONS.HISTORY_ITEM_EXIT + 0.1 },
   },
 };
 
@@ -88,7 +89,7 @@ export const newHistoryItemTransition = {
   type: 'spring',
   stiffness: 400,
   damping: 15,
-  duration: 0.6,
+  duration: ANIMATION_DURATIONS.NEW_HISTORY_ITEM,
 };
 
 export const iconSpinVariants = {
@@ -101,7 +102,7 @@ export const iconSpinVariants = {
 };
 
 export const getIconSpinTransition = (isNewest: boolean, index: number) => ({
-  duration: 0.5,
+  duration: ANIMATION_DURATIONS.ICON_SPIN,
   delay: isNewest ? 0.2 : index * 0.05,
 });
 
@@ -130,12 +131,12 @@ export const centerScoreVariants: Variants = {
   exit: {
     opacity: 0,
     scale: 1.1,
-    transition: { duration: 0.5 },
+    transition: { duration: ANIMATION_DURATIONS.CENTER_SCORE_EXIT },
   },
 };
 
 export const centerScoreTransition = {
-  duration: 2.5,
+  duration: ANIMATION_DURATIONS.CENTER_SCORE,
   ease: [0.25, 0.1, 0.25, 1],
 };
 

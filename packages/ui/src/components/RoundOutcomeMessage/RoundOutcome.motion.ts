@@ -1,3 +1,5 @@
+import { ANIMATION_DURATIONS } from '../../constants/animationDurations';
+
 export const heroPopAnimation = {
   initial: { scale: 0.8, rotate: -4, opacity: 0 },
   animate: {
@@ -6,7 +8,7 @@ export const heroPopAnimation = {
     opacity: 1,
   },
   transition: {
-    duration: 1,
+    duration: ANIMATION_DURATIONS.HERO_POP,
     ease: [0.23, 1, 0.32, 1],
   },
 };

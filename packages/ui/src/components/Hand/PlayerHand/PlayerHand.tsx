@@ -13,6 +13,7 @@ import {
   getHoverAnimation,
   getFanRotation,
 } from '../Card.motion';
+import { ANIMATION_DURATIONS } from '../../../constants/animationDurations';
 
 type PlayerHandProps = {
   cardChoices: ChoiceItem[];
@@ -54,11 +55,11 @@ function PlayerHand({
         data-testid="container_player_hand"
         animate={{ y: isDisabled ? 150 : 0 }}
         transition={{
-          delay: 0.4,
+          delay: ANIMATION_DURATIONS.PLAYER_HAND_DELAY,
           type: 'spring',
           stiffness: 120,
           damping: 18,
-          duration: 0.4,
+          duration: ANIMATION_DURATIONS.PLAYER_HAND_ANIMATION,
         }}
       >
         <AnimatePresence>
@@ -94,7 +95,7 @@ function PlayerHand({
                   opacity: 0,
                   y: -70,
                   rotate: fanRotation,
-                  transition: { duration: 0.2 },
+                  transition: { duration: ANIMATION_DURATIONS.PLAYER_HAND_EXIT },
                 }}
                 whileHover={getHoverAnimation(isDueling || isDisabled)}
                 whileTap={cardTap}

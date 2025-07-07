@@ -4,6 +4,7 @@ import styles from './Menu.module.css';
 import PlayButton from '../../components/PlayButton';
 import LoopingTextBanner from '../../components/LoopingTextBanner';
 import GameTitle from '../../components/GameTitle';
+import { ANIMATION_DURATIONS } from '../../constants/animationDurations';
 
 interface MenuProps {
   onPageChange: (page: number) => void;
@@ -16,7 +17,11 @@ const Menu = ({ onPageChange }: MenuProps) => {
       <GameTitle />
       <motion.div
         animate={{ y: [0, -6, 0] }}
-        transition={{ duration: 2, repeat: Infinity, ease: 'easeInOut' }}
+        transition={{
+          duration: ANIMATION_DURATIONS.GAME_START_BUTTON_FLOAT,
+          repeat: Infinity,
+          ease: 'easeInOut',
+        }}
         whileHover={{ scale: 1.05, y: 0 }}
         whileTap={{ scale: 0.98 }}
       >

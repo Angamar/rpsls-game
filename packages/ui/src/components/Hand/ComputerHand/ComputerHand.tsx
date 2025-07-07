@@ -5,6 +5,7 @@ import styles from '../Hand.module.css';
 import Card from '../Card';
 import { cardTap, cardTransition, computerCardVariants, getFanRotation } from '../Card.motion';
 import clsx from 'clsx';
+import { ANIMATION_DURATIONS } from '../../../constants/animationDurations';
 
 type ComputerHandProps = {
   cardChoices: ChoiceItem[];
@@ -23,11 +24,11 @@ function ComputerHand({ cardChoices, isDisabled = false }: ComputerHandProps) {
         data-testid="container_computer_hand"
         animate={{ y: isDisabled ? -150 : 0 }}
         transition={{
-          delay: 0.4,
+          delay: ANIMATION_DURATIONS.COMPUTER_HAND_DELAY,
           type: 'spring',
           stiffness: 120,
           damping: 18,
-          duration: 0.4,
+          duration: ANIMATION_DURATIONS.COMPUTER_HAND_ANIMATION,
         }}
         style={{ rotate: '180deg' }}
       >
@@ -54,7 +55,7 @@ function ComputerHand({ cardChoices, isDisabled = false }: ComputerHandProps) {
                   opacity: 0,
                   y: -70,
                   rotate: fanRotation,
-                  transition: { duration: 0.2 },
+                  transition: { duration: ANIMATION_DURATIONS.COMPUTER_HAND_EXIT },
                 }}
                 transition={cardTransition}
                 whileTap={isDisabled ? undefined : cardTap}

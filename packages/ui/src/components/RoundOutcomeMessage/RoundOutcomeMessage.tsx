@@ -4,6 +4,7 @@ import styles from './RoundOutcomeMessage.module.css';
 import Typography from '../Typography';
 import { resultMessageMap, resultMessageVariantMap } from './RoundOutcomeMessage.helpers';
 import { heroPopAnimation } from './RoundOutcome.motion';
+import { ANIMATION_DURATIONS } from '../../constants/animationDurations';
 
 type RoundOutcomeMessageProps = {
   roundOutcome: RoundOutcome;
@@ -28,7 +29,7 @@ export default function RoundOutcomeMessage({ roundOutcome }: RoundOutcomeMessag
       <motion.div
         initial={{ opacity: 0, y: 50 }}
         animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.5, ease: 'easeOut' }}
+        transition={{ duration: ANIMATION_DURATIONS.ROUND_OUTCOME_SUBTEXT, ease: 'easeOut' }}
       >
         <Typography dataTestId="text_outcome_sentence" variant="h3" as="h3">
           <span style={{ color: `var(--${roundOutcome.winnerChoice?.toLowerCase()}-color)` }}>

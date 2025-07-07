@@ -3,6 +3,7 @@ import clsx from 'clsx';
 
 import { motion } from 'framer-motion';
 import Typography from '../Typography';
+import { ANIMATION_DURATIONS } from '../../constants/animationDurations';
 
 const Rock = () => (
   <Typography variant="rock" as="span">
@@ -68,7 +69,7 @@ export default function LoopingTextBanner({ position }: { position: 'top' | 'bot
         className={styles.scrollingText}
         animate={position === 'top' ? { x: ['-50%', '0%'] } : { x: ['0%', '-50%'] }}
         transition={{
-          duration: 15,
+          duration: ANIMATION_DURATIONS.LOOPING_TEXT_BANNER,
           repeat: Infinity,
           ease: 'linear',
         }}

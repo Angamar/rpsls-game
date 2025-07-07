@@ -1,0 +1,64 @@
+export const ANIMATION_DURATIONS = {
+  // Modal animations
+  MODAL_BACKDROP_SHOW: 0.3,
+  MODAL_BACKDROP_HIDE: 0.2,
+  MODAL_CONTENT_HIDE: 0.2,
+
+  // Card animations
+  CARD_SCALE_TRANSITION: 0.3,
+  CARD_SCALE_TRANSITION_DUELING: 0.4,
+  CARD_Y_TRANSITION: 0.3,
+  CARD_Y_TRANSITION_DUELING: 0.4,
+  CARD_ROTATION_Y: 3,
+  CARD_ROTATION_X: 2.5,
+  CARD_SCALE_GLOW: 2,
+  CARD_HOVER: 0.2,
+  CARD_PULSING_BORDER: 2,
+
+  // Player hand animations
+  PLAYER_HAND_DELAY: 0.4,
+  PLAYER_HAND_ANIMATION: 0.4,
+  PLAYER_HAND_EXIT: 0.2,
+
+  // Computer card animations
+  COMPUTER_CARD_Y_BASE: 3,
+  COMPUTER_CARD_Y_DELAY_MULTIPLIER: 0.3,
+
+  // Computer hand animations
+  COMPUTER_HAND_DELAY: 0.4,
+  COMPUTER_HAND_ANIMATION: 0.4,
+  COMPUTER_HAND_EXIT: 0.2,
+
+  // Play button animations
+  PLAY_BUTTON: 1.5,
+  HERO_BUTTON: 0.3,
+
+  // Score tracker animations
+  ASIDE_TRANSITION: 0.8,
+  ASIDE_HEIGHT_TRANSITION: 0.6,
+  VICTORY_COUNT: 0.3,
+  HISTORY_ITEM_EXIT: 0.2,
+  HISTORY_ITEM_HOVER: 0.2,
+  NEW_HISTORY_ITEM: 0.6,
+  ICON_SPIN: 0.5,
+  CENTER_SCORE: 2.5,
+  CENTER_SCORE_EXIT: 0.5,
+  CENTER_SCORE_OVERLAY: 0.5,
+
+  // Dueling field animations
+  PLAYER_CARD: 0.4,
+  VS_TEXT: 0.5,
+  COMPUTER_CARD: 0.5,
+
+  // Round outcome animations
+  HERO_POP: 1,
+  ROUND_OUTCOME_SUBTEXT: 0.5,
+
+  // Game title animations
+  GAME_TITLE_WORD: 4,
+  GAME_TITLE_WORD_DELAY: 0.8,
+  GAME_START_BUTTON_FLOAT: 2,
+
+  // Banner animations
+  LOOPING_TEXT_BANNER: 15,
+} as const;

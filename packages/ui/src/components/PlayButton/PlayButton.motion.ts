@@ -1,6 +1,8 @@
+import { ANIMATION_DURATIONS } from '../../constants/animationDurations';
+
 export const playButtonHover = { scale: 1.05, boxShadow: '0 6px 14px rgba(0,0,0,0.15)' };
 export const playButtonTransition = {
-  duration: 1.5,
+  duration: ANIMATION_DURATIONS.PLAY_BUTTON,
   repeat: Infinity,
   repeatType: 'loop',
   ease: 'easeInOut',
@@ -30,6 +32,6 @@ export const heroButtonAnimate = {
 };
 
 export const heroButtonTransition = {
-  duration: 0.3,
+  duration: ANIMATION_DURATIONS.HERO_BUTTON,
   ease: 'easeOut',
 };

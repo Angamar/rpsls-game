@@ -2,6 +2,7 @@ import type { ChoiceItem } from '@rpsls-game/shared';
 import { motion, AnimatePresence } from 'framer-motion';
 import Card from '../Hand/Card';
 import styles from './DuelingField.module.css';
+import { ANIMATION_DURATIONS } from '../../constants/animationDurations';
 
 interface DuelingFieldProps {
   playerCard: ChoiceItem['name'] | null;
@@ -21,7 +22,7 @@ const DuelingField = ({ playerCard, computerCard }: DuelingFieldProps) => {
               animate={{ opacity: 1, x: 0 }}
               exit={{ opacity: 0, x: 200 }}
               transition={{
-                duration: 0.4,
+                duration: ANIMATION_DURATIONS.PLAYER_CARD,
                 ease: 'easeOut',
               }}
             >
@@ -35,7 +36,7 @@ const DuelingField = ({ playerCard, computerCard }: DuelingFieldProps) => {
               animate={{ opacity: 1, scale: [1.5, 2.5, 1.5] }}
               exit={{ opacity: 0, scale: 0.5 }}
               transition={{
-                duration: 0.5,
+                duration: ANIMATION_DURATIONS.VS_TEXT,
                 ease: 'easeOut',
               }}
             >
@@ -49,7 +50,7 @@ const DuelingField = ({ playerCard, computerCard }: DuelingFieldProps) => {
               animate={{ opacity: 1, x: 0 }}
               exit={{ opacity: 0, x: -200 }}
               transition={{
-                duration: 0.5,
+                duration: ANIMATION_DURATIONS.COMPUTER_CARD,
                 ease: 'easeOut',
               }}
             >

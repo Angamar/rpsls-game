@@ -13,6 +13,7 @@ import {
   getHistoryItemKey,
   calculateDynamicHeight,
 } from './ScoreTracker.motion';
+import { ANIMATION_DURATIONS } from '../../constants/animationDurations';
 
 interface ScoreTrackerProps {
   results: Result[];
@@ -111,7 +112,7 @@ const ScoreTracker = ({
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{
-              duration: 0.5,
+              duration: ANIMATION_DURATIONS.CENTER_SCORE_OVERLAY,
               ease: 'easeInOut',
             }}
           >

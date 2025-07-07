@@ -1,3 +1,5 @@
+import { ANIMATION_DURATIONS } from '../../constants/animationDurations';
+
 export const backdropVariants = {
   hidden: {
     opacity: 0,
@@ -7,7 +9,7 @@ export const backdropVariants = {
     opacity: 1,
     backdropFilter: 'blur(4px)',
     transition: {
-      duration: 0.3,
+      duration: ANIMATION_DURATIONS.MODAL_BACKDROP_SHOW,
       ease: 'easeOut',
     },
   },
@@ -15,7 +17,7 @@ export const backdropVariants = {
     opacity: 0,
     backdropFilter: 'blur(0px)',
     transition: {
-      duration: 0.2,
+      duration: ANIMATION_DURATIONS.MODAL_BACKDROP_HIDE,
       ease: 'easeIn',
     },
   },
@@ -45,7 +47,7 @@ export const modalVariants = {
     scale: 0.9,
     y: -20,
     transition: {
-      duration: 0.2,
+      duration: ANIMATION_DURATIONS.MODAL_CONTENT_HIDE,
       ease: 'easeIn',
     },
   },
