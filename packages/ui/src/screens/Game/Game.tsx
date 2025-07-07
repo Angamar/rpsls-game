@@ -22,6 +22,7 @@ import Modal from '../../components/Modal';
 import PlayButton from '../../components/PlayButton';
 import Typography from '../../components/Typography';
 import { Page } from '../../types';
+import { GAME_SPEED } from '../../constants/animationDurations';
 
 const fetchCardChoices = async (): Promise<ChoiceItem[]> => {
   const response = await fetch('/api/choices');
@@ -180,7 +181,7 @@ const Game = ({ onPageChange }: GameProps) => {
         // Add result and move to round complete
         setRoundResults((prev) => [roundOutcome.result, ...prev]);
         setGameState(GameState.RoundComplete);
-      }, 2000); // Wait for duel animation
+      }, GAME_SPEED.DUEL_DURATION); // Wait for duel animation
 
       return () => clearTimeout(timer);
     }
@@ -194,7 +195,7 @@ const Game = ({ onPageChange }: GameProps) => {
         } else {
           startNewRound();
         }
-      }, 2000);
+      }, GAME_SPEED.ROUND_COMPLETE_DELAY);
 
       return () => clearTimeout(timer);
     }
