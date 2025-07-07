@@ -13,3 +13,4 @@ packages/**/dist
 *.log
 **/tsconfig.tsbuildinfo
 .env
+**/screenshots

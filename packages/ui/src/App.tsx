@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { Page } from './types';
 import styles from './App.module.css';
 import Menu from './screens/Menu';
-import Game from './screens/Game'; // typically in App.tsx or main.tsx
+import Game from './screens/Game';
 
 function App() {
   const [currentPage, setCurrentPage] = useState(Page.Menu);

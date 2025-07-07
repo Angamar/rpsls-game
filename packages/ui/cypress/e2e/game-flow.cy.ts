@@ -50,7 +50,7 @@ describe.only('Game screen', () => {
     cy.playRound(Choice.Rock, Choice.Rock);
   });
 
-  it.only('should render set end modal after full set was played', () => {
+  it('should render set end modal after full set was played', () => {
     cy.playRound(Choice.Paper, Choice.Rock); // Win
     cy.playRound(Choice.Rock, Choice.Paper); // Lose
     cy.playRound(Choice.Scissors, Choice.Scissors); // Tie
@@ -61,5 +61,29 @@ describe.only('Game screen', () => {
     cy.getByTestId('wrapper_modal_content').should('be.visible');
     cy.getByTestId('wrapper_modal').should('be.visible');
     cy.getByTestId('button_play').should('be.visible');
+  });
+
+  it('should lose a set if it is a tie but computer has won the round last', () => {
+    cy.playRound(Choice.Rock, Choice.Rock); // Tie
+    cy.playRound(Choice.Paper, Choice.Paper); // Tie
+    cy.playRound(Choice.Lizard, Choice.Spock); // Win
+    cy.playRound(Choice.Spock, Choice.Lizard); // Lose
+    cy.playRound(Choice.Scissors, Choice.Scissors); // Tie
+
+    cy.getByTestId('wrapper_modal').should('be.visible');
+    cy.getByTestId('text_set_outcome').should('contain', 'Set lost');
+    cy.getByTestId('text_set_winner').should('contain', 'Computer has won Set 1');
+  });
+
+  it('should win a set if it is a tie but player has won the round last', () => {
+    cy.playRound(Choice.Rock, Choice.Rock); // Tie
+    cy.playRound(Choice.Paper, Choice.Paper); // Tie
+    cy.playRound(Choice.Spock, Choice.Lizard); // Lose
+    cy.playRound(Choice.Lizard, Choice.Spock); // Win
+    cy.playRound(Choice.Scissors, Choice.Scissors); // Tie
+
+    cy.getByTestId('wrapper_modal').should('be.visible');
+    cy.getByTestId('text_set_outcome').should('contain', 'Set won');
+    cy.getByTestId('text_set_winner').should('contain', 'Player has won Set 1');
   });
 });
