@@ -179,7 +179,7 @@ const Game = ({ onPageChange }: GameProps) => {
     if (gameState === GameState.Dueling && roundOutcome) {
       const timer = setTimeout(() => {
         // Add result and move to round complete
-        setRoundResults((prev) => [roundOutcome.result, ...prev]);
+        setRoundResults((prev) => [...prev, roundOutcome.result]);
         setGameState(GameState.RoundComplete);
       }, GAME_SPEED.DUEL_DURATION); // Wait for duel animation
 

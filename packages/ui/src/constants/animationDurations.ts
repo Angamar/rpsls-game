@@ -15,7 +15,7 @@ const getSpeedMultiplier = (speed: GameSpeed): number => {
   }
 };
 
-const currentSpeed: GameSpeed = 'normal';
+const currentSpeed: GameSpeed = 'fastest';
 const gameSpeedMultiplier = isCypressTest ? 0.25 : getSpeedMultiplier(currentSpeed);
 
 export const GAME_SPEED = {
